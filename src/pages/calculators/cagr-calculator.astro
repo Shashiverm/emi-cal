@@ -1,0 +1,155 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+---
+<CalculatorLayout
+  title="CAGR Calculator — Compound Annual Growth Rate"
+  description="Calculate Compound Annual Growth Rate (CAGR) for your stocks, mutual funds, real estate, and business investments."
+  keywords="cagr calculator, compound annual growth rate, cagr formula, investment growth rate, mutual fund cagr"
+  calculator="CAGR Calculator"
+  category="Other"
+  categoryBadge="badge-other"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Input Section -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl">Investment Growth Figures</h2>
+
+      <!-- Initial Value -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Initial Investment Value</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="cagr-initial-input" class="num-input w-36 text-right" value="100000" min="100" max="100000000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="cagr-initial" min="1000" max="10000000" step="5000" value="100000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹1K</span>
+          <span>₹50 Lakh</span>
+          <span>₹1 Crore</span>
+        </div>
+      </div>
+
+      <!-- Final Value -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Final / Current Value</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="cagr-final-input" class="num-input w-36 text-right" value="250000" min="100" max="500000000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="cagr-final" min="1000" max="25000000" step="10000" value="250000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹1K</span>
+          <span>₹1.25 Cr</span>
+          <span>₹2.5 Crore</span>
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Duration (Years)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="cagr-years-input" class="num-input w-24 text-right" value="5" min="0.1" max="50" step="0.5"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="cagr-years" min="1" max="30" step="0.5" value="5"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1 Yr</span>
+          <span>15 Yr</span>
+          <span>30 Yr</span>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-[var(--color-accent-indigo)]/10 border border-[var(--color-accent-indigo)]/20 text-xs text-[var(--color-text-secondary)]">
+        💡 <strong>Formula:</strong> CAGR = ((Final Value / Initial Value)^(1 / Number of Years) - 1) × 100. CAGR smooths out annual fluctuations to show a steady annual compounding rate.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-4 animate-fade-in-delay">
+      <!-- CAGR Output Card -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="text-sm text-[var(--color-text-muted)] mb-1">Compound Annual Growth Rate (CAGR)</div>
+        <div id="cagr-rate-val" class="result-value gradient-text">0.00%</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-2">Annualized compounded rate of return.</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Gain / Profit</div>
+          <div id="cagr-gain-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-emerald)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Absolute Return</div>
+          <div id="cagr-abs-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-indigo)]">0.00%</div>
+        </div>
+      </div>
+
+      <!-- Multiple of Investment -->
+      <div class="glass-card-static p-5 space-y-2">
+        <div class="text-xs text-[var(--color-text-muted)]">Wealth Multiple</div>
+        <div class="text-lg font-bold text-[var(--color-text-primary)]" id="cagr-multiple-val">2.5x Initial Capital</div>
+        <div class="text-xs text-[var(--color-text-secondary)]">Your capital grew by this multiplier over the selected duration.</div>
+      </div>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+function fmt(n) {
+  const s = Math.abs(Math.round(n)).toString();
+  let f = s.length <= 3 ? s : '';
+  if (s.length > 3) {
+    f = s.slice(-3);
+    let r = s.slice(0, -3);
+    while (r.length > 2) {
+      f = r.slice(-2) + ',' + f;
+      r = r.slice(0, -2);
+    }
+    if (r.length) f = r + ',' + f;
+  }
+  return (n < 0 ? '-' : '') + '₹' + f;
+}
+
+['cagr-initial', 'cagr-final', 'cagr-years'].forEach(id => {
+  const s = document.getElementById(id) as HTMLInputElement;
+  const i = document.getElementById(id + '-input') as HTMLInputElement;
+  s.addEventListener('input', () => { i.value = s.value; calc(); });
+  i.addEventListener('input', () => {
+    const v = parseFloat(i.value);
+    if (!isNaN(v)) s.value = String(Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v)));
+    calc();
+  });
+});
+
+function calc() {
+  const init = parseFloat((document.getElementById('cagr-initial-input') as HTMLInputElement).value) || 0;
+  const fin = parseFloat((document.getElementById('cagr-final-input') as HTMLInputElement).value) || 0;
+  const yrs = parseFloat((document.getElementById('cagr-years-input') as HTMLInputElement).value) || 0;
+
+  if (init <= 0 || fin <= 0 || yrs <= 0) {
+    document.getElementById('cagr-rate-val')!.textContent = '0.00%';
+    document.getElementById('cagr-gain-val')!.textContent = '₹0';
+    document.getElementById('cagr-abs-val')!.textContent = '0.00%';
+    document.getElementById('cagr-multiple-val')!.textContent = '0x Initial Capital';
+    return;
+  }
+
+  const cagr = (Math.pow(fin / init, 1 / yrs) - 1) * 100;
+  const totalGain = fin - init;
+  const absReturn = ((fin - init) / init) * 100;
+  const multiple = (fin / init).toFixed(2);
+
+  document.getElementById('cagr-rate-val')!.textContent = (cagr >= 0 ? '+' : '') + cagr.toFixed(2) + '%';
+  document.getElementById('cagr-gain-val')!.textContent = fmt(totalGain);
+  document.getElementById('cagr-abs-val')!.textContent = (absReturn >= 0 ? '+' : '') + absReturn.toFixed(2) + '%';
+  document.getElementById('cagr-multiple-val')!.textContent = multiple + 'x Initial Capital';
+}
+
+calc();
+</script>

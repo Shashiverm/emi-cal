@@ -1,0 +1,166 @@
+{
+  "banks": [
+    {
+      "id": "sbi",
+      "name": "State Bank of India",
+      "shortName": "SBI",
+      "logo": "🏦",
+      "rates": {
+        "homeLoan": { "min": 7.25, "max": 8.50, "processing": "0.35% (min ₹2,000)" },
+        "carLoan": { "min": 8.70, "max": 9.85, "processing": "0.40%" },
+        "bikeLoan": { "min": 9.80, "max": 12.50, "processing": "0.50%" },
+        "personalLoan": { "min": 10.00, "max": 14.50, "processing": "1.50%" },
+        "applianceLoan": { "min": 12.00, "max": 18.00, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.80, "2yr": 7.00, "3yr": 6.75, "5yr": 6.50 }, "senior": { "1yr": 7.30, "2yr": 7.50, "3yr": 7.25, "5yr": 7.00 } },
+        "rd": { "general": 6.80, "senior": 7.30 }
+      }
+    },
+    {
+      "id": "hdfc",
+      "name": "HDFC Bank",
+      "shortName": "HDFC",
+      "logo": "🏧",
+      "rates": {
+        "homeLoan": { "min": 7.75, "max": 9.00, "processing": "0.50% (max ₹10,000)" },
+        "carLoan": { "min": 8.50, "max": 10.50, "processing": "0.50%" },
+        "bikeLoan": { "min": 10.50, "max": 14.00, "processing": "0.50%" },
+        "personalLoan": { "min": 9.99, "max": 16.00, "processing": "2.00%" },
+        "applianceLoan": { "min": 11.00, "max": 18.00, "processing": "1.50%" },
+        "fd": { "general": { "1yr": 7.00, "2yr": 7.15, "3yr": 7.00, "5yr": 7.00 }, "senior": { "1yr": 7.50, "2yr": 7.65, "3yr": 7.50, "5yr": 7.50 } },
+        "rd": { "general": 7.00, "senior": 7.50 }
+      }
+    },
+    {
+      "id": "icici",
+      "name": "ICICI Bank",
+      "shortName": "ICICI",
+      "logo": "🏛️",
+      "rates": {
+        "homeLoan": { "min": 7.50, "max": 8.75, "processing": "0.50%" },
+        "carLoan": { "min": 8.35, "max": 10.25, "processing": "0.50%" },
+        "bikeLoan": { "min": 10.00, "max": 13.50, "processing": "0.50%" },
+        "personalLoan": { "min": 9.99, "max": 16.50, "processing": "2.00%" },
+        "applianceLoan": { "min": 11.50, "max": 17.50, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.90, "2yr": 7.10, "3yr": 7.00, "5yr": 7.00 }, "senior": { "1yr": 7.40, "2yr": 7.60, "3yr": 7.50, "5yr": 7.50 } },
+        "rd": { "general": 6.90, "senior": 7.40 }
+      }
+    },
+    {
+      "id": "axis",
+      "name": "Axis Bank",
+      "shortName": "Axis",
+      "logo": "🔴",
+      "rates": {
+        "homeLoan": { "min": 7.60, "max": 9.10, "processing": "1.00% (max ₹10,000)" },
+        "carLoan": { "min": 8.60, "max": 10.50, "processing": "0.50%" },
+        "bikeLoan": { "min": 10.50, "max": 14.00, "processing": "0.50%" },
+        "personalLoan": { "min": 10.25, "max": 16.00, "processing": "2.00%" },
+        "applianceLoan": { "min": 12.00, "max": 18.00, "processing": "1.50%" },
+        "fd": { "general": { "1yr": 7.10, "2yr": 7.15, "3yr": 7.10, "5yr": 7.00 }, "senior": { "1yr": 7.60, "2yr": 7.65, "3yr": 7.60, "5yr": 7.50 } },
+        "rd": { "general": 7.10, "senior": 7.60 }
+      }
+    },
+    {
+      "id": "pnb",
+      "name": "Punjab National Bank",
+      "shortName": "PNB",
+      "logo": "🟤",
+      "rates": {
+        "homeLoan": { "min": 7.40, "max": 8.90, "processing": "0.35% (max ₹15,000)" },
+        "carLoan": { "min": 8.85, "max": 10.75, "processing": "0.25%" },
+        "bikeLoan": { "min": 10.00, "max": 13.50, "processing": "0.50%" },
+        "personalLoan": { "min": 10.50, "max": 15.50, "processing": "1.00%" },
+        "applianceLoan": { "min": 12.50, "max": 18.50, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.80, "2yr": 7.00, "3yr": 6.80, "5yr": 6.50 }, "senior": { "1yr": 7.30, "2yr": 7.50, "3yr": 7.30, "5yr": 7.00 } },
+        "rd": { "general": 6.80, "senior": 7.30 }
+      }
+    },
+    {
+      "id": "bob",
+      "name": "Bank of Baroda",
+      "shortName": "BOB",
+      "logo": "🟠",
+      "rates": {
+        "homeLoan": { "min": 7.35, "max": 8.60, "processing": "0.25% (min ₹8,500)" },
+        "carLoan": { "min": 8.90, "max": 10.90, "processing": "Nil" },
+        "bikeLoan": { "min": 10.25, "max": 13.75, "processing": "0.50%" },
+        "personalLoan": { "min": 10.60, "max": 15.75, "processing": "1.00%" },
+        "applianceLoan": { "min": 12.00, "max": 17.00, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.85, "2yr": 7.05, "3yr": 6.50, "5yr": 6.50 }, "senior": { "1yr": 7.35, "2yr": 7.55, "3yr": 7.00, "5yr": 7.00 } },
+        "rd": { "general": 6.85, "senior": 7.35 }
+      }
+    },
+    {
+      "id": "kotak",
+      "name": "Kotak Mahindra Bank",
+      "shortName": "Kotak",
+      "logo": "🔵",
+      "rates": {
+        "homeLoan": { "min": 7.70, "max": 9.15, "processing": "0.50%" },
+        "carLoan": { "min": 8.50, "max": 10.50, "processing": "0.50%" },
+        "bikeLoan": { "min": 10.50, "max": 14.50, "processing": "0.75%" },
+        "personalLoan": { "min": 10.25, "max": 16.00, "processing": "2.50%" },
+        "applianceLoan": { "min": 11.50, "max": 17.50, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 7.20, "2yr": 7.30, "3yr": 7.10, "5yr": 6.80 }, "senior": { "1yr": 7.70, "2yr": 7.80, "3yr": 7.60, "5yr": 7.30 } },
+        "rd": { "general": 7.20, "senior": 7.70 }
+      }
+    },
+    {
+      "id": "boi",
+      "name": "Bank of India",
+      "shortName": "BOI",
+      "logo": "⭐",
+      "rates": {
+        "homeLoan": { "min": 7.35, "max": 8.85, "processing": "0.25%" },
+        "carLoan": { "min": 8.80, "max": 10.80, "processing": "0.23%" },
+        "bikeLoan": { "min": 10.25, "max": 13.50, "processing": "0.50%" },
+        "personalLoan": { "min": 10.85, "max": 15.85, "processing": "1.00%" },
+        "applianceLoan": { "min": 12.50, "max": 18.00, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.80, "2yr": 7.00, "3yr": 6.80, "5yr": 6.50 }, "senior": { "1yr": 7.30, "2yr": 7.50, "3yr": 7.30, "5yr": 7.00 } },
+        "rd": { "general": 6.80, "senior": 7.30 }
+      }
+    },
+    {
+      "id": "union",
+      "name": "Union Bank of India",
+      "shortName": "Union",
+      "logo": "🟢",
+      "rates": {
+        "homeLoan": { "min": 7.30, "max": 8.75, "processing": "0.50% (max ₹15,000)" },
+        "carLoan": { "min": 8.85, "max": 10.85, "processing": "Nil" },
+        "bikeLoan": { "min": 10.30, "max": 13.75, "processing": "0.50%" },
+        "personalLoan": { "min": 10.90, "max": 15.90, "processing": "1.00%" },
+        "applianceLoan": { "min": 12.50, "max": 18.00, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.80, "2yr": 6.90, "3yr": 6.80, "5yr": 6.50 }, "senior": { "1yr": 7.30, "2yr": 7.40, "3yr": 7.30, "5yr": 7.00 } },
+        "rd": { "general": 6.80, "senior": 7.30 }
+      }
+    },
+    {
+      "id": "canara",
+      "name": "Canara Bank",
+      "shortName": "Canara",
+      "logo": "🟡",
+      "rates": {
+        "homeLoan": { "min": 7.35, "max": 8.85, "processing": "0.50% (max ₹10,000)" },
+        "carLoan": { "min": 8.80, "max": 10.80, "processing": "Nil" },
+        "bikeLoan": { "min": 10.20, "max": 13.50, "processing": "0.50%" },
+        "personalLoan": { "min": 10.75, "max": 15.25, "processing": "1.00%" },
+        "applianceLoan": { "min": 12.25, "max": 17.50, "processing": "1.00%" },
+        "fd": { "general": { "1yr": 6.85, "2yr": 7.00, "3yr": 6.85, "5yr": 6.70 }, "senior": { "1yr": 7.35, "2yr": 7.50, "3yr": 7.35, "5yr": 7.20 } },
+        "rd": { "general": 6.85, "senior": 7.35 }
+      }
+    }
+  ],
+  "governmentRates": {
+    "ppf": 7.1,
+    "epf": 8.25,
+    "nps": { "equityAvg": 12.0, "debtAvg": 8.0, "govtSecAvg": 9.0 },
+    "ssy": 8.2,
+    "nsc": 7.7,
+    "scss": 8.2,
+    "postOfficeMIS": 7.4,
+    "postOfficeRD": 6.7,
+    "postOfficeFD": { "1yr": 6.90, "2yr": 7.00, "3yr": 7.10, "5yr": 7.50 }
+  },
+  "lastUpdated": "2026-09-01"
+}

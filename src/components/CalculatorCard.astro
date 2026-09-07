@@ -1,0 +1,101 @@
+---
+interface Props {
+  name: string;
+  slug: string;
+  description: string;
+  icon: string;
+  category: string;
+  keywords?: string[];
+}
+const { name, slug, description, icon, category, keywords = [] } = Astro.props;
+
+const categoryTheme = {
+  'Loan & EMI': {
+    badge: 'badge-loan',
+    iconBg: 'bg-rose-500/10 border-rose-500/20 text-rose-400',
+    hoverText: 'group-hover:text-rose-400',
+    arrowColor: 'text-rose-400',
+    short: 'Loan'
+  },
+  'Investment': {
+    badge: 'badge-investment',
+    iconBg: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
+    hoverText: 'group-hover:text-emerald-400',
+    arrowColor: 'text-emerald-400',
+    short: 'Invest'
+  },
+  'Savings & Deposits': {
+    badge: 'badge-savings',
+    iconBg: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400',
+    hoverText: 'group-hover:text-cyan-400',
+    arrowColor: 'text-cyan-400',
+    short: 'Savings'
+  },
+  'Provident Fund & Retirement': {
+    badge: 'badge-retirement',
+    iconBg: 'bg-violet-500/10 border-violet-500/20 text-violet-400',
+    hoverText: 'group-hover:text-violet-400',
+    arrowColor: 'text-violet-400',
+    short: 'Retirement'
+  },
+  'Tax & Salary': {
+    badge: 'badge-tax',
+    iconBg: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
+    hoverText: 'group-hover:text-amber-400',
+    arrowColor: 'text-amber-400',
+    short: 'Tax'
+  },
+  'Other': {
+    badge: 'badge-other',
+    iconBg: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
+    hoverText: 'group-hover:text-indigo-400',
+    arrowColor: 'text-indigo-400',
+    short: 'Finance'
+  },
+}[category] || {
+  badge: 'badge-other',
+  iconBg: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
+  hoverText: 'group-hover:text-indigo-400',
+  arrowColor: 'text-indigo-400',
+  short: category.split(' ')[0]
+};
+
+const searchKeywords = [name, slug, category, ...keywords].join(' ').toLowerCase();
+---
+
+<div
+  class="calc-card-item h-full"
+  data-search={searchKeywords}
+  data-category={category}
+>
+  <a href={`/calculators/${slug}`} class="group block h-full select-none" aria-label={`Open ${name}`}>
+    <div class="glass-card p-5 sm:p-6 h-full flex flex-col justify-between gap-4 border border-[var(--color-border)] hover:border-slate-600/80">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <div class={`w-11 h-11 rounded-xl flex items-center justify-center text-xl border ${categoryTheme.iconBg} shadow-sm transition-transform duration-300 group-hover:scale-105`}>
+            {icon}
+          </div>
+          <span class={`category-badge ${categoryTheme.badge}`}>
+            {categoryTheme.short}
+          </span>
+        </div>
+        <h3 class={`font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)] ${categoryTheme.hoverText} transition-colors line-clamp-1`}>
+          {name}
+        </h3>
+        <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-2 line-clamp-2">
+          {description}
+        </p>
+      </div>
+
+      <div class="flex items-center justify-between pt-3 border-t border-[var(--color-border)]/60 text-xs font-medium text-[var(--color-text-muted)] group-hover:text-[var(--color-text-primary)] transition-colors">
+        <span>Calculate</span>
+        <span class={`flex items-center gap-1 ${categoryTheme.arrowColor} transform transition-transform duration-200 group-hover:translate-x-1`}>
+          Instant
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </a>
+</div>

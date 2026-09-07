@@ -1,0 +1,462 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the new tax slab rate for FY 2024-25 and FY 2025-26?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under the New Tax Regime revised in the Union Budget, tax rates are: Up to ₹3 Lakh: Nil, ₹3L to ₹7L: 5%, ₹7L to ₹10L: 10%, ₹10L to ₹12L: 15%, ₹12L to ₹15L: 20%, Above ₹15L: 30%. Salaried employees get an enhanced standard deduction of ₹75,000."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is income up to ₹7.75 Lakh completely tax-free for salaried individuals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! For salaried individuals under the New Tax Regime, after deducting the ₹75,000 standard deduction, a gross salary of up to ₹7,75,000 results in a net taxable income of ₹7,00,000. Full tax rebate under Section 87A applies, reducing tax liability to ₹0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which is better for me: Old Tax Regime or New Tax Regime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Old Regime is usually better if your total deductions (Section 80C ₹1.5L, Section 80D health insurance, HRA / Section 24b home loan interest) exceed ₹3.75 Lakh to ₹4.25 Lakh depending on your income bracket. For those with fewer investments or lower rent, the New Tax Regime offers lower slab rates without locking money in tax-saving instruments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can salaried employees switch between Old and New regimes every year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Individuals with salary income (and no business or professional income) have the flexibility to choose either the Old or New Tax Regime every financial year at the time of filing their Income Tax Return (ITR)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the standard deduction for salaried individuals in the New Tax Regime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The standard deduction under the New Tax Regime has been increased to ₹75,000 (up from ₹50,000 previously). Under the Old Tax Regime, the standard deduction remains ₹50,000."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Income Tax Calculator — Old vs New Regime (FY 2024-25 / 2025-26)"
+  description="Compare your tax liability under Old and New Tax Regimes with Standard Deduction (₹75k), 80C, 80D, HRA & Home Loan deductions. Instant recommendation on maximum tax savings."
+  keywords="income tax calculator 2024-25, income tax calculator 2025-26, old vs new tax regime, tax calculator india, income tax slab fy 2024-25, standard deduction 75000, 80c tax exemption, section 87a rebate"
+  calculator="Income Tax Calculator"
+  category="Tax & Salary"
+  categoryBadge="badge-tax"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Inputs Column -->
+    <div class="lg:col-span-7 glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Income & Deduction Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-amber)] font-medium">Budget 2024-25 Updated</span>
+      </div>
+
+      <!-- Annual Income -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="tax-income" class="text-sm font-medium text-[var(--color-text-secondary)]">Gross Annual Income (CTC)</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="tax-income-input" class="num-input w-36 text-right" value="1200000" min="100000" max="10000000" step="25000"/>
+          </div>
+        </div>
+        <input type="range" id="tax-income" min="100000" max="10000000" step="25000" value="1200000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹1 Lakh</span>
+          <span>₹12 Lakh</span>
+          <span>₹1 Crore</span>
+        </div>
+        <!-- Salary Presets -->
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="tax-income" data-val="600000">₹6L</button>
+          <button type="button" class="preset-chip" data-preset-for="tax-income" data-val="775000">₹7.75L (Zero Tax)</button>
+          <button type="button" class="preset-chip" data-preset-for="tax-income" data-val="1000000">₹10L</button>
+          <button type="button" class="preset-chip active" data-preset-for="tax-income" data-val="1200000">₹12L</button>
+          <button type="button" class="preset-chip" data-preset-for="tax-income" data-val="1500000">₹15L</button>
+          <button type="button" class="preset-chip" data-preset-for="tax-income" data-val="2500000">₹25L</button>
+          <button type="button" class="preset-chip" data-preset-for="tax-income" data-val="5000000">₹50L</button>
+        </div>
+      </div>
+
+      <!-- User Type -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label for="tax-emp-type" class="block text-xs font-medium text-[var(--color-text-muted)] mb-1">Employment Type</label>
+          <select id="tax-emp-type" class="w-full bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-lg p-2.5 text-sm text-[var(--color-text-primary)]">
+            <option value="salaried" selected>Salaried Individual (Std Ded ₹75k)</option>
+            <option value="business">Self-Employed / Freelancer / Business</option>
+          </select>
+        </div>
+        <div>
+          <label for="tax-age-group" class="block text-xs font-medium text-[var(--color-text-muted)] mb-1">Age Category</label>
+          <select id="tax-age-group" class="w-full bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-lg p-2.5 text-sm text-[var(--color-text-primary)]">
+            <option value="regular" selected>Individual (&lt; 60 years)</option>
+            <option value="senior">Senior Citizen (60 - 80 years)</option>
+            <option value="super">Super Senior Citizen (80+ years)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Old Regime Deductions Section -->
+      <div class="p-4 sm:p-5 rounded-xl bg-[var(--color-bg-elevated)] border border-[var(--color-border)] space-y-4">
+        <div class="text-sm font-semibold text-[var(--color-text-primary)] flex items-center justify-between">
+          <span>Old Tax Regime Exemptions</span>
+          <span class="text-xs text-[var(--color-accent-indigo)] font-normal">(Ignored in New Regime)</span>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-[var(--color-text-secondary)] mb-1">
+            <span>Section 80C (PPF, ELSS, EPF, LIC, Home Loan Prin.)</span>
+            <span class="font-mono text-[var(--color-text-primary)]" id="val-80c">₹1,50,000</span>
+          </div>
+          <input type="range" id="ded-80c" min="0" max="150000" step="5000" value="150000"/>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-[var(--color-text-secondary)] mb-1">
+            <span>Section 80D (Health Insurance Premium)</span>
+            <span class="font-mono text-[var(--color-text-primary)]" id="val-80d">₹25,000</span>
+          </div>
+          <input type="range" id="ded-80d" min="0" max="100000" step="5000" value="25000"/>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-[var(--color-text-secondary)] mb-1">
+            <span>HRA / Home Loan Interest (Section 24b)</span>
+            <span class="font-mono text-[var(--color-text-primary)]" id="val-hra">₹1,00,000</span>
+          </div>
+          <input type="range" id="ded-other" min="0" max="500000" step="10000" value="100000"/>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-lg bg-[var(--color-accent-emerald)]/10 border border-[var(--color-accent-emerald)]/20 text-xs text-[var(--color-text-secondary)] leading-relaxed">
+        💡 <strong class="text-[var(--color-accent-emerald)]">Budget Update:</strong> Salaried individuals pay <strong>₹0 tax</strong> on income up to <strong>₹7,75,000</strong> in the New Regime due to ₹75,000 standard deduction + Section 87A rebate.
+      </div>
+    </div>
+
+    <!-- Comparison Results Column -->
+    <div class="lg:col-span-5 flex flex-col gap-4 animate-fade-in-delay">
+      <!-- Verdict Card -->
+      <div id="regime-verdict" class="glass-card p-6 border-2 border-[var(--color-accent-emerald)] bg-[var(--color-accent-emerald)]/5">
+        <div class="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-emerald)] mb-1">Recommendation</div>
+        <div id="verdict-title" class="text-xl font-bold text-[var(--color-text-primary)]">New Regime is Better</div>
+        <div id="verdict-desc" class="text-sm text-[var(--color-text-secondary)] mt-1">You save ₹15,600 by choosing the New Tax Regime.</div>
+      </div>
+
+      <!-- Side-by-Side Comparison -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- New Regime -->
+        <div class="glass-card p-5 border border-[var(--color-accent-cyan)]/40 relative overflow-hidden">
+          <div class="text-xs font-bold text-[var(--color-accent-cyan)] uppercase mb-2">New Regime (Default)</div>
+          <div class="text-xs text-[var(--color-text-muted)] mb-0.5">Total Tax Payable</div>
+          <div id="new-tax-amt" class="text-2xl font-bold font-[var(--font-mono)] text-[var(--color-text-primary)]">₹0</div>
+          
+          <div class="mt-4 pt-3 border-t border-[var(--color-border)] space-y-1.5 text-xs">
+            <div class="flex justify-between text-[var(--color-text-muted)]">
+              <span>Std Deduction:</span>
+              <span id="new-std-ded" class="font-mono text-[var(--color-text-primary)]">₹75,000</span>
+            </div>
+            <div class="flex justify-between text-[var(--color-text-muted)]">
+              <span>Taxable Income:</span>
+              <span id="new-taxable" class="font-mono text-[var(--color-text-primary)]">₹0</span>
+            </div>
+            <div class="flex justify-between text-[var(--color-text-muted)]">
+              <span>Cess (4%):</span>
+              <span id="new-cess" class="font-mono text-[var(--color-text-primary)]">₹0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Old Regime -->
+        <div class="glass-card p-5 border border-[var(--color-border)] relative overflow-hidden">
+          <div class="text-xs font-bold text-[var(--color-text-secondary)] uppercase mb-2">Old Regime</div>
+          <div class="text-xs text-[var(--color-text-muted)] mb-0.5">Total Tax Payable</div>
+          <div id="old-tax-amt" class="text-2xl font-bold font-[var(--font-mono)] text-[var(--color-text-primary)]">₹0</div>
+          
+          <div class="mt-4 pt-3 border-t border-[var(--color-border)] space-y-1.5 text-xs">
+            <div class="flex justify-between text-[var(--color-text-muted)]">
+              <span>Total Deductions:</span>
+              <span id="old-total-ded" class="font-mono text-[var(--color-text-primary)]">₹0</span>
+            </div>
+            <div class="flex justify-between text-[var(--color-text-muted)]">
+              <span>Taxable Income:</span>
+              <span id="old-taxable" class="font-mono text-[var(--color-text-primary)]">₹0</span>
+            </div>
+            <div class="flex justify-between text-[var(--color-text-muted)]">
+              <span>Cess (4%):</span>
+              <span id="old-cess" class="font-mono text-[var(--color-text-primary)]">₹0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slabs Breakdown Card -->
+      <div class="glass-card-static p-5 text-xs text-[var(--color-text-secondary)]">
+        <div class="font-semibold text-sm text-[var(--color-text-primary)] mb-2.5">New Regime Slabs (FY 2024-25 / 2025-26)</div>
+        <div class="grid grid-cols-2 gap-y-1.5 font-mono">
+          <span>₹0 - ₹3,00,000:</span><span class="text-right text-[var(--color-accent-emerald)]">Nil (0%)</span>
+          <span>₹3,00,001 - ₹7,00,000:</span><span class="text-right">5%</span>
+          <span>₹7,00,001 - ₹10,00,000:</span><span class="text-right">10%</span>
+          <span>₹10,00,001 - ₹12,00,000:</span><span class="text-right">15%</span>
+          <span>₹12,00,001 - ₹15,00,000:</span><span class="text-right">20%</span>
+          <span>Above ₹15,00,000:</span><span class="text-right text-[var(--color-accent-rose)]">30%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Union Budget & CBDT 2026 Directives Banner -->
+  <div class="mt-8 rounded-2xl bg-gradient-to-r from-[var(--color-bg-surface)] to-[var(--color-bg-elevated)] border border-amber-500/30 p-6 md:p-8 shadow-lg">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[var(--color-border)]">
+      <div class="flex items-center gap-3">
+        <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        </span>
+        <div>
+          <h3 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+            Union Budget 2024-25 / 2025-26 Directives & CBDT Rules
+          </h3>
+          <p class="text-xs text-[var(--color-text-muted)]">Official income tax revisions notified by the Ministry of Finance, Government of India</p>
+        </div>
+      </div>
+      <a href="/regulatory-framework#budget-tax" class="inline-flex items-center gap-1.5 text-xs font-medium text-amber-400 hover:text-amber-300 bg-amber-950/40 border border-amber-800/60 px-3.5 py-2 rounded-lg transition-colors shrink-0">
+        <span>View 2026 Tax Rules</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+      <div class="p-3.5 rounded-xl bg-[var(--color-bg-base)]/60 border border-[var(--color-border)]">
+        <div class="font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-1.5">
+          <span class="text-emerald-400">✓</span> ₹75,000 Standard Deduction
+        </div>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Standard deduction under Section 16(ia) in the New Tax Regime is elevated from ₹50,000 to ₹75,000 for salaried employees and pensioners.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-[var(--color-bg-base)]/60 border border-[var(--color-border)]">
+        <div class="font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-1.5">
+          <span class="text-cyan-400">✓</span> Section 87A Zero Tax Threshold
+        </div>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Salaried individuals with a gross income of up to ₹7,75,000 pay zero tax thanks to the ₹75k deduction and Section 87A rebate.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-[var(--color-bg-base)]/60 border border-[var(--color-border)]">
+        <div class="font-semibold text-[var(--color-accent-rose)] mb-1 flex items-center gap-1.5">
+          <span>⚡</span> Revised Capital Gains
+        </div>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Long Term Capital Gains (LTCG) on listed equity is 12.5% beyond ₹1.25L exemption. Short Term Capital Gains (STCG) on equity is 20%.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-4 pt-3 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--color-text-muted)]">
+      <span>Official tax filing & verification:</span>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://eportal.incometax.gov.in" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Income Tax e-Filing Portal ↗</a>
+        <span class="text-[var(--color-border)]">•</span>
+        <a href="https://incometaxindia.gov.in" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">CBDT Official Website ↗</a>
+        <span class="text-[var(--color-border)]">•</span>
+        <a href="https://services.gst.gov.in" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">GST Portal ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6 text-[var(--color-text-primary)]">
+      Frequently Asked Questions (Income Tax & Slabs)
+    </h2>
+    <div class="space-y-4">
+      {faqData.mainEntity.map(faq => (
+        <details class="group">
+          <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm sm:text-base flex items-center justify-between p-3.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-colors">
+            <span>{faq.name}</span>
+            <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3.5 pt-1">
+            {faq.acceptedAnswer.text}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+function fmt(n: number) {
+  const s = Math.abs(Math.round(n)).toString();
+  let f = s.length <= 3 ? s : '';
+  if (s.length > 3) {
+    f = s.slice(-3);
+    let r = s.slice(0, -3);
+    while (r.length > 2) {
+      f = r.slice(-2) + ',' + f;
+      r = r.slice(0, -2);
+    }
+    if (r.length) f = r + ',' + f;
+  }
+  return '₹' + f;
+}
+
+const incSlider = document.getElementById('tax-income') as HTMLInputElement;
+const incInput = document.getElementById('tax-income-input') as HTMLInputElement;
+const empType = document.getElementById('tax-emp-type') as HTMLSelectElement;
+const ageGroup = document.getElementById('tax-age-group') as HTMLSelectElement;
+
+const ded80c = document.getElementById('ded-80c') as HTMLInputElement;
+const ded80d = document.getElementById('ded-80d') as HTMLInputElement;
+const dedOther = document.getElementById('ded-other') as HTMLInputElement;
+
+incSlider?.addEventListener('input', () => { incInput.value = incSlider.value; calc(); });
+incInput?.addEventListener('input', () => { incSlider.value = incInput.value; calc(); });
+empType?.addEventListener('change', calc);
+ageGroup?.addEventListener('change', calc);
+
+// Preset chips listener
+document.querySelectorAll('.preset-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-preset-for');
+    const val = btn.getAttribute('data-val');
+    if (!target || !val) return;
+
+    const slider = document.getElementById(target) as HTMLInputElement;
+    const input = document.getElementById(target + '-input') as HTMLInputElement;
+    if (slider && input) {
+      slider.value = val;
+      input.value = val;
+    }
+    document.querySelectorAll(`[data-preset-for="${target}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    calc();
+  });
+});
+
+[ded80c, ded80d, dedOther].forEach(el => {
+  el?.addEventListener('input', () => {
+    document.getElementById('val-' + (el.id === 'ded-other' ? 'hra' : el.id.slice(4)))!.textContent = fmt(parseFloat(el.value));
+    calc();
+  });
+});
+
+function calcNewRegime(gross: number, isSalaried: boolean): { tax: number; cess: number; total: number; taxable: number; stdDed: number } {
+  const stdDed = isSalaried ? 75000 : 0;
+  const taxable = Math.max(0, gross - stdDed);
+  
+  if (taxable <= 700000) {
+    return { tax: 0, cess: 0, total: 0, taxable, stdDed };
+  }
+
+  let tax = 0;
+  if (taxable > 1500000) tax += (taxable - 1500000) * 0.30 + 140000;
+  else if (taxable > 1200000) tax += (taxable - 1200000) * 0.20 + 80000;
+  else if (taxable > 1000000) tax += (taxable - 1000000) * 0.15 + 50000;
+  else if (taxable > 700000) tax += (taxable - 700000) * 0.10 + 20000;
+  else if (taxable > 300000) tax += (taxable - 300000) * 0.05;
+
+  // Marginal relief check around 7L
+  if (taxable > 700000 && taxable <= 727777) {
+    tax = Math.min(tax, taxable - 700000);
+  }
+
+  const cess = tax * 0.04;
+  return { tax, cess, total: Math.round(tax + cess), taxable, stdDed };
+}
+
+function calcOldRegime(gross: number, isSalaried: boolean, age: string, d80c: number, d80d: number, dOther: number) {
+  const stdDed = isSalaried ? 50000 : 0;
+  const totalDed = stdDed + d80c + d80d + dOther;
+  const taxable = Math.max(0, gross - totalDed);
+
+  if (taxable <= 500000) {
+    return { tax: 0, cess: 0, total: 0, taxable, totalDed };
+  }
+
+  let exemptionLimit = 250000;
+  if (age === 'senior') exemptionLimit = 300000;
+  else if (age === 'super') exemptionLimit = 500000;
+
+  let tax = 0;
+  if (taxable > 1000000) {
+    tax += (taxable - 1000000) * 0.30;
+    tax += (1000000 - 500000) * 0.20;
+    tax += (500000 - exemptionLimit) * 0.05;
+  } else if (taxable > 500000) {
+    tax += (taxable - 500000) * 0.20;
+    tax += (500000 - exemptionLimit) * 0.05;
+  } else if (taxable > exemptionLimit) {
+    tax += (taxable - exemptionLimit) * 0.05;
+  }
+
+  const cess = tax * 0.04;
+  return { tax, cess, total: Math.round(tax + cess), taxable, totalDed };
+}
+
+function calc() {
+  const gross = parseFloat(incInput.value) || 0;
+  const isSalaried = empType.value === 'salaried';
+  const age = ageGroup.value;
+  const d80c = parseFloat(ded80c.value) || 0;
+  const d80d = parseFloat(ded80d.value) || 0;
+  const dOther = parseFloat(dedOther.value) || 0;
+
+  const n = calcNewRegime(gross, isSalaried);
+  const o = calcOldRegime(gross, isSalaried, age, d80c, d80d, dOther);
+
+  document.getElementById('new-tax-amt')!.textContent = fmt(n.total);
+  document.getElementById('new-std-ded')!.textContent = fmt(n.stdDed);
+  document.getElementById('new-taxable')!.textContent = fmt(n.taxable);
+  document.getElementById('new-cess')!.textContent = fmt(n.cess);
+
+  document.getElementById('old-tax-amt')!.textContent = fmt(o.total);
+  document.getElementById('old-total-ded')!.textContent = fmt(o.totalDed);
+  document.getElementById('old-taxable')!.textContent = fmt(o.taxable);
+  document.getElementById('old-cess')!.textContent = fmt(o.cess);
+
+  const diff = Math.abs(n.total - o.total);
+  const verdictCard = document.getElementById('regime-verdict')!;
+  const verdictTitle = document.getElementById('verdict-title')!;
+  const verdictDesc = document.getElementById('verdict-desc')!;
+
+  if (n.total < o.total) {
+    verdictCard.className = 'glass-card p-6 border-2 border-[var(--color-accent-emerald)] bg-[var(--color-accent-emerald)]/5';
+    verdictTitle.textContent = 'New Tax Regime is Better 🎉';
+    verdictDesc.textContent = `You will save ${fmt(diff)} in taxes by filing under the New Tax Regime.`;
+  } else if (o.total < n.total) {
+    verdictCard.className = 'glass-card p-6 border-2 border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/5';
+    verdictTitle.textContent = 'Old Tax Regime is Better 🎉';
+    verdictDesc.textContent = `You will save ${fmt(diff)} in taxes by filing under the Old Tax Regime with your deductions.`;
+  } else {
+    verdictCard.className = 'glass-card p-6 border-2 border-[var(--color-border)]';
+    verdictTitle.textContent = 'Both Regimes Result in the Same Tax';
+    verdictDesc.textContent = 'Your tax liability is identical in both tax regimes.';
+  }
+}
+
+calc();
+</script>

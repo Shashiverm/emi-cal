@@ -1,0 +1,214 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+---
+<CalculatorLayout
+  title="HRA Calculator — House Rent Allowance Exemption"
+  description="Calculate your tax exemption on House Rent Allowance (HRA) under Section 10(13A) of the Income Tax Act."
+  keywords="hra calculator, hra exemption calculator, house rent allowance, section 10 13a, tax exemption on rent"
+  calculator="HRA Calculator"
+  category="Tax & Salary"
+  categoryBadge="badge-tax"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Input Section -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl">Salary & Rent Details</h2>
+
+      <!-- Basic Salary -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Annual Basic Salary</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="hra-basic-input" class="num-input w-36 text-right" value="600000" min="50000" max="10000000" step="10000"/>
+          </div>
+        </div>
+        <input type="range" id="hra-basic" min="50000" max="5000000" step="10000" value="600000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹50K</span>
+          <span>₹25L</span>
+          <span>₹50L</span>
+        </div>
+      </div>
+
+      <!-- Dearness Allowance (DA) -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Dearness Allowance (DA per year)</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="hra-da-input" class="num-input w-36 text-right" value="0" min="0" max="2000000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="hra-da" min="0" max="2000000" step="5000" value="0"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹0</span>
+          <span>₹10L</span>
+          <span>₹20L</span>
+        </div>
+      </div>
+
+      <!-- HRA Received -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">HRA Received (Annual)</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="hra-rec-input" class="num-input w-36 text-right" value="240000" min="10000" max="3000000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="hra-rec" min="10000" max="3000000" step="5000" value="240000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹10K</span>
+          <span>₹15L</span>
+          <span>₹30L</span>
+        </div>
+      </div>
+
+      <!-- Rent Paid -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Total Rent Paid (Annual)</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="hra-rent-input" class="num-input w-36 text-right" value="240000" min="0" max="3000000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="hra-rent" min="0" max="3000000" step="5000" value="240000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹0</span>
+          <span>₹15L</span>
+          <span>₹30L</span>
+        </div>
+      </div>
+
+      <!-- City Type -->
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">Do you live in a Metro city?</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" id="btn-metro-yes" class="py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)]">
+            Yes (Delhi, Mumbai, Kol, Chn - 50%)
+          </button>
+          <button type="button" id="btn-metro-no" class="py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]">
+            No (Non-Metro - 40%)
+          </button>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-[var(--color-accent-indigo)]/10 border border-[var(--color-accent-indigo)]/20 text-xs text-[var(--color-text-secondary)]">
+        💡 <strong>Note:</strong> HRA exemption is calculated under Section 10(13A) as the lowest of: (1) Actual HRA received, (2) 50% / 40% of Basic + DA, or (3) Rent paid minus 10% of Basic + DA.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-4 animate-fade-in-delay">
+      <!-- Exempt HRA Card -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="text-sm text-[var(--color-text-muted)] mb-1">Exempt HRA (Tax-Free)</div>
+        <div id="hra-exempt-val" class="result-value gradient-text">₹0</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-2">Deducted from your gross taxable salary under Old Regime.</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Taxable HRA</div>
+          <div id="hra-taxable-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-amber)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total HRA Received</div>
+          <div id="hra-total-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-text-primary)]">₹0</div>
+        </div>
+      </div>
+
+      <!-- Rule Breakdown -->
+      <div class="glass-card-static p-5 space-y-3">
+        <div class="text-sm font-semibold text-[var(--color-text-primary)]">Calculation Criteria (Lowest is Exempt)</div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]">1. Actual HRA Received:</span>
+            <span id="cond-1" class="font-mono text-[var(--color-text-primary)] font-semibold">₹0</span>
+          </div>
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]">2. 50% / 40% of Salary:</span>
+            <span id="cond-2" class="font-mono text-[var(--color-text-primary)] font-semibold">₹0</span>
+          </div>
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]">3. Rent Paid - 10% Salary:</span>
+            <span id="cond-3" class="font-mono text-[var(--color-text-primary)] font-semibold">₹0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+function fmt(n) {
+  const s = Math.abs(Math.round(n)).toString();
+  let f = s.length <= 3 ? s : '';
+  if (s.length > 3) {
+    f = s.slice(-3);
+    let r = s.slice(0, -3);
+    while (r.length > 2) {
+      f = r.slice(-2) + ',' + f;
+      r = r.slice(0, -2);
+    }
+    if (r.length) f = r + ',' + f;
+  }
+  return '₹' + f;
+}
+
+let isMetro = true;
+const btnYes = document.getElementById('btn-metro-yes') as HTMLButtonElement;
+const btnNo = document.getElementById('btn-metro-no') as HTMLButtonElement;
+
+btnYes.addEventListener('click', () => {
+  isMetro = true;
+  btnYes.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)]';
+  btnNo.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]';
+  calc();
+});
+
+btnNo.addEventListener('click', () => {
+  isMetro = false;
+  btnNo.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)]';
+  btnYes.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]';
+  calc();
+});
+
+['hra-basic', 'hra-da', 'hra-rec', 'hra-rent'].forEach(id => {
+  const s = document.getElementById(id) as HTMLInputElement;
+  const i = document.getElementById(id + '-input') as HTMLInputElement;
+  s.addEventListener('input', () => { i.value = s.value; calc(); });
+  i.addEventListener('input', () => {
+    const v = parseFloat(i.value);
+    if (!isNaN(v)) s.value = String(Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v)));
+    calc();
+  });
+});
+
+function calc() {
+  const basic = parseFloat((document.getElementById('hra-basic-input') as HTMLInputElement).value) || 0;
+  const da = parseFloat((document.getElementById('hra-da-input') as HTMLInputElement).value) || 0;
+  const hraRec = parseFloat((document.getElementById('hra-rec-input') as HTMLInputElement).value) || 0;
+  const rentPaid = parseFloat((document.getElementById('hra-rent-input') as HTMLInputElement).value) || 0;
+
+  const salary = basic + da;
+  const c1 = hraRec;
+  const c2 = Math.round(salary * (isMetro ? 0.50 : 0.40));
+  const c3 = Math.max(0, Math.round(rentPaid - 0.10 * salary));
+
+  const exempt = Math.min(c1, c2, c3);
+  const taxable = Math.max(0, hraRec - exempt);
+
+  document.getElementById('hra-exempt-val')!.textContent = fmt(exempt);
+  document.getElementById('hra-taxable-val')!.textContent = fmt(taxable);
+  document.getElementById('hra-total-val')!.textContent = fmt(hraRec);
+
+  document.getElementById('cond-1')!.textContent = fmt(c1);
+  document.getElementById('cond-2')!.textContent = fmt(c2);
+  document.getElementById('cond-3')!.textContent = fmt(c3);
+}
+
+calc();
+</script>

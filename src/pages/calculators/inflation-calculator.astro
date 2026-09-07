@@ -1,0 +1,148 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+---
+<CalculatorLayout
+  title="Inflation Calculator — Future Value & Purchasing Power"
+  description="Calculate the impact of inflation on your expenses and purchasing power over time. Understand how rising prices erode wealth and plan your future finances."
+  keywords="inflation calculator, cost of living calculator, future value of money, purchasing power calculator, inflation rate india"
+  calculator="Inflation Calculator"
+  category="Other"
+  categoryBadge="badge-other"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Input Section -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl">Current Expense & Inflation Rate</h2>
+
+      <!-- Current Expense -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Current Price / Monthly Expense</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="inf-current-input" class="num-input w-36 text-right" value="50000" min="100" max="10000000" step="1000"/>
+          </div>
+        </div>
+        <input type="range" id="inf-current" min="1000" max="500000" step="2500" value="50000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹1,000</span>
+          <span>₹2.5 Lakh</span>
+          <span>₹5 Lakh</span>
+        </div>
+      </div>
+
+      <!-- Inflation Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Expected Annual Inflation Rate</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="inf-rate-input" class="num-input w-24 text-right" value="6" min="1" max="25" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="inf-rate" min="1" max="20" step="0.5" value="6"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1%</span>
+          <span>6% (India Avg)</span>
+          <span>20%</span>
+        </div>
+      </div>
+
+      <!-- Time Horizon -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Time Period (Years in Future)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="inf-years-input" class="num-input w-24 text-right" value="15" min="1" max="50" step="1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="inf-years" min="1" max="40" step="1" value="15"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1 Yr</span>
+          <span>20 Yr</span>
+          <span>40 Yr</span>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-[var(--color-accent-indigo)]/10 border border-[var(--color-accent-indigo)]/20 text-xs text-[var(--color-text-secondary)]">
+        💡 <strong>Formula:</strong> Future Cost = Current Cost × (1 + Inflation Rate / 100)^Years. Over long horizons, even a modest 6% inflation more than doubles your living expenses every 12 years.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-4 animate-fade-in-delay">
+      <!-- Future Cost Card -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="text-sm text-[var(--color-text-muted)] mb-1">Equivalent Future Cost</div>
+        <div id="inf-future-val" class="result-value gradient-text">₹0</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-2">What costs ₹50,000 today will cost this much in the future.</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Cost Increase</div>
+          <div id="inf-increase-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-amber)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Purchasing Power Left</div>
+          <div id="inf-power-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-rose)]">0%</div>
+        </div>
+      </div>
+
+      <!-- Real Purchasing Power Reality Check -->
+      <div class="glass-card-static p-5 space-y-2">
+        <div class="text-xs text-[var(--color-text-muted)]">Future Purchasing Value of ₹100 Today</div>
+        <div class="text-lg font-bold text-[var(--color-text-primary)]" id="inf-hundred-val">Worth only ₹41.73</div>
+        <div class="text-xs text-[var(--color-text-secondary)]">To beat inflation, your investments must generate returns higher than the inflation rate.</div>
+      </div>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+function fmt(n) {
+  const s = Math.abs(Math.round(n)).toString();
+  let f = s.length <= 3 ? s : '';
+  if (s.length > 3) {
+    f = s.slice(-3);
+    let r = s.slice(0, -3);
+    while (r.length > 2) {
+      f = r.slice(-2) + ',' + f;
+      r = r.slice(0, -2);
+    }
+    if (r.length) f = r + ',' + f;
+  }
+  return '₹' + f;
+}
+
+['inf-current', 'inf-rate', 'inf-years'].forEach(id => {
+  const s = document.getElementById(id) as HTMLInputElement;
+  const i = document.getElementById(id + '-input') as HTMLInputElement;
+  s.addEventListener('input', () => { i.value = s.value; calc(); });
+  i.addEventListener('input', () => {
+    const v = parseFloat(i.value);
+    if (!isNaN(v)) s.value = String(Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v)));
+    calc();
+  });
+});
+
+function calc() {
+  const cur = parseFloat((document.getElementById('inf-current-input') as HTMLInputElement).value) || 0;
+  const rate = parseFloat((document.getElementById('inf-rate-input') as HTMLInputElement).value) || 0;
+  const yrs = parseFloat((document.getElementById('inf-years-input') as HTMLInputElement).value) || 0;
+
+  const multiplier = Math.pow(1 + rate / 100, yrs);
+  const futureVal = Math.round(cur * multiplier);
+  const costIncrease = Math.max(0, futureVal - cur);
+  const powerLeft = (1 / multiplier) * 100;
+  const hundredFuture = 100 / multiplier;
+
+  document.getElementById('inf-future-val')!.textContent = fmt(futureVal);
+  document.getElementById('inf-increase-val')!.textContent = '+ ' + fmt(costIncrease);
+  document.getElementById('inf-power-val')!.textContent = powerLeft.toFixed(1) + '%';
+  document.getElementById('inf-hundred-val')!.textContent = `Worth only ₹${hundredFuture.toFixed(2)}`;
+}
+
+calc();
+</script>

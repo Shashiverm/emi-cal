@@ -1,0 +1,319 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import bankData from '../../data/bank-rates.json';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Recurring Deposit (RD) interest calculated in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RD interest is calculated using quarterly compounding. Each monthly installment earns interest for the remaining quarters until maturity based on the formula: M = P × [(1 + r/4)^(4n/12)], summed across all individual monthly installments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between RD and SIP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An RD is a bank fixed-income deposit offering guaranteed, risk-free returns backed by DICGC insurance up to ₹5 Lakh. A SIP invests monthly into equity or debt mutual funds subject to market fluctuations but offers higher historical returns (12-15% CAGR)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is RD interest taxable in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, interest earned on Recurring Deposits is added to your total income and taxed as per your applicable income tax slab. Banks deduct 10% TDS if total interest from FDs and RDs in a bank exceeds ₹40,000 (₹50,000 for senior citizens)."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="RD Calculator — Recurring Deposit Interest & Bank Comparison (2026)"
+  description="Calculate your Recurring Deposit maturity value with quarterly compounding. Compare RD interest rates across SBI, HDFC, ICICI, and Post Office RD schemes."
+  keywords="rd calculator, recurring deposit calculator, sbi rd interest rate, hdfc rd calculator, post office rd calculator, monthly savings deposit india, bank rd rates 2026"
+  calculator="RD Calculator"
+  category="Savings"
+  categoryBadge="badge-savings"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Recurring Deposit Parameters
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-medium">Guaranteed Monthly Savings</span>
+      </div>
+
+      <!-- Monthly Deposit -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="rd-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Monthly Deposit</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="rd-amount-input" class="num-input w-32 text-right" value="5000" min="500" max="500000" step="500"/>
+          </div>
+        </div>
+        <input type="range" id="rd-amount" min="500" max="500000" step="500" value="5000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹500</span>
+          <span>₹50,000</span>
+          <span>₹5 Lakh</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="rd-amount" data-val="1000">₹1,000</button>
+          <button type="button" class="preset-chip" data-preset-for="rd-amount" data-val="2500">₹2,500</button>
+          <button type="button" class="preset-chip active" data-preset-for="rd-amount" data-val="5000">₹5,000</button>
+          <button type="button" class="preset-chip" data-preset-for="rd-amount" data-val="10000">₹10,000</button>
+          <button type="button" class="preset-chip" data-preset-for="rd-amount" data-val="25000">₹25,000</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="rd-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="rd-rate-input" class="num-input w-24 text-right" value="7.0" min="1" max="15" step="0.05"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="rd-rate" min="1" max="15" step="0.05" value="7.0"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1%</span>
+          <span>7.0% (Bank Avg)</span>
+          <span>15%</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="rd-rate" data-val="6.8">6.8% (SBI)</button>
+          <button type="button" class="preset-chip active" data-preset-for="rd-rate" data-val="7.0">7.0% (HDFC/ICICI)</button>
+          <button type="button" class="preset-chip" data-preset-for="rd-rate" data-val="7.5">7.5% (Senior)</button>
+        </div>
+      </div>
+
+      <!-- Tenure -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="rd-tenure" class="text-sm font-medium text-[var(--color-text-secondary)]">Tenure Period</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="rd-tenure-input" class="num-input w-20 text-right" value="3" min="1" max="10"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="rd-tenure" min="1" max="10" step="1" value="3"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1 Year</span>
+          <span>5 Years</span>
+          <span>10 Years</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="rd-tenure" data-val="1">1 Year</button>
+          <button type="button" class="preset-chip" data-preset-for="rd-tenure" data-val="2">2 Years</button>
+          <button type="button" class="preset-chip active" data-preset-for="rd-tenure" data-val="3">3 Years</button>
+          <button type="button" class="preset-chip" data-preset-for="rd-tenure" data-val="5">5 Years</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Maturity Corpus</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--color-accent-emerald)]/10 text-[var(--color-accent-emerald)] border border-[var(--color-accent-emerald)]/20 font-medium">DICGC Insured</span>
+        </div>
+        <div id="rd-maturity" class="result-value gradient-text">₹0</div>
+        <p class="text-xs text-[var(--color-text-secondary)] mt-2">Total amount credited to your savings account</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1 font-medium">Total Deposited</div>
+          <div id="rd-deposited" class="font-[var(--font-mono)] font-bold text-lg text-[var(--color-accent-cyan)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1 font-medium">Total Interest</div>
+          <div id="rd-interest" class="font-[var(--font-mono)] font-bold text-lg text-[var(--color-accent-emerald)]">₹0</div>
+        </div>
+      </div>
+
+      <div class="glass-card-static p-6 flex flex-col items-center justify-center">
+        <div class="text-xs text-[var(--color-text-muted)] mb-3 font-medium">Deposited Capital vs Interest Earned</div>
+        <div class="chart-container">
+          <canvas id="rd-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bank Rate Comparison -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl text-[var(--color-text-primary)]">
+        Bank-wise RD Interest Rates (2026)
+      </h2>
+      <span class="text-xs text-[var(--color-accent-emerald)] bg-[var(--color-accent-emerald)]/10 px-2.5 py-1 rounded-full border border-[var(--color-accent-emerald)]/20 w-fit">
+        Updated {bankData.lastUpdated}
+      </span>
+    </div>
+    <div class="table-responsive-container">
+      <table class="bank-table">
+        <thead>
+          <tr>
+            <th>Bank</th>
+            <th>General RD Rate</th>
+            <th>Senior Citizen RD Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bankData.banks.map(b => (
+            <tr>
+              <td class="font-medium text-[var(--color-text-primary)]">
+                <span class="mr-2">{b.logo}</span>{b.shortName}
+              </td>
+              <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-emerald)] font-semibold">{b.rates.rd.general}%</td>
+              <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-amber)] font-semibold">{b.rates.rd.senior}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6 text-[var(--color-text-primary)]">
+      Frequently Asked Questions (Recurring Deposits)
+    </h2>
+    <div class="space-y-4">
+      {faqData.mainEntity.map(faq => (
+        <details class="group">
+          <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm sm:text-base flex items-center justify-between p-3.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-colors">
+            <span>{faq.name}</span>
+            <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3.5 pt-1">
+            {faq.acceptedAnswer.text}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
+<script>
+  function fmt(n: number) {
+    const s = Math.abs(Math.round(n)).toString();
+    let f = s.length <= 3 ? s : '';
+    if (s.length > 3) {
+      f = s.slice(-3);
+      let r = s.slice(0, -3);
+      while (r.length > 2) {
+        f = r.slice(-2) + ',' + f;
+        r = r.slice(0, -2);
+      }
+      if (r.length) f = r + ',' + f;
+    }
+    return '₹' + f;
+  }
+
+  let chart: any = null;
+
+  ['rd-amount', 'rd-rate', 'rd-tenure'].forEach(id => {
+    const s = document.getElementById(id) as HTMLInputElement;
+    const i = document.getElementById(id + '-input') as HTMLInputElement;
+    s?.addEventListener('input', () => { i.value = s.value; calc(); });
+    i?.addEventListener('input', () => {
+      let v = parseFloat(i.value);
+      if (!isNaN(v)) {
+        s.value = String(Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v)));
+      }
+      calc();
+    });
+  });
+
+  // Preset Chips Listener
+  document.querySelectorAll('.preset-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-preset-for');
+      const val = btn.getAttribute('data-val');
+      if (!target || !val) return;
+
+      const slider = document.getElementById(target) as HTMLInputElement;
+      const input = document.getElementById(target + '-input') as HTMLInputElement;
+      if (slider && input) {
+        slider.value = val;
+        input.value = val;
+      }
+      document.querySelectorAll(`[data-preset-for="${target}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      calc();
+    });
+  });
+
+  function calc() {
+    const P = parseFloat((document.getElementById('rd-amount-input') as HTMLInputElement).value) || 0;
+    const R = parseFloat((document.getElementById('rd-rate-input') as HTMLInputElement).value) || 0;
+    const T = parseFloat((document.getElementById('rd-tenure-input') as HTMLInputElement).value) || 0;
+    const months = T * 12;
+    const r = R / 100;
+    let mat = 0;
+    for (let i = 0; i < months; i++) {
+      const rem = months - i;
+      mat += P * Math.pow(1 + r / 4, rem / 3);
+    }
+    const deposited = P * months;
+    const interest = mat - deposited;
+
+    document.getElementById('rd-maturity')!.textContent = fmt(mat);
+    document.getElementById('rd-deposited')!.textContent = fmt(deposited);
+    document.getElementById('rd-interest')!.textContent = fmt(interest);
+
+    const c = document.getElementById('rd-chart') as HTMLCanvasElement;
+    if (!c) return;
+    if (chart) chart.destroy();
+
+    // @ts-ignore
+    chart = new Chart(c.getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Deposited Capital', 'Interest Earned'],
+        datasets: [{
+          data: [deposited, interest],
+          backgroundColor: ['#06b6d4', '#10b981'],
+          borderColor: ['#090d16', '#090d16'],
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '72%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#94a3b8', padding: 14, usePointStyle: true, font: { size: 12 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx: any) => ` ${ctx.label}: ${fmt(ctx.raw)}`
+            }
+          }
+        }
+      }
+    });
+  }
+
+  calc();
+</script>

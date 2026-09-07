@@ -1,0 +1,321 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import bankData from '../../data/bank-rates.json';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the typical car loan interest rate in India in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Car loan interest rates in India typically range from 8.70% to 10.50% p.a. for new cars across public and private banks like SBI, HDFC Bank, ICICI Bank, and Axis Bank. Used car loan rates range higher between 11% and 15% p.a."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the maximum tenure for a car loan in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most lenders offer a maximum repayment tenure of up to 7 years (84 months) for new cars, and up to 5 years for pre-owned (used) cars."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is down payment mandatory for getting a car loan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While some banks offer 100% on-road financing to select pre-approved or high-credit borrowers, standard practice requires a 10% to 20% down payment on the ex-showroom price."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Car Loan EMI Calculator — Calculate Monthly Vehicle Loan Payment"
+  description="Calculate your car loan monthly EMI, total interest, and on-road car loan eligibility. Compare new car financing rates across SBI, HDFC, ICICI, and Axis Bank."
+  keywords="car loan emi calculator, auto loan calculator, sbi car loan emi, hdfc car loan calculator, icici vehicle loan interest, car emi calculator india, used car loan emi"
+  calculator="Car Loan EMI Calculator"
+  category="Loan & EMI"
+  categoryBadge="badge-loan"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Car Loan Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-cyan)] font-medium">New Car Financing</span>
+      </div>
+
+      <!-- Loan Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="cl-a" class="text-sm font-medium text-[var(--color-text-secondary)]">Car Loan Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="cl-a-input" class="num-input w-36 text-right" value="800000" min="50000" max="10000000" step="10000"/>
+          </div>
+        </div>
+        <input type="range" id="cl-a" min="50000" max="10000000" step="10000" value="800000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹50K</span>
+          <span>₹8 Lakh</span>
+          <span>₹1 Crore</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="cl-a" data-val="500000">₹5 Lakh (Hatchback)</button>
+          <button type="button" class="preset-chip active" data-preset-for="cl-a" data-val="800000">₹8 Lakh (Sedan/SUV)</button>
+          <button type="button" class="preset-chip" data-preset-for="cl-a" data-val="1200000">₹12 Lakh</button>
+          <button type="button" class="preset-chip" data-preset-for="cl-a" data-val="2000000">₹20 Lakh (Premium)</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="cl-r" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="cl-r-input" class="num-input w-24 text-right" value="8.75" min="5" max="20" step="0.05"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="cl-r" min="5" max="20" step="0.05" value="8.75"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>5%</span>
+          <span>8.75% (SBI/HDFC)</span>
+          <span>20%</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip active" data-preset-for="cl-r" data-val="8.75">8.75% (SBI)</button>
+          <button type="button" class="preset-chip" data-preset-for="cl-r" data-val="9.10">9.10% (HDFC)</button>
+          <button type="button" class="preset-chip" data-preset-for="cl-r" data-val="9.40">9.40% (ICICI)</button>
+        </div>
+      </div>
+
+      <!-- Tenure -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="cl-t" class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Tenure</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="cl-t-input" class="num-input w-20 text-right" value="5" min="1" max="7"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="cl-t" min="1" max="7" step="1" value="5"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1 Year</span>
+          <span>5 Yrs (Popular)</span>
+          <span>7 Years (Max)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="cl-t" data-val="3">3 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="cl-t" data-val="4">4 Yrs</button>
+          <button type="button" class="preset-chip active" data-preset-for="cl-t" data-val="5">5 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="cl-t" data-val="7">7 Yrs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Car Loan EMI</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--color-accent-cyan)]/10 text-[var(--color-accent-cyan)] border border-[var(--color-accent-cyan)]/20 font-medium">Monthly Outflow</span>
+        </div>
+        <div id="cl-emi" class="result-value gradient-text">₹0</div>
+        <p class="text-xs text-[var(--color-text-secondary)] mt-2">Fixed monthly instalment over loan duration</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="glass-card-static p-4">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Car Loan</div>
+          <div id="cl-p" class="font-[var(--font-mono)] font-bold text-base text-[var(--color-accent-cyan)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-4">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Interest</div>
+          <div id="cl-i" class="font-[var(--font-mono)] font-bold text-base text-[var(--color-accent-rose)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-4">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Cost</div>
+          <div id="cl-tot" class="font-[var(--font-mono)] font-bold text-base text-[var(--color-text-primary)]">₹0</div>
+        </div>
+      </div>
+
+      <div class="glass-card-static p-6 flex flex-col items-center justify-center">
+        <div class="text-xs text-[var(--color-text-muted)] mb-3 font-medium">Vehicle Loan Breakdown</div>
+        <div class="chart-container">
+          <canvas id="cl-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bank Rate Comparison -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl text-[var(--color-text-primary)]">
+        Car Loan Interest Rates — Top Indian Banks (2026)
+      </h2>
+      <span class="text-xs text-[var(--color-accent-emerald)] bg-[var(--color-accent-emerald)]/10 px-2.5 py-1 rounded-full border border-[var(--color-accent-emerald)]/20 w-fit">
+        Updated {bankData.lastUpdated}
+      </span>
+    </div>
+    <div class="table-responsive-container">
+      <table class="bank-table">
+        <thead>
+          <tr>
+            <th>Bank</th>
+            <th>Min Interest Rate</th>
+            <th>Max Interest Rate</th>
+            <th>Processing Fee</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bankData.banks.map(b => (
+            <tr>
+              <td class="font-medium text-[var(--color-text-primary)]">
+                <span class="mr-2">{b.logo}</span>{b.shortName}
+              </td>
+              <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-emerald)] font-semibold">{b.rates.carLoan.min}%</td>
+              <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-amber)]">{b.rates.carLoan.max}%</td>
+              <td class="text-[var(--color-text-muted)] text-sm">{b.rates.carLoan.processing}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6 text-[var(--color-text-primary)]">
+      Frequently Asked Questions (Car Financing)
+    </h2>
+    <div class="space-y-4">
+      {faqData.mainEntity.map(faq => (
+        <details class="group">
+          <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm sm:text-base flex items-center justify-between p-3.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-colors">
+            <span>{faq.name}</span>
+            <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3.5 pt-1">
+            {faq.acceptedAnswer.text}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
+<script>
+  function fmt(n: number) {
+    const s = Math.abs(Math.round(n)).toString();
+    let f = s.length <= 3 ? s : '';
+    if (s.length > 3) {
+      f = s.slice(-3);
+      let r = s.slice(0, -3);
+      while (r.length > 2) {
+        f = r.slice(-2) + ',' + f;
+        r = r.slice(0, -2);
+      }
+      if (r.length) f = r + ',' + f;
+    }
+    return '₹' + f;
+  }
+
+  let chart: any = null;
+
+  ['cl-a', 'cl-r', 'cl-t'].forEach(id => {
+    const s = document.getElementById(id) as HTMLInputElement;
+    const i = document.getElementById(id + '-input') as HTMLInputElement;
+    s?.addEventListener('input', () => { i.value = s.value; calc(); });
+    i?.addEventListener('input', () => {
+      let v = parseFloat(i.value);
+      if (!isNaN(v)) {
+        s.value = String(Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v)));
+      }
+      calc();
+    });
+  });
+
+  // Preset Chips Listener
+  document.querySelectorAll('.preset-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-preset-for');
+      const val = btn.getAttribute('data-val');
+      if (!target || !val) return;
+
+      const slider = document.getElementById(target) as HTMLInputElement;
+      const input = document.getElementById(target + '-input') as HTMLInputElement;
+      if (slider && input) {
+        slider.value = val;
+        input.value = val;
+      }
+      document.querySelectorAll(`[data-preset-for="${target}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      calc();
+    });
+  });
+
+  function calc() {
+    const P = parseFloat((document.getElementById('cl-a-input') as HTMLInputElement).value) || 0;
+    const R = parseFloat((document.getElementById('cl-r-input') as HTMLInputElement).value) || 0;
+    const T = parseFloat((document.getElementById('cl-t-input') as HTMLInputElement).value) || 0;
+    const n = T * 12;
+    const r = R / 12 / 100;
+    const emi = r > 0 ? Math.round((P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)) : Math.round(P / n);
+    const total = emi * n;
+    const interest = total - P;
+
+    document.getElementById('cl-emi')!.textContent = fmt(emi);
+    document.getElementById('cl-p')!.textContent = fmt(P);
+    document.getElementById('cl-i')!.textContent = fmt(interest);
+    document.getElementById('cl-tot')!.textContent = fmt(total);
+
+    const c = document.getElementById('cl-chart') as HTMLCanvasElement;
+    if (!c) return;
+    if (chart) chart.destroy();
+
+    // @ts-ignore
+    chart = new Chart(c.getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Car Loan Principal', 'Total Interest'],
+        datasets: [{
+          data: [P, interest],
+          backgroundColor: ['#06b6d4', '#f43f5e'],
+          borderColor: ['#090d16', '#090d16'],
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '72%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#94a3b8', padding: 14, usePointStyle: true, font: { size: 12 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: (c: any) => ` ${c.label}: ${fmt(c.raw)}`
+            }
+          }
+        }
+      }
+    });
+  }
+
+  calc();
+</script>

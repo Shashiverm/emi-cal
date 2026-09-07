@@ -1,0 +1,227 @@
+[
+  {
+    "id": "emi",
+    "name": "EMI Calculator",
+    "slug": "emi-calculator",
+    "description": "Calculate EMI on your loans – home loan, car loan or personal loan",
+    "category": "Loan & EMI",
+    "icon": "💰",
+    "keywords": ["emi calculator", "loan emi", "emi calculation", "monthly emi"]
+  },
+  {
+    "id": "flat-vs-reducing",
+    "name": "Flat vs Reducing Rate",
+    "slug": "flat-vs-reducing-rate",
+    "description": "Compare monthly EMI in Flat and Reducing balance interest rate schemes",
+    "category": "Loan & EMI",
+    "icon": "⚖️",
+    "keywords": ["flat rate vs reducing rate", "flat interest rate", "reducing balance method"]
+  },
+  {
+    "id": "home-loan",
+    "name": "Home Loan EMI",
+    "slug": "home-loan-emi-calculator",
+    "description": "Calculate your home loan EMI and compare bank rates",
+    "category": "Loan & EMI",
+    "icon": "🏠",
+    "keywords": ["home loan emi", "housing loan calculator", "home loan interest rate"]
+  },
+  {
+    "id": "car-loan",
+    "name": "Car Loan EMI",
+    "slug": "car-loan-emi-calculator",
+    "description": "Calculate your car loan EMI with bank-wise comparison",
+    "category": "Loan & EMI",
+    "icon": "🚗",
+    "keywords": ["car loan emi", "auto loan calculator", "car loan interest rate"]
+  },
+  {
+    "id": "bike-loan",
+    "name": "Bike Loan EMI",
+    "slug": "bike-loan-emi-calculator",
+    "description": "Calculate your two-wheeler loan EMI instantly",
+    "category": "Loan & EMI",
+    "icon": "🏍️",
+    "keywords": ["bike loan emi", "two wheeler loan", "bike loan interest rate"]
+  },
+  {
+    "id": "personal-loan",
+    "name": "Personal Loan EMI",
+    "slug": "personal-loan-emi-calculator",
+    "description": "Calculate personal loan EMI and total interest payable",
+    "category": "Loan & EMI",
+    "icon": "👤",
+    "keywords": ["personal loan emi", "personal loan calculator", "personal loan interest"]
+  },
+  {
+    "id": "appliance-loan",
+    "name": "Appliance Loan EMI",
+    "slug": "appliance-loan-emi-calculator",
+    "description": "Calculate EMI for consumer durables and appliance loans",
+    "category": "Loan & EMI",
+    "icon": "📺",
+    "keywords": ["appliance loan emi", "consumer durable loan", "no cost emi calculator"]
+  },
+  {
+    "id": "sip",
+    "name": "SIP Calculator",
+    "slug": "sip-calculator",
+    "description": "Calculate how much you need to save or how much you will accumulate with your SIP",
+    "category": "Investment",
+    "icon": "📈",
+    "keywords": ["sip calculator", "systematic investment plan", "sip returns", "mutual fund sip"]
+  },
+  {
+    "id": "lumpsum",
+    "name": "Lumpsum Calculator",
+    "slug": "lumpsum-calculator",
+    "description": "Calculate returns for lumpsum investments to achieve your financial goals",
+    "category": "Investment",
+    "icon": "💎",
+    "keywords": ["lumpsum calculator", "one time investment", "lumpsum returns"]
+  },
+  {
+    "id": "step-up-sip",
+    "name": "Step-Up SIP Calculator",
+    "slug": "step-up-sip-calculator",
+    "description": "Calculate SIP returns with an annual increase in your investment amount",
+    "category": "Investment",
+    "icon": "📊",
+    "keywords": ["step up sip", "sip with yearly increase", "top up sip calculator"]
+  },
+  {
+    "id": "swp",
+    "name": "SWP Calculator",
+    "slug": "swp-calculator",
+    "description": "Calculate your final amount with Systematic Withdrawal Plans",
+    "category": "Investment",
+    "icon": "💸",
+    "keywords": ["swp calculator", "systematic withdrawal plan", "swp returns"]
+  },
+  {
+    "id": "fd",
+    "name": "FD Calculator",
+    "slug": "fd-calculator",
+    "description": "Check returns on your Fixed Deposits without any hassle",
+    "category": "Savings & Deposits",
+    "icon": "🏦",
+    "keywords": ["fd calculator", "fixed deposit calculator", "fd interest rate", "fd returns"]
+  },
+  {
+    "id": "rd",
+    "name": "RD Calculator",
+    "slug": "rd-calculator",
+    "description": "Check returns on your Recurring Deposit in just a few clicks",
+    "category": "Savings & Deposits",
+    "icon": "🔄",
+    "keywords": ["rd calculator", "recurring deposit calculator", "rd interest rate"]
+  },
+  {
+    "id": "ppf",
+    "name": "PPF Calculator",
+    "slug": "ppf-calculator",
+    "description": "Calculate your returns on Public Provident Fund (PPF)",
+    "category": "Provident Fund & Retirement",
+    "icon": "🛡️",
+    "keywords": ["ppf calculator", "public provident fund", "ppf interest rate", "ppf returns"]
+  },
+  {
+    "id": "epf",
+    "name": "EPF Calculator",
+    "slug": "epf-calculator",
+    "description": "Calculate returns for your Employee Provident Fund (EPF)",
+    "category": "Provident Fund & Retirement",
+    "icon": "🏭",
+    "keywords": ["epf calculator", "employee provident fund", "pf calculator", "epf returns"]
+  },
+  {
+    "id": "nps",
+    "name": "NPS Calculator",
+    "slug": "nps-calculator",
+    "description": "Calculate returns for your National Pension System (NPS)",
+    "category": "Provident Fund & Retirement",
+    "icon": "🧓",
+    "keywords": ["nps calculator", "national pension system", "nps returns", "pension calculator"]
+  },
+  {
+    "id": "retirement",
+    "name": "Retirement Calculator",
+    "slug": "retirement-calculator",
+    "description": "Calculate how much you need for a comfortable and relaxed retirement",
+    "category": "Provident Fund & Retirement",
+    "icon": "🌴",
+    "keywords": ["retirement calculator", "retirement planning", "retirement corpus", "retirement fund"]
+  },
+  {
+    "id": "gratuity",
+    "name": "Gratuity Calculator",
+    "slug": "gratuity-calculator",
+    "description": "Calculate how much gratuity you will receive when you retire",
+    "category": "Provident Fund & Retirement",
+    "icon": "🎁",
+    "keywords": ["gratuity calculator", "gratuity calculation", "gratuity amount"]
+  },
+  {
+    "id": "income-tax",
+    "name": "Income Tax Calculator",
+    "slug": "income-tax-calculator",
+    "description": "Calculate your payable income tax – Old vs New regime comparison",
+    "category": "Tax & Salary",
+    "icon": "📋",
+    "keywords": ["income tax calculator", "tax calculator india", "old vs new regime", "income tax 2026"]
+  },
+  {
+    "id": "hra",
+    "name": "HRA Calculator",
+    "slug": "hra-calculator",
+    "description": "Calculate your House Rent Allowance exemption",
+    "category": "Tax & Salary",
+    "icon": "🏘️",
+    "keywords": ["hra calculator", "hra exemption", "house rent allowance calculator"]
+  },
+  {
+    "id": "gst",
+    "name": "GST Calculator",
+    "slug": "gst-calculator",
+    "description": "Calculate your payable GST amount — inclusive and exclusive",
+    "category": "Tax & Salary",
+    "icon": "🧾",
+    "keywords": ["gst calculator", "gst calculation", "gst inclusive exclusive"]
+  },
+  {
+    "id": "simple-interest",
+    "name": "Simple Interest Calculator",
+    "slug": "simple-interest-calculator",
+    "description": "Calculate simple interest on your loans and saving scheme investments",
+    "category": "Other",
+    "icon": "➕",
+    "keywords": ["simple interest calculator", "si calculator", "simple interest formula"]
+  },
+  {
+    "id": "compound-interest",
+    "name": "Compound Interest Calculator",
+    "slug": "compound-interest-calculator",
+    "description": "Calculate compound interest with ease — quarterly, monthly, yearly",
+    "category": "Other",
+    "icon": "📐",
+    "keywords": ["compound interest calculator", "ci calculator", "compound interest formula"]
+  },
+  {
+    "id": "cagr",
+    "name": "CAGR Calculator",
+    "slug": "cagr-calculator",
+    "description": "The simplest compound annual growth rate calculator",
+    "category": "Other",
+    "icon": "📉",
+    "keywords": ["cagr calculator", "compound annual growth rate", "cagr formula"]
+  },
+  {
+    "id": "inflation",
+    "name": "Inflation Calculator",
+    "slug": "inflation-calculator",
+    "description": "Calculate inflation-adjusted prices and future value of money",
+    "category": "Other",
+    "icon": "📦",
+    "keywords": ["inflation calculator", "inflation rate india", "future value of money"]
+  }
+]

@@ -1,0 +1,185 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+---
+<CalculatorLayout
+  title="Compound Interest Calculator — Power of Compounding"
+  description="Calculate compound interest with flexible compounding frequencies — annual, semi-annual, quarterly, or monthly. See the exponential growth of your wealth."
+  keywords="compound interest calculator, ci calculator, power of compounding, compound interest formula, compounding frequency"
+  calculator="Compound Interest Calculator"
+  category="Other"
+  categoryBadge="badge-other"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Input Section -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl">Investment Details</h2>
+
+      <!-- Principal -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Initial Principal</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="ci-p-input" class="num-input w-36 text-right" value="100000" min="1000" max="10000000" step="1000"/>
+          </div>
+        </div>
+        <input type="range" id="ci-p" min="1000" max="10000000" step="5000" value="100000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹1K</span>
+          <span>₹50 Lakh</span>
+          <span>₹1 Crore</span>
+        </div>
+      </div>
+
+      <!-- Rate of Interest -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Annual Interest Rate</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="ci-r-input" class="num-input w-24 text-right" value="10" min="1" max="40" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="ci-r" min="1" max="30" step="0.1" value="10"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1%</span>
+          <span>15%</span>
+          <span>30%</span>
+        </div>
+      </div>
+
+      <!-- Time Horizon -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-[var(--color-text-secondary)]">Time Period</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="ci-t-input" class="num-input w-24 text-right" value="10" min="1" max="40" step="1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="ci-t" min="1" max="30" step="1" value="10"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1 Yr</span>
+          <span>15 Yr</span>
+          <span>30 Yr</span>
+        </div>
+      </div>
+
+      <!-- Compounding Frequency -->
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">Compounding Frequency</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button type="button" class="freq-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-xs font-medium hover:border-[var(--color-accent-indigo)]" data-freq="1">Annually</button>
+          <button type="button" class="freq-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-xs font-medium hover:border-[var(--color-accent-indigo)]" data-freq="2">Half-Yearly</button>
+          <button type="button" class="freq-btn py-2 rounded-lg border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)] text-xs font-bold" data-freq="4">Quarterly</button>
+          <button type="button" class="freq-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-xs font-medium hover:border-[var(--color-accent-indigo)]" data-freq="12">Monthly</button>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-[var(--color-accent-indigo)]/10 border border-[var(--color-accent-indigo)]/20 text-xs text-[var(--color-text-secondary)]">
+        💡 <strong>Formula:</strong> A = P × (1 + r/n)^(n×t). As Albert Einstein famously said: <em>"Compound interest is the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it."</em>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-4 animate-fade-in-delay">
+      <!-- Total Maturity Amount -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="text-sm text-[var(--color-text-muted)] mb-1">Total Maturity Amount</div>
+        <div id="ci-total-val" class="result-value gradient-text">₹0</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-2">Principal + Compound Interest.</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Principal Invested</div>
+          <div id="ci-p-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-text-primary)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Interest Earned</div>
+          <div id="ci-interest-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-emerald)]">₹0</div>
+        </div>
+      </div>
+
+      <!-- Power of Compounding Comparison -->
+      <div class="glass-card-static p-5 space-y-3">
+        <div class="text-sm font-semibold text-[var(--color-text-primary)]">Simple vs Compound Interest Edge</div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]">With Simple Interest:</span>
+            <span id="si-comp-val" class="font-mono text-[var(--color-text-muted)] font-semibold">₹0</span>
+          </div>
+          <div class="flex justify-between p-2 rounded bg-[var(--color-accent-emerald)]/10 text-[var(--color-accent-emerald)]">
+            <span>Extra Wealth Created by Compounding:</span>
+            <span id="comp-bonus-val" class="font-mono font-bold">₹0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+function fmt(n) {
+  const s = Math.abs(Math.round(n)).toString();
+  let f = s.length <= 3 ? s : '';
+  if (s.length > 3) {
+    f = s.slice(-3);
+    let r = s.slice(0, -3);
+    while (r.length > 2) {
+      f = r.slice(-2) + ',' + f;
+      r = r.slice(0, -2);
+    }
+    if (r.length) f = r + ',' + f;
+  }
+  return '₹' + f;
+}
+
+let freq = 4; // Quarterly by default
+
+['ci-p', 'ci-r', 'ci-t'].forEach(id => {
+  const s = document.getElementById(id) as HTMLInputElement;
+  const i = document.getElementById(id + '-input') as HTMLInputElement;
+  s.addEventListener('input', () => { i.value = s.value; calc(); });
+  i.addEventListener('input', () => {
+    const v = parseFloat(i.value);
+    if (!isNaN(v)) s.value = String(Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v)));
+    calc();
+  });
+});
+
+const freqBtns = document.querySelectorAll('.freq-btn');
+freqBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    freqBtns.forEach(b => b.classList.remove('border-[var(--color-accent-indigo)]', 'bg-[var(--color-accent-indigo)]/20', 'text-[var(--color-accent-indigo)]', 'font-bold'));
+    btn.classList.add('border-[var(--color-accent-indigo)]', 'bg-[var(--color-accent-indigo)]/20', 'text-[var(--color-accent-indigo)]', 'font-bold');
+    freq = parseInt(btn.getAttribute('data-freq') || '4', 10);
+    calc();
+  });
+});
+
+function calc() {
+  const p = parseFloat((document.getElementById('ci-p-input') as HTMLInputElement).value) || 0;
+  const r = parseFloat((document.getElementById('ci-r-input') as HTMLInputElement).value) || 0;
+  const t = parseFloat((document.getElementById('ci-t-input') as HTMLInputElement).value) || 0;
+
+  // A = P * (1 + r/(n*100))^(n*t)
+  const ratePerPeriod = r / (freq * 100);
+  const totalPeriods = freq * t;
+  const total = Math.round(p * Math.pow(1 + ratePerPeriod, totalPeriods));
+  const interest = Math.max(0, total - p);
+
+  // Simple interest comparison
+  const siTotal = Math.round(p + (p * r * t) / 100);
+  const extraWealth = Math.max(0, total - siTotal);
+
+  document.getElementById('ci-total-val')!.textContent = fmt(total);
+  document.getElementById('ci-p-val')!.textContent = fmt(p);
+  document.getElementById('ci-interest-val')!.textContent = fmt(interest);
+
+  document.getElementById('si-comp-val')!.textContent = fmt(siTotal);
+  document.getElementById('comp-bonus-val')!.textContent = '+ ' + fmt(extraWealth);
+}
+
+calc();
+</script>

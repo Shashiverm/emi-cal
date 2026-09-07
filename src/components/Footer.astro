@@ -1,0 +1,171 @@
+---
+import calculators from '../data/calculators.json';
+
+const categories = [
+  { name: 'Loan & EMI', slug: 'loan-emi' },
+  { name: 'Investment', slug: 'investment' },
+  { name: 'Savings & Deposits', slug: 'savings' },
+  { name: 'Provident Fund & Retirement', slug: 'retirement' },
+  { name: 'Tax & Salary', slug: 'tax' },
+  { name: 'Other', slug: 'other' },
+];
+
+const popularKeywords = [
+  { name: 'SBI Home Loan EMI Calculator', slug: 'home-loan-emi-calculator' },
+  { name: 'Mutual Fund SIP Calculator', slug: 'sip-calculator' },
+  { name: 'New Tax Regime vs Old Regime', slug: 'income-tax-calculator' },
+  { name: 'PPF Scheme Interest 7.1%', slug: 'ppf-calculator' },
+  { name: 'HDFC Car Loan Calculator', slug: 'car-loan-emi-calculator' },
+  { name: 'Step-Up SIP Returns', slug: 'step-up-sip-calculator' },
+  { name: 'Fixed Deposit FD Rates 2026', slug: 'fd-calculator' },
+  { name: 'EPFO 8.25% EPF Balance', slug: 'epf-calculator' },
+  { name: 'HRA Exemption Section 10(13A)', slug: 'hra-calculator' },
+  { name: 'GST Inclusive Exclusive 18%', slug: 'gst-calculator' },
+  { name: 'NPS Pension & Corpus Calculator', slug: 'nps-calculator' },
+  { name: 'Compound Interest Quarterly', slug: 'compound-interest-calculator' },
+  { name: 'Gratuity Calculation 15/26', slug: 'gratuity-calculator' },
+  { name: 'Personal Loan EMI Calculator', slug: 'personal-loan-emi-calculator' },
+  { name: 'CAGR Stock Growth Rate', slug: 'cagr-calculator' },
+  { name: 'Inflation Living Cost Calculator', slug: 'inflation-calculator' },
+];
+
+const officialPortals = [
+  { name: 'Reserve Bank of India', url: 'https://www.rbi.org.in' },
+  { name: 'Income Tax Department', url: 'https://www.incometax.gov.in' },
+  { name: 'SEBI Investor Portal', url: 'https://www.sebi.gov.in' },
+  { name: 'EPFO India', url: 'https://www.epfindia.gov.in' },
+  { name: 'PFRDA / NPS', url: 'https://www.pfrda.org.in' },
+  { name: 'GST Network', url: 'https://www.gst.gov.in' },
+];
+---
+
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] mt-16 sm:mt-24">
+  <div class="container-main py-12 sm:py-16">
+    <!-- Brand & Mission Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-10 border-b border-[var(--color-border)] mb-10">
+      <div class="max-w-xl">
+        <a href="/" class="flex items-center gap-2.5 mb-3" aria-label="FinCalc India Homepage">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+            ₹
+          </div>
+          <span class="font-[var(--font-heading)] font-bold text-xl text-[var(--color-text-primary)] tracking-tight">
+            FinCalc <span class="text-indigo-400 font-semibold">India</span>
+          </span>
+        </a>
+        <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+          India's dedicated, free financial calculator suite. Empowering salaried professionals, investors, and homeowners with instant, client-side financial computations and bank rate benchmarks.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="px-3.5 py-2 rounded-lg bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>FY 2024-25 & 2025-26 Tax Slabs</span>
+        </div>
+        <div class="px-3.5 py-2 rounded-lg bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 flex items-center gap-2">
+          <span>🛡️</span>
+          <span>100% Private · Zero Tracking</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Columns Grid (All 6 Categories) -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 mb-12">
+      {categories.map((cat) => (
+        <div>
+          <h3 class="text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider mb-3.5">
+            {cat.name}
+          </h3>
+          <ul class="space-y-2 text-xs">
+            {calculators
+              .filter((c) => c.category === cat.name)
+              .map((c) => (
+                <li>
+                  <a
+                    href={`/calculators/${c.slug}`}
+                    class="text-[var(--color-text-secondary)] hover:text-indigo-400 transition-colors block py-0.5 line-clamp-1"
+                  >
+                    {c.name}
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- High-Traffic SEO Keywords Directory -->
+    <div class="p-6 rounded-xl bg-slate-900/60 border border-[var(--color-border)] mb-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
+        Popular Financial Searches in India
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs">
+        {popularKeywords.map((item) => (
+          <a
+            href={`/calculators/${item.slug}`}
+            class="px-2.5 py-1 rounded-md bg-slate-800/50 hover:bg-indigo-500/15 border border-slate-700/50 hover:border-indigo-500/30 text-slate-300 hover:text-indigo-300 transition-all"
+          >
+            {item.name}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Official Government Regulatory Portals -->
+    <div class="p-5 rounded-xl bg-slate-900/40 border border-[var(--color-border)] mb-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent-cyan)] mb-3 flex items-center gap-1.5">
+        <span>🏛️</span> Official Government & Regulatory Portals (Republic of India)
+      </div>
+      <div class="flex flex-wrap gap-2.5 text-xs">
+        {officialPortals.map((p) => (
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700 border border-slate-700/70 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+          >
+            <span>{p.name}</span>
+            <span class="text-[10px] text-slate-500">↗</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Statutory Caution Banner -->
+    <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed mb-8">
+      <strong class="text-amber-300 block mb-1">⚠️ Statutory Caution & Consumer Awareness (2026):</strong>
+      Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Loan approvals, final EMIs, processing fees, and interest rates depend on individual CIBIL credit scores and lender terms. Maintain an aggregate Debt-to-Income (FOIR) ratio below 40-50% for financial safety. Always request the RBI-mandated Key Fact Statement (KFS) prior to loan execution.
+    </div>
+
+    <!-- Legal & Compliance Links Navigation -->
+    <div class="flex flex-wrap items-center justify-between gap-4 py-4 border-t border-b border-[var(--color-border)] mb-8 text-xs">
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6 font-medium">
+        <a href="/terms-and-conditions" class="text-slate-300 hover:text-[var(--color-accent-cyan)] transition-colors">
+          Terms & Conditions
+        </a>
+        <a href="/privacy-policy" class="text-slate-300 hover:text-[var(--color-accent-cyan)] transition-colors">
+          Privacy Policy (DPDP Act 2023)
+        </a>
+        <a href="/disclaimer" class="text-slate-300 hover:text-[var(--color-accent-cyan)] transition-colors">
+          Regulatory Disclaimers
+        </a>
+        <a href="/regulatory-framework" class="text-[var(--color-accent-emerald)] hover:underline flex items-center gap-1">
+          <span>📜</span> Govt Rules & RBI Guidelines (2026)
+        </a>
+      </div>
+      <div class="text-slate-500 text-[11px]">
+        Non-Advisory · Pure Computational Utility
+      </div>
+    </div>
+
+    <!-- Bottom Attribution -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--color-text-muted)]">
+      <p>© 2026 FinCalc India. All calculations are executed client-side on your device.</p>
+      <div class="flex items-center gap-3">
+        <span>Astro.js Static Architecture</span>
+        <span>•</span>
+        <span>Made for Bharat 🇮🇳</span>
+      </div>
+    </div>
+  </div>
+</footer>

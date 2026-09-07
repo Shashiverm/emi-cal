@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Terms & Conditions — FinCalc India (2026)"
+  description="Terms and conditions governing the use of FinCalc India financial calculation tools, informational disclaimers, and user obligations."
+  keywords="terms and conditions, user agreement, fincalc india legal, terms of service"
+>
+  <Header slot="header" />
+
+  <main class="container-main py-12 sm:py-16 max-w-4xl">
+    <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="text-[var(--color-text-muted)]">/</span>
+      <span class="text-[var(--color-text-primary)] font-medium">Terms & Conditions</span>
+    </nav>
+
+    <div class="glass-card-static p-6 sm:p-10 border border-[var(--color-border)] space-y-8">
+      <div class="border-b border-[var(--color-border)] pb-6">
+        <span class="category-badge badge-other mb-3">Legal Agreement</span>
+        <h1 class="font-[var(--font-heading)] font-bold text-2xl sm:text-4xl text-[var(--color-text-primary)] tracking-tight">
+          Terms & Conditions of Use
+        </h1>
+        <p class="text-xs text-[var(--color-text-muted)] mt-2">
+          Last Updated: <strong>September 2026</strong> · Governing Jurisdiction: <strong>Republic of India</strong>
+        </p>
+      </div>
+
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          1. Acceptance of Terms
+        </h2>
+        <p>
+          By accessing and using <strong>FinCalc India</strong> (accessible at <a href="https://fincalc.in" class="text-[var(--color-accent-cyan)] underline">https://fincalc.in</a>), you acknowledge that you have read, understood, and agreed to be legally bound by these Terms and Conditions and our Privacy Policy. If you do not agree with any portion of these terms, please discontinue use immediately.
+        </p>
+      </section>
+
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          2. Nature of Service — Non-Advisory & Informational Purpose
+        </h2>
+        <p>
+          FinCalc India operates solely as an independent, educational financial computing utility. 
+        </p>
+        <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 space-y-2">
+          <p>
+            <strong>⚠️ Mandatory Regulatory Notice:</strong>
+          </p>
+          <ul class="list-disc list-inside space-y-1">
+            <li>FinCalc India is <strong>NOT</strong> a registered investment adviser under the Securities and Exchange Board of India (SEBI) Investment Advisers Regulations, 2013.</li>
+            <li>FinCalc India is <strong>NOT</strong> a bank, Non-Banking Financial Company (NBFC), or financial institution registered with the Reserve Bank of India (RBI).</li>
+            <li>No calculation, report, or comparison provided constitutes personal financial advice, a loan offer, insurance underwriting, or an investment recommendation.</li>
+          </ul>
+        </div>
+        <p>
+          Users must independently verify calculations and consult certified financial planners, chartered accountants (CAs), or official bank loan officers prior to executing borrowing, prepayment, or investment decisions.
+        </p>
+      </section>
+
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          3. Calculation Accuracy & Indicative Estimates
+        </h2>
+        <p>
+          All mathematical computations (including reducing balance loan amortization, quarterly compounding for Fixed and Recurring Deposits, Section 10(13A) HRA exemption, and Union Budget tax slab estimates) are based on recognized financial formulas.
+        </p>
+        <p>
+          However, actual bank EMI amounts, processing fees, loan eligibility, mutual fund capital gains taxation, and tax liability may differ due to:
+        </p>
+        <ul class="list-disc list-inside space-y-1 text-xs pl-2">
+          <li>Borrower credit appraisal and CIBIL score tiering by commercial lenders.</li>
+          <li>Revisions in RBI Repo Rates, External Benchmark Linked Lending Rates (EBLR), or bank MCLR.</li>
+          <li>Individual tax exemptions, cess, surcharge, and amendments introduced in Union Finance Acts.</li>
+          <li>Mutual fund market risk and daily Net Asset Value (NAV) fluctuations.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          4. 100% Client-Side Privacy Guarantee
+        </h2>
+        <p>
+          Unlike conventional financial platforms that require phone numbers, OTPs, or PAN details, FinCalc India executes all calculations <strong>strictly client-side within your web browser</strong>. Your entered salary, loan amount, interest rate, or tenure is never transmitted to, stored on, or monetized through external servers.
+        </p>
+      </section>
+
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          5. Limitation of Liability
+        </h2>
+        <p>
+          Under no circumstances shall FinCalc India, its developers, or contributors be held liable for any direct, indirect, incidental, punitive, or consequential losses, loan rejections, tax penalties, or investment depreciations arising from the use or inability to use this website.
+        </p>
+      </section>
+
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          6. Governing Law & Dispute Resolution
+        </h2>
+        <p>
+          These terms are governed by the laws of the <strong>Republic of India</strong>, including the Information Technology Act, 2000, and the Consumer Protection Act, 2019. Any dispute shall be subject to the exclusive jurisdiction of courts located in India.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>

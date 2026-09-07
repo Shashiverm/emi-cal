@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const popularCalculators = [
+  {
+    name: 'Home Loan EMI Calculator',
+    slug: 'home-loan-emi-calculator',
+    desc: 'Calculate monthly home loan EMI, total interest, and compare SBI, HDFC & ICICI bank rates.',
+    icon: '🏠',
+    badge: 'badge-loan',
+    tag: 'Loan & EMI'
+  },
+  {
+    name: 'SIP Calculator',
+    slug: 'sip-calculator',
+    desc: 'Estimate mutual fund returns, compounding gains, and your roadmap to ₹1 Crore.',
+    icon: '📈',
+    badge: 'badge-investment',
+    tag: 'Investment'
+  },
+  {
+    name: 'Income Tax Calculator',
+    slug: 'income-tax-calculator',
+    desc: 'Compare tax under Old vs New Regime (Budget FY 2024-25 / 2025-26) with ₹75k standard deduction.',
+    icon: '🧾',
+    badge: 'badge-tax',
+    tag: 'Tax & Salary'
+  },
+  {
+    name: 'PPF Calculator',
+    slug: 'ppf-calculator',
+    desc: 'Calculate 15-year maturity at the current 7.1% interest rate with 100% tax-free EEE status.',
+    icon: '🛡️',
+    badge: 'badge-savings',
+    tag: 'Savings'
+  },
+  {
+    name: 'Fixed Deposit (FD) Calculator',
+    slug: 'fd-calculator',
+    desc: 'Quarterly compounding interest calculation with senior citizen interest rates across banks.',
+    icon: '🏦',
+    badge: 'badge-savings',
+    tag: 'Savings'
+  },
+  {
+    name: 'Universal EMI Calculator',
+    slug: 'emi-calculator',
+    desc: 'Calculate monthly EMI for personal, car, home, or business loans with full amortization table.',
+    icon: '💳',
+    badge: 'badge-loan',
+    tag: 'Loan & EMI'
+  }
+];
+---
+
+<Layout
+  title="404 — Page Not Found"
+  description="The page you requested could not be found. Explore over 25+ free Indian financial calculators for loans, SIP investments, fixed deposits, and taxes."
+  robots="noindex, follow"
+>
+  <Header slot="header" />
+
+  <main class="container-main pt-12 pb-20 sm:pt-16 sm:pb-24">
+    <!-- 404 Hero Card -->
+    <div class="max-w-3xl mx-auto text-center animate-fade-in">
+      <!-- Glowing 404 Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs sm:text-sm font-semibold mb-6">
+        <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+        Error 404 — Page Not Found
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="font-[var(--font-heading)] font-extrabold text-3xl sm:text-5xl md:text-6xl text-[var(--color-text-primary)] tracking-tight leading-[1.15] mb-4">
+        We Couldn't <span class="gradient-text">Calculate</span> That Route
+      </h1>
+
+      <p class="text-[var(--color-text-secondary)] text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-8">
+        The page or financial calculator you are looking for might have been moved, renamed, or doesn't exist. Let's get your finances back on track.
+      </p>
+
+      <!-- Search Input on 404 -->
+      <div class="max-w-xl mx-auto mb-8">
+        <form action="/" method="GET" class="flex items-center gap-2 p-1.5 rounded-xl bg-[var(--color-bg-card)] border border-[var(--color-border)] shadow-lg focus-within:border-[var(--color-accent-indigo)] transition-all">
+          <div class="pl-3 text-[var(--color-text-muted)] flex items-center pointer-events-none">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input
+            type="text"
+            name="q"
+            id="error-search-input"
+            placeholder="Search 25+ calculators (e.g. SIP, Home Loan, Income Tax)..."
+            class="w-full px-3 py-2 bg-transparent text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none"
+          />
+          <button
+            type="submit"
+            class="shrink-0 px-4 py-2 rounded-lg bg-[var(--color-accent-indigo)] hover:bg-indigo-600 text-white text-xs font-semibold transition-colors flex items-center gap-1"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-14">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-sm font-semibold hover:opacity-95 shadow-lg shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Back to Homepage
+        </a>
+        <a
+          href="/#categories"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-bg-card)] border border-[var(--color-border)] hover:border-slate-600 text-[var(--color-text-primary)] text-sm font-medium transition-all hover:bg-slate-800/60"
+        >
+          Browse All 25+ Calculators
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Suggested Calculators Section -->
+    <div class="max-w-5xl mx-auto pt-8 border-t border-[var(--color-border)]">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="font-[var(--font-heading)] font-bold text-xl text-[var(--color-text-primary)]">
+            Popular Financial Calculators in India
+          </h2>
+          <p class="text-xs sm:text-sm text-[var(--color-text-secondary)] mt-0.5">
+            Quickly jump to our most frequently used calculation tools:
+          </p>
+        </div>
+        <span class="text-xs text-[var(--color-accent-cyan)] font-semibold hidden sm:inline-block">
+          Free & Instant
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {popularCalculators.map(c => (
+          <a
+            href={`/calculators/${c.slug}`}
+            class="glass-card p-5 border border-[var(--color-border)] hover:border-slate-600 group transition-all transform hover:-translate-y-1 block"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-2xl">{c.icon}</span>
+              <span class={`category-badge ${c.badge}`}>{c.tag}</span>
+            </div>
+            <h3 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+              {c.name}
+            </h3>
+            <p class="text-xs text-[var(--color-text-secondary)] mt-1.5 leading-relaxed line-clamp-2">
+              {c.desc}
+            </p>
+            <div class="mt-4 pt-3 border-t border-[var(--color-border)]/60 flex items-center justify-between text-xs text-[var(--color-text-muted)] group-hover:text-[var(--color-text-primary)] transition-colors">
+              <span>Open Tool</span>
+              <span class="text-[var(--color-accent-cyan)] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                Calculate →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>

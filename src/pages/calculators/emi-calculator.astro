@@ -1,0 +1,413 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import bankData from '../../data/bank-rates.json';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is EMI calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "EMI is calculated using the reducing balance method formula: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is the principal, r is the monthly interest rate, and n is the number of months." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between flat rate and reducing rate EMI?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In the flat rate method, interest is calculated on the full loan amount throughout the tenure. In the reducing balance method, interest is calculated on the outstanding balance, making it cheaper overall." }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="EMI Calculator — Calculate Loan EMI Instantly"
+  description="Free EMI calculator to compute monthly EMI for home loans, car loans, personal loans. See total interest, amortization schedule, and compare bank rates."
+  keywords="emi calculator, loan emi calculator, emi calculation, monthly emi, home loan emi, car loan emi, personal loan emi, emi calculator india, loan calculator"
+  calculator="EMI Calculator"
+  category="Loan & EMI"
+  categoryBadge="badge-loan"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Input Section -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6">Enter Loan Details</h2>
+
+      <!-- Loan Amount -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <label for="loan-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="loan-amount-input" class="num-input w-36 text-right" value="2500000" min="10000" max="100000000" step="10000" />
+          </div>
+        </div>
+        <input type="range" id="loan-amount" min="10000" max="100000000" step="10000" value="2500000" />
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹10K</span>
+          <span>₹25L</span>
+          <span>₹10Cr</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="loan-amount" data-val="500000">₹5L</button>
+          <button type="button" class="preset-chip" data-preset-for="loan-amount" data-val="1000000">₹10L</button>
+          <button type="button" class="preset-chip active" data-preset-for="loan-amount" data-val="2500000">₹25L</button>
+          <button type="button" class="preset-chip" data-preset-for="loan-amount" data-val="5000000">₹50L</button>
+          <button type="button" class="preset-chip" data-preset-for="loan-amount" data-val="10000000">₹1 Cr</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <label for="interest-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="interest-rate-input" class="num-input w-24 text-right" value="8.5" min="1" max="30" step="0.1" />
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="interest-rate" min="1" max="30" step="0.1" value="8.5" />
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1%</span>
+          <span>8.5%</span>
+          <span>30%</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="interest-rate" data-val="7.5">7.5%</button>
+          <button type="button" class="preset-chip active" data-preset-for="interest-rate" data-val="8.5">8.5%</button>
+          <button type="button" class="preset-chip" data-preset-for="interest-rate" data-val="10.5">10.5%</button>
+          <button type="button" class="preset-chip" data-preset-for="interest-rate" data-val="12.0">12%</button>
+        </div>
+      </div>
+
+      <!-- Tenure -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <label for="tenure" class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Tenure</label>
+          <div class="flex items-center gap-2">
+            <input type="number" id="tenure-input" class="num-input w-20 text-right" value="20" min="1" max="30" />
+            <div class="flex rounded-lg overflow-hidden border border-[var(--color-border)]">
+              <button id="tenure-yr" class="tab-btn active text-xs px-3 py-1">Yr</button>
+              <button id="tenure-mo" class="tab-btn text-xs px-3 py-1">Mo</button>
+            </div>
+          </div>
+        </div>
+        <input type="range" id="tenure" min="1" max="30" step="1" value="20" />
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1 Yr</span>
+          <span>20 Yr</span>
+          <span>30 Yr</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="tenure" data-val="5">5 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="tenure" data-val="10">10 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="tenure" data-val="15">15 Yrs</button>
+          <button type="button" class="preset-chip active" data-preset-for="tenure" data-val="20">20 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="tenure" data-val="30">30 Yrs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <!-- EMI Result -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="text-sm text-[var(--color-text-muted)] mb-1">Monthly EMI</div>
+        <div id="emi-result" class="result-value gradient-text">₹0</div>
+      </div>
+
+      <!-- Breakdown -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Principal Amount</div>
+          <div id="principal-result" class="font-[var(--font-mono)] font-bold text-lg text-[var(--color-accent-cyan)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Interest</div>
+          <div id="interest-result" class="font-[var(--font-mono)] font-bold text-lg text-[var(--color-accent-rose)]">₹0</div>
+        </div>
+      </div>
+
+      <div class="glass-card-static p-5">
+        <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Amount Payable</div>
+        <div id="total-result" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-text-primary)]">₹0</div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="glass-card-static p-6 flex justify-center">
+        <div class="chart-container">
+          <canvas id="emi-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Amortization Schedule -->
+  <div class="mt-10 glass-card-static p-6 md:p-8 animate-fade-in-delay-2">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl">Amortization Schedule</h2>
+      <button id="toggle-amort" class="tab-btn text-xs">Show Details</button>
+    </div>
+    <div id="amort-wrapper" class="table-responsive-container hidden">
+      <table class="amort-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Principal Paid</th>
+            <th>Interest Paid</th>
+            <th>Total Paid</th>
+            <th>Outstanding Balance</th>
+          </tr>
+        </thead>
+        <tbody id="amort-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bank Rate Comparison -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6">Bank-wise Interest Rate Comparison</h2>
+    <div class="table-responsive-container">
+      <table class="bank-table">
+        <thead>
+          <tr>
+            <th>Bank</th>
+            <th>Home Loan</th>
+            <th>Car Loan</th>
+            <th>Personal Loan</th>
+            <th>Processing Fee</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bankData.banks.map((bank) => (
+            <tr>
+              <td class="font-medium text-[var(--color-text-primary)]">
+                <span class="mr-2">{bank.logo}</span>{bank.shortName}
+              </td>
+              <td class="text-[var(--color-accent-emerald)] font-[var(--font-mono)] text-sm">{bank.rates.homeLoan.min}% – {bank.rates.homeLoan.max}%</td>
+              <td class="text-[var(--color-accent-cyan)] font-[var(--font-mono)] text-sm">{bank.rates.carLoan.min}% – {bank.rates.carLoan.max}%</td>
+              <td class="text-[var(--color-accent-amber)] font-[var(--font-mono)] text-sm">{bank.rates.personalLoan.min}% – {bank.rates.personalLoan.max}%</td>
+              <td class="text-[var(--color-text-muted)] text-sm">{bank.rates.homeLoan.processing}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-[var(--color-text-muted)] mt-4">* Rates are indicative and last updated on {bankData.lastUpdated}. Please verify with your bank.</p>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="group">
+        <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm flex items-center justify-between p-3 rounded-lg hover:bg-[var(--color-bg-card)] transition-colors">
+          What is EMI?
+          <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3 pt-0">EMI stands for Equated Monthly Instalment. It is the fixed payment amount made by a borrower to a lender at a specified date each calendar month. EMIs are used to pay off both interest and principal each month so that over a specified number of years, the loan is paid off in full.</p>
+      </details>
+      <details class="group">
+        <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm flex items-center justify-between p-3 rounded-lg hover:bg-[var(--color-bg-card)] transition-colors">
+          How is EMI calculated?
+          <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3 pt-0">EMI is calculated using the formula: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is the loan principal, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the total number of monthly installments (tenure in months).</p>
+      </details>
+      <details class="group">
+        <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm flex items-center justify-between p-3 rounded-lg hover:bg-[var(--color-bg-card)] transition-colors">
+          What factors affect my EMI?
+          <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3 pt-0">Three main factors affect your EMI: (1) Loan amount — higher amount means higher EMI, (2) Interest rate — higher rate means higher EMI, and (3) Loan tenure — longer tenure reduces EMI but increases total interest paid.</p>
+      </details>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
+<script>
+  // ---- Utility Functions ----
+  function formatCurrency(num) {
+    if (isNaN(num)) return '₹0';
+    const isNeg = num < 0;
+    num = Math.abs(Math.round(num));
+    const str = num.toString();
+    let formatted = '';
+    if (str.length <= 3) { formatted = str; }
+    else {
+      formatted = str.slice(-3);
+      let rem = str.slice(0, -3);
+      while (rem.length > 2) { formatted = rem.slice(-2) + ',' + formatted; rem = rem.slice(0, -2); }
+      if (rem.length > 0) formatted = rem + ',' + formatted;
+    }
+    return (isNeg ? '-' : '') + '₹' + formatted;
+  }
+
+  function calculateEMI(P, annualRate, months) {
+    if (annualRate === 0) return P / months;
+    const r = annualRate / 12 / 100;
+    return (P * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+  }
+
+  // ---- DOM Elements ----
+  const amountSlider = document.getElementById('loan-amount') as HTMLInputElement;
+  const amountInput = document.getElementById('loan-amount-input') as HTMLInputElement;
+  const rateSlider = document.getElementById('interest-rate') as HTMLInputElement;
+  const rateInput = document.getElementById('interest-rate-input') as HTMLInputElement;
+  const tenureSlider = document.getElementById('tenure') as HTMLInputElement;
+  const tenureInput = document.getElementById('tenure-input') as HTMLInputElement;
+  const tenureYrBtn = document.getElementById('tenure-yr') as HTMLButtonElement;
+  const tenureMoBtn = document.getElementById('tenure-mo') as HTMLButtonElement;
+  const toggleAmort = document.getElementById('toggle-amort') as HTMLButtonElement;
+  const amortWrapper = document.getElementById('amort-wrapper') as HTMLElement;
+
+  let tenureMode = 'yr';
+  let chart: any = null;
+
+  // ---- Sync Helpers ----
+  function syncSliderInput(slider: HTMLInputElement, input: HTMLInputElement) {
+    slider.addEventListener('input', () => { input.value = slider.value; calculate(); });
+    input.addEventListener('input', () => {
+      let v = parseFloat(input.value);
+      if (!isNaN(v)) { v = Math.max(parseFloat(slider.min), Math.min(parseFloat(slider.max), v)); slider.value = String(v); }
+      calculate();
+    });
+  }
+  syncSliderInput(amountSlider, amountInput);
+  syncSliderInput(rateSlider, rateInput);
+  syncSliderInput(tenureSlider, tenureInput);
+
+  // Preset Chips Listener
+  document.querySelectorAll('.preset-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-preset-for');
+      const val = btn.getAttribute('data-val');
+      if (!target || !val) return;
+
+      const slider = document.getElementById(target) as HTMLInputElement;
+      const input = document.getElementById(target + '-input') as HTMLInputElement;
+      if (slider && input) {
+        slider.value = val;
+        input.value = val;
+      }
+      document.querySelectorAll(`[data-preset-for="${target}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      calculate();
+    });
+  });
+
+  // ---- Tenure Mode Toggle ----
+  tenureYrBtn?.addEventListener('click', () => {
+    tenureMode = 'yr';
+    tenureYrBtn.classList.add('active'); tenureMoBtn?.classList.remove('active');
+    tenureSlider.min = '1'; tenureSlider.max = '30'; tenureSlider.step = '1'; tenureSlider.value = '20';
+    tenureInput.value = '20';
+    calculate();
+  });
+  tenureMoBtn?.addEventListener('click', () => {
+    tenureMode = 'mo';
+    tenureMoBtn.classList.add('active'); tenureYrBtn?.classList.remove('active');
+    tenureSlider.min = '1'; tenureSlider.max = '360'; tenureSlider.step = '1'; tenureSlider.value = '240';
+    tenureInput.value = '240';
+    calculate();
+  });
+
+  // ---- Toggle Amortization ----
+  toggleAmort?.addEventListener('click', () => {
+    amortWrapper?.classList.toggle('hidden');
+    toggleAmort.textContent = amortWrapper?.classList.contains('hidden') ? 'Show Details' : 'Hide Details';
+  });
+
+  // ---- Main Calculation ----
+  function calculate() {
+    const P = parseFloat(amountInput.value) || 0;
+    const R = parseFloat(rateInput.value) || 0;
+    let tenure = parseFloat(tenureInput.value) || 0;
+    const months = tenureMode === 'yr' ? tenure * 12 : tenure;
+
+    if (P <= 0 || months <= 0) return;
+
+    const emi = Math.round(calculateEMI(P, R, months));
+    const totalAmount = emi * months;
+    const totalInterest = totalAmount - P;
+
+    document.getElementById('emi-result')!.textContent = formatCurrency(emi);
+    document.getElementById('principal-result')!.textContent = formatCurrency(P);
+    document.getElementById('interest-result')!.textContent = formatCurrency(totalInterest);
+    document.getElementById('total-result')!.textContent = formatCurrency(totalAmount);
+
+    // Chart
+    updateChart(P, totalInterest);
+
+    // Amortization
+    generateAmortTable(P, R, months);
+  }
+
+  function updateChart(principal: number, interest: number) {
+    const canvas = document.getElementById('emi-chart') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    if (chart) chart.destroy();
+
+    // @ts-ignore
+    chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Principal', 'Interest'],
+        datasets: [{
+          data: [principal, interest],
+          backgroundColor: ['#06b6d4', '#f43f5e'],
+          borderColor: ['#0a0a0f', '#0a0a0f'],
+          borderWidth: 3,
+          hoverOffset: 8,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '70%',
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { size: 12 } } },
+          tooltip: {
+            callbacks: { label: (ctx: any) => ` ${ctx.label}: ${formatCurrency(ctx.raw)}` }
+          }
+        }
+      }
+    });
+  }
+
+  function generateAmortTable(P: number, R: number, months: number) {
+    const emi = calculateEMI(P, R, months);
+    const r = R / 12 / 100;
+    let balance = P;
+    let yearPrincipal = 0, yearInterest = 0;
+    const rows: string[] = [];
+
+    for (let m = 1; m <= months; m++) {
+      const intPaid = balance * r;
+      const prinPaid = emi - intPaid;
+      balance = Math.max(0, balance - prinPaid);
+      yearPrincipal += prinPaid;
+      yearInterest += intPaid;
+
+      if (m % 12 === 0 || m === months) {
+        rows.push(`<tr>
+          <td>Year ${Math.ceil(m / 12)}</td>
+          <td>${formatCurrency(yearPrincipal)}</td>
+          <td>${formatCurrency(yearInterest)}</td>
+          <td>${formatCurrency(yearPrincipal + yearInterest)}</td>
+          <td>${formatCurrency(balance)}</td>
+        </tr>`);
+        yearPrincipal = 0; yearInterest = 0;
+      }
+    }
+    document.getElementById('amort-body')!.innerHTML = rows.join('');
+  }
+
+  // Initial calculation
+  calculate();
+</script>

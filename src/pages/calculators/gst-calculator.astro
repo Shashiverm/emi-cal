@@ -1,0 +1,213 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+---
+<CalculatorLayout
+  title="GST Calculator — Calculate Goods & Services Tax (Inclusive / Exclusive)"
+  description="Calculate GST for business and personal transactions with 5%, 12%, 18%, and 28% tax slabs. Get CGST and SGST breakdowns instantly."
+  keywords="gst calculator, goods and services tax, gst inclusive exclusive, cgst sgst calculator, gst rate india"
+  calculator="GST Calculator"
+  category="Tax & Salary"
+  categoryBadge="badge-tax"
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Input Section -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl">GST Calculation Details</h2>
+
+      <!-- Mode Toggle -->
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">Calculation Type</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" id="btn-gst-exclusive" class="py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)]">
+            GST Exclusive (+ Add GST)
+          </button>
+          <button type="button" id="btn-gst-inclusive" class="py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]">
+            GST Inclusive (- Extract GST)
+          </button>
+        </div>
+      </div>
+
+      <!-- Amount Input -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label id="amount-label" class="text-sm font-medium text-[var(--color-text-secondary)]">Base Amount (Excl. Tax)</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="gst-amt-input" class="num-input w-36 text-right" value="25000" min="10" max="10000000" step="100"/>
+          </div>
+        </div>
+        <input type="range" id="gst-amt" min="100" max="1000000" step="500" value="25000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹100</span>
+          <span>₹5 Lakh</span>
+          <span>₹10 Lakh</span>
+        </div>
+      </div>
+
+      <!-- GST Rate Buttons & Custom -->
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">GST Rate (%)</label>
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-3">
+          <button type="button" class="rate-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-sm font-mono hover:border-[var(--color-accent-indigo)]" data-rate="0.25">0.25%</button>
+          <button type="button" class="rate-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-sm font-mono hover:border-[var(--color-accent-indigo)]" data-rate="3">3%</button>
+          <button type="button" class="rate-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-sm font-mono hover:border-[var(--color-accent-indigo)]" data-rate="5">5%</button>
+          <button type="button" class="rate-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-sm font-mono hover:border-[var(--color-accent-indigo)]" data-rate="12">12%</button>
+          <button type="button" class="rate-btn py-2 rounded-lg border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)] text-sm font-mono font-bold" data-rate="18">18%</button>
+          <button type="button" class="rate-btn py-2 rounded-lg border border-[var(--color-border-primary)] text-sm font-mono hover:border-[var(--color-accent-indigo)]" data-rate="28">28%</button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-[var(--color-text-muted)]">Custom Rate:</span>
+          <input type="number" id="gst-rate-custom" class="num-input w-24 text-right text-xs" placeholder="Custom" min="0" max="100" step="0.1" value="18"/>
+          <span class="text-xs text-[var(--color-text-muted)]">%</span>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-[var(--color-accent-indigo)]/10 border border-[var(--color-accent-indigo)]/20 text-xs text-[var(--color-text-secondary)]">
+        💡 For intra-state transactions, GST is split equally into <strong>CGST (Central GST)</strong> and <strong>SGST (State GST)</strong>. For inter-state supply, <strong>IGST (Integrated GST)</strong> is levied at the full rate.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-4 animate-fade-in-delay">
+      <!-- Total Invoiced Amount Card -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="text-sm text-[var(--color-text-muted)] mb-1" id="total-result-label">Total Amount (Incl. GST)</div>
+        <div id="gst-total-val" class="result-value gradient-text">₹0</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-2">Net final payable amount.</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Actual Base Price</div>
+          <div id="gst-base-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-text-primary)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total GST Amount</div>
+          <div id="gst-tax-val" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-amber)]">₹0</div>
+        </div>
+      </div>
+
+      <!-- Tax Breakdown -->
+      <div class="glass-card-static p-5 space-y-3">
+        <div class="text-sm font-semibold text-[var(--color-text-primary)]">Tax Component Breakdown</div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]" id="cgst-label">CGST (Central GST - 9%):</span>
+            <span id="cgst-val" class="font-mono text-[var(--color-text-primary)] font-semibold">₹0</span>
+          </div>
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]" id="sgst-label">SGST (State GST - 9%):</span>
+            <span id="sgst-val" class="font-mono text-[var(--color-text-primary)] font-semibold">₹0</span>
+          </div>
+          <div class="flex justify-between p-2 rounded bg-[var(--color-bg-tertiary)]">
+            <span class="text-[var(--color-text-secondary)]" id="igst-label">IGST (Inter-state - 18%):</span>
+            <span id="igst-val" class="font-mono text-[var(--color-accent-indigo)] font-semibold">₹0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+function fmt(n) {
+  const s = (Math.round(n * 100) / 100).toFixed(2);
+  const parts = s.split('.');
+  let f = parts[0];
+  const last3 = f.slice(-3);
+  let other = f.slice(0, -3);
+  if (other !== '') {
+    other = other.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + ",";
+  }
+  return '₹' + other + last3 + (parts[1] !== '00' ? '.' + parts[1] : '');
+}
+
+let isExclusive = true;
+let currentRate = 18;
+
+const btnExcl = document.getElementById('btn-gst-exclusive') as HTMLButtonElement;
+const btnIncl = document.getElementById('btn-gst-inclusive') as HTMLButtonElement;
+const amtLabel = document.getElementById('amount-label')!;
+const totalLabel = document.getElementById('total-result-label')!;
+const amtSlider = document.getElementById('gst-amt') as HTMLInputElement;
+const amtInput = document.getElementById('gst-amt-input') as HTMLInputElement;
+const rateCustom = document.getElementById('gst-rate-custom') as HTMLInputElement;
+const rateBtns = document.querySelectorAll('.rate-btn');
+
+btnExcl.addEventListener('click', () => {
+  isExclusive = true;
+  btnExcl.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)]';
+  btnIncl.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]';
+  amtLabel.textContent = 'Base Amount (Excl. Tax)';
+  totalLabel.textContent = 'Total Amount (Incl. GST)';
+  calc();
+});
+
+btnIncl.addEventListener('click', () => {
+  isExclusive = false;
+  btnIncl.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-accent-indigo)] bg-[var(--color-accent-indigo)]/20 text-[var(--color-accent-indigo)]';
+  btnExcl.className = 'py-2.5 px-4 rounded-lg font-medium text-sm border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]';
+  amtLabel.textContent = 'Gross Amount (Incl. Tax)';
+  totalLabel.textContent = 'Net Base Amount (Excl. GST)';
+  calc();
+});
+
+amtSlider.addEventListener('input', () => { amtInput.value = amtSlider.value; calc(); });
+amtInput.addEventListener('input', () => {
+  const v = parseFloat(amtInput.value);
+  if (!isNaN(v)) amtSlider.value = String(Math.max(parseFloat(amtSlider.min), Math.min(parseFloat(amtSlider.max), v)));
+  calc();
+});
+
+rateCustom.addEventListener('input', () => {
+  const r = parseFloat(rateCustom.value) || 0;
+  currentRate = r;
+  rateBtns.forEach(btn => btn.classList.remove('border-[var(--color-accent-indigo)]', 'bg-[var(--color-accent-indigo)]/20', 'text-[var(--color-accent-indigo)]', 'font-bold'));
+  calc();
+});
+
+rateBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    rateBtns.forEach(b => b.classList.remove('border-[var(--color-accent-indigo)]', 'bg-[var(--color-accent-indigo)]/20', 'text-[var(--color-accent-indigo)]', 'font-bold'));
+    btn.classList.add('border-[var(--color-accent-indigo)]', 'bg-[var(--color-accent-indigo)]/20', 'text-[var(--color-accent-indigo)]', 'font-bold');
+    currentRate = parseFloat(btn.getAttribute('data-rate') || '18');
+    rateCustom.value = String(currentRate);
+    calc();
+  });
+});
+
+function calc() {
+  const enteredAmt = parseFloat(amtInput.value) || 0;
+  let basePrice = 0;
+  let gstAmount = 0;
+  let totalAmount = 0;
+
+  if (isExclusive) {
+    basePrice = enteredAmt;
+    gstAmount = enteredAmt * (currentRate / 100);
+    totalAmount = enteredAmt + gstAmount;
+    document.getElementById('gst-total-val')!.textContent = fmt(totalAmount);
+    document.getElementById('gst-base-val')!.textContent = fmt(basePrice);
+  } else {
+    totalAmount = enteredAmt;
+    basePrice = enteredAmt / (1 + currentRate / 100);
+    gstAmount = totalAmount - basePrice;
+    document.getElementById('gst-total-val')!.textContent = fmt(basePrice);
+    document.getElementById('gst-base-val')!.textContent = fmt(totalAmount);
+  }
+
+  const halfRate = (currentRate / 2).toFixed(2).replace(/\.00$/, '');
+  const halfGst = gstAmount / 2;
+
+  document.getElementById('gst-tax-val')!.textContent = fmt(gstAmount);
+  document.getElementById('cgst-val')!.textContent = fmt(halfGst);
+  document.getElementById('sgst-val')!.textContent = fmt(halfGst);
+  document.getElementById('igst-val')!.textContent = fmt(gstAmount);
+
+  document.getElementById('cgst-label')!.textContent = `CGST (Central GST - ${halfRate}%):`;
+  document.getElementById('sgst-label')!.textContent = `SGST (State GST - ${halfRate}%):`;
+  document.getElementById('igst-label')!.textContent = `IGST (Inter-state - ${currentRate}%):`;
+}
+
+calc();
+</script>

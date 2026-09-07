@@ -1,0 +1,102 @@
+---
+const navCategories = [
+  { name: 'Loan & EMI', href: '/#loan-emi' },
+  { name: 'Investment', href: '/#investment' },
+  { name: 'Savings', href: '/#savings' },
+  { name: 'Retirement', href: '/#retirement' },
+  { name: 'Tax & Salary', href: '/#tax' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[#090d16]/85 backdrop-blur-xl transition-all">
+  <div class="container-main flex items-center justify-between h-16">
+    <!-- Brand Logo -->
+    <a href="/" class="flex items-center gap-2.5 group" aria-label="FinCalc India Home">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center text-white font-bold text-base shadow-sm group-hover:scale-105 transition-transform duration-200">
+        ₹
+      </div>
+      <div class="flex flex-col">
+        <span class="font-[var(--font-heading)] font-extrabold text-lg tracking-tight text-[var(--color-text-primary)] leading-tight">
+          FinCalc<span class="text-indigo-400 font-semibold ml-0.5">India</span>
+        </span>
+        <span class="text-[10px] text-[var(--color-text-muted)] font-medium -mt-0.5">Free Financial Calculators</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1.5" aria-label="Calculator categories">
+      {navCategories.map((cat) => (
+        <a
+          href={cat.href}
+          class="px-3 py-1.5 rounded-lg text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-800/60 transition-all duration-150"
+        >
+          {cat.name}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right Header Actions -->
+    <div class="flex items-center gap-2.5">
+      <a
+        href="/#calc-search-input"
+        class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-slate-600 text-xs font-medium text-slate-300 transition-all cursor-pointer"
+        aria-label="Search all calculators"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+        <kbd class="px-1.5 py-0.2 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono text-slate-400">Ctrl+K</kbd>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:text-white hover:bg-slate-800 transition-colors"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Navigation -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-border)] bg-[#090d16]/95 backdrop-blur-2xl">
+    <nav class="container-main py-4 flex flex-col gap-1">
+      {navCategories.map((cat) => (
+        <a
+          href={cat.href}
+          class="px-4 py-2.5 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:text-white hover:bg-slate-800/80 transition-all"
+        >
+          {cat.name}
+        </a>
+      ))}
+      <a
+        href="/#calc-search-input"
+        class="mt-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 flex items-center gap-2"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search 25+ Calculators</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+  });
+</script>

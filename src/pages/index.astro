@@ -1,0 +1,441 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CalculatorCard from '../components/CalculatorCard.astro';
+import calculators from '../data/calculators.json';
+import bankData from '../data/bank-rates.json';
+
+const categories = [
+  { name: 'Loan & EMI', id: 'loan-emi', icon: '💰', count: calculators.filter(c => c.category === 'Loan & EMI').length },
+  { name: 'Investment', id: 'investment', icon: '📈', count: calculators.filter(c => c.category === 'Investment').length },
+  { name: 'Savings & Deposits', id: 'savings', icon: '🏦', count: calculators.filter(c => c.category === 'Savings & Deposits').length },
+  { name: 'Provident Fund & Retirement', id: 'retirement', icon: '🌴', count: calculators.filter(c => c.category === 'Provident Fund & Retirement').length },
+  { name: 'Tax & Salary', id: 'tax', icon: '📋', count: calculators.filter(c => c.category === 'Tax & Salary').length },
+  { name: 'Other', id: 'other', icon: '🧮', count: calculators.filter(c => c.category === 'Other').length },
+];
+
+const faqs = [
+  {
+    q: "How is reducing balance EMI calculated vs flat rate EMI?",
+    a: "In the reducing balance method (standard across Indian banks like SBI, HDFC, and ICICI), interest is computed only on the outstanding principal balance each month. In the flat rate method, interest is charged on the original principal throughout the loan tenure, making flat rates significantly more expensive despite appearing lower at first glance."
+  },
+  {
+    q: "Which tax regime is better for salaried individuals: Old or New Regime (FY 2024-25 / 2025-26)?",
+    a: "Under the revised New Tax Regime, salaried individuals receive an enhanced Standard Deduction of ₹75,000 and zero tax on taxable income up to ₹7 Lakhs (due to Section 87A rebate). The Old Tax Regime may only be beneficial if your total deductions (Section 80C up to ₹1.5L, 80D health insurance, HRA, and Home Loan interest under Section 24b) exceed ₹3.75 to ₹4 Lakhs."
+  },
+  {
+    q: "How does a Step-Up SIP supercharge your investment corpus?",
+    a: "A regular SIP invests a fixed amount every month. A Step-Up SIP increases your monthly contribution annually (typically by 10% or 15% inline with your salary increments). Because compounding works exponentially on higher contributions, stepping up your SIP by just 10% each year can nearly double your final wealth over a 15-20 year horizon."
+  },
+  {
+    q: "What is the difference between PPF and Fixed Deposit (FD)?",
+    a: "PPF is backed by the Government of India with sovereign guarantee, offering EEE (Exempt-Exempt-Exempt) tax status at 7.1% p.a. interest, but has a 15-year lock-in. Fixed Deposits offer guaranteed returns across flexible tenures (7 days to 10 years) up to 7.5% - 8.2% for senior citizens, but the interest earned is fully taxable as per your income tax slab."
+  },
+  {
+    q: "How is House Rent Allowance (HRA) exemption calculated under Section 10(13A)?",
+    a: "HRA exemption is the minimum of three values: (1) Actual HRA received from employer, (2) 50% of Basic + DA for metro cities (Delhi, Mumbai, Kolkata, Chennai) or 40% for non-metros, and (3) Actual rent paid minus 10% of Basic + DA. Any excess HRA received is added to your taxable income."
+  },
+  {
+    q: "Are the calculations on FinCalc India completely private and free?",
+    a: "Yes. All financial calculations occur entirely on your local browser using client-side JavaScript. No salary details, investment amounts, or financial data are ever transmitted to any remote server or stored in any database."
+  }
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "FinCalc India",
+      "url": "https://fincalc.in",
+      "description": "India's authoritative financial calculator suite. Compare SBI, HDFC, ICICI loan EMI rates, SIP returns, FD/RD interest, PPF, retirement corpus, and Income Tax.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://fincalc.in/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="Financial Calculators India — EMI, SIP, Loan, FD, PPF & Tax 2026"
+  description="Free financial calculators for Indian investors & borrowers. Calculate EMI, SIP mutual fund returns, FD/RD interest, PPF, retirement, and compare Old vs New Tax Regime with live bank rates."
+  keywords="financial calculator india, emi calculator, home loan emi calculator sbi, sip calculator groww, fd calculator hdfc, ppf calculator 7.1, income tax calculator 2026, new tax regime vs old regime, rd calculator, cagr calculator, hra exemption calculator, loan interest rates india"
+  structuredData={structuredData}
+>
+  <Header slot="header" />
+
+  <!-- Hero Section -->
+  <section class="container-main pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-18 md:pb-20">
+    <div class="max-w-4xl mx-auto text-center animate-fade-in">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Updated for FY 2024-25 & 2025-26 Budget Tax Slabs</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-[var(--font-heading)] font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[var(--color-text-primary)] leading-[1.12] tracking-tight mb-5">
+        Calculate Loans, Wealth & Taxes
+        <span class="gradient-text block mt-1">With Financial Precision</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mx-auto mb-8">
+        Free, lightning-fast financial calculators for Indian borrowers and investors. Compare interest rates across <strong class="text-[var(--color-text-primary)]">SBI, HDFC, ICICI, Axis</strong> & more.
+      </p>
+
+      <!-- Live Search Box -->
+      <div class="max-w-2xl mx-auto relative mb-5">
+        <div class="relative flex items-center">
+          <div class="absolute left-4 text-slate-400 pointer-events-none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="calc-search-input"
+            class="w-full pl-12 pr-28 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-slate-500 focus:outline-none focus:border-[var(--color-accent-indigo)] focus:ring-2 focus:ring-indigo-500/20 shadow-lg transition-all"
+            placeholder="Search 25+ calculators (e.g. SIP, Home Loan, Tax, PPF, GST)..."
+            autocomplete="off"
+            aria-label="Search calculators"
+          />
+          <div class="absolute right-3.5 flex items-center gap-1.5 pointer-events-none">
+            <kbd class="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono text-slate-400 bg-slate-800/80 border border-slate-700 rounded shadow-sm">Ctrl + K</kbd>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Trending Tags -->
+      <div class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs text-[var(--color-text-muted)]">
+        <span class="font-medium text-slate-400">🔥 Popular:</span>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="Home Loan">Home Loan EMI</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="SIP">SIP Returns</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="Income Tax">Old vs New Tax</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="PPF">PPF</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="FD">FD Rates</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="GST">GST</button>
+      </div>
+    </div>
+
+    <!-- Quick Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-10 max-w-4xl mx-auto animate-fade-in-delay">
+      <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-cyan)]">25+</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Free Calculators</div>
+      </div>
+      <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-emerald)]">10+</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Indian Banks Live</div>
+      </div>
+      <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-violet)]">100%</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Client-Side Private</div>
+      </div>
+      <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-amber)]">&lt;50ms</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Instant Compute</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Category Filter Navigation -->
+  <section class="container-main pb-8">
+    <div class="flex items-center justify-between gap-3 border-b border-[var(--color-border)] pb-4 overflow-x-auto no-scrollbar">
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="cat-tab-btn active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all border border-indigo-500/30 bg-indigo-500/15 text-indigo-400"
+          data-filter="all"
+        >
+          All Calculators <span class="ml-1 opacity-70">({calculators.length})</span>
+        </button>
+        {categories.map((cat) => (
+          <button
+            type="button"
+            class="cat-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-800/60 border border-transparent transition-all whitespace-nowrap"
+            data-filter={cat.name}
+          >
+            {cat.name} <span class="ml-1 opacity-60 text-xs">({cat.count})</span>
+          </button>
+        ))}
+      </div>
+      <div id="search-results-counter" class="text-xs text-slate-400 whitespace-nowrap hidden sm:block">
+        Showing all {calculators.length} calculators
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Grid by Category -->
+  <div id="calculators-container">
+    {categories.map((cat) => {
+      const catCalcs = calculators.filter((c) => c.category === cat.name);
+      if (catCalcs.length === 0) return null;
+      return (
+        <section id={cat.id} class="container-main pb-12 sm:pb-16 category-section" data-cat-name={cat.name}>
+          <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700/60 flex items-center justify-center text-lg">
+                {cat.icon}
+              </div>
+              <h2 class="font-[var(--font-heading)] font-bold text-xl sm:text-2xl text-[var(--color-text-primary)] tracking-tight">
+                {cat.name}
+              </h2>
+            </div>
+            <span class="text-xs text-[var(--color-text-muted)] font-medium">
+              {catCalcs.length} tools available
+            </span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+            {catCalcs.map((calc) => (
+              <CalculatorCard
+                name={calc.name}
+                slug={calc.slug}
+                description={calc.description}
+                icon={calc.icon}
+                category={calc.category}
+                keywords={calc.keywords}
+              />
+            ))}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+
+  <!-- Zero Results Message -->
+  <div id="no-results-msg" class="container-main py-12 text-center hidden">
+    <div class="glass-card p-8 max-w-md mx-auto">
+      <div class="text-3xl mb-3">🔍</div>
+      <h3 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)] mb-2">No calculators found</h3>
+      <p class="text-sm text-[var(--color-text-secondary)] mb-4">Try searching for keywords like "EMI", "SIP", "Tax", or "PPF".</p>
+      <button type="button" id="reset-search-btn" class="preset-chip px-4 py-2 text-xs font-semibold text-indigo-400 bg-indigo-500/10 border-indigo-500/30">
+        Reset Search
+      </button>
+    </div>
+  </div>
+
+  <!-- Live Bank Interest Rates Comparison Section -->
+  <section class="container-main pb-16">
+    <div class="glass-card-static p-6 sm:p-8 md:p-10 border border-[var(--color-border)]">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="category-badge badge-loan mb-2">Market Benchmark Rates</div>
+          <h2 class="font-[var(--font-heading)] font-bold text-xl sm:text-2xl text-[var(--color-text-primary)] tracking-tight">
+            Top Indian Bank Interest Rate Comparison (2026)
+          </h2>
+          <p class="text-xs sm:text-sm text-[var(--color-text-secondary)] mt-1">
+            Real-time benchmark rates across leading public and private lenders.
+          </p>
+        </div>
+        <div class="text-xs text-[var(--color-text-muted)] font-mono">
+          Last updated: {bankData.lastUpdated}
+        </div>
+      </div>
+
+      <div class="table-responsive-container">
+        <table class="bank-table">
+          <thead>
+            <tr>
+              <th>Bank Name</th>
+              <th>Home Loan</th>
+              <th>Car Loan</th>
+              <th>Personal Loan</th>
+              <th>1-Year FD Rate</th>
+              <th>Senior Citizen FD</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bankData.banks.slice(0, 7).map((b) => (
+              <tr>
+                <td class="font-medium text-[var(--color-text-primary)]">
+                  <span class="mr-2">{b.logo}</span>{b.name} ({b.shortName})
+                </td>
+                <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-emerald)] font-semibold">
+                  {b.rates.homeLoan.min}% - {b.rates.homeLoan.max}%
+                </td>
+                <td class="font-[var(--font-mono)] text-sm text-[var(--color-text-primary)]">
+                  {b.rates.carLoan.min}% - {b.rates.carLoan.max}%
+                </td>
+                <td class="font-[var(--font-mono)] text-sm text-[var(--color-text-secondary)]">
+                  {b.rates.personalLoan.min}% - {b.rates.personalLoan.max}%
+                </td>
+                <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-cyan)] font-semibold">
+                  {b.rates.fd.general['1yr']}%
+                </td>
+                <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-amber)] font-semibold">
+                  {b.rates.fd.senior['1yr']}%
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-[var(--color-text-muted)] mt-4">
+        * Rates are sourced from official bank circulars and are subject to change based on applicant CIBIL score, loan amount, and bank policy.
+      </p>
+    </div>
+  </section>
+
+  <!-- Comprehensive SEO & FAQ Section -->
+  <section class="container-main pb-16">
+    <div class="glass-card-static p-6 sm:p-8 md:p-10 border border-[var(--color-border)]">
+      <div class="category-badge badge-other mb-3">Knowledge Base & FAQs</div>
+      <h2 class="font-[var(--font-heading)] font-bold text-2xl sm:text-3xl text-[var(--color-text-primary)] mb-6 tracking-tight">
+        Frequently Asked Financial Questions in India
+      </h2>
+
+      <!-- Accordion Grid -->
+      <div class="space-y-3.5">
+        {faqs.map((faq, idx) => (
+          <details class="group p-4 sm:p-5 rounded-xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] transition-all">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-[var(--font-heading)] font-semibold text-sm sm:text-base text-[var(--color-text-primary)] select-none">
+              <span>{faq.q}</span>
+              <span class="ml-4 text-slate-400 group-open:rotate-180 transition-transform duration-200">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-[var(--color-border)] text-xs sm:text-sm text-[var(--color-text-secondary)] leading-relaxed">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <!-- In-depth SEO Guide Copy -->
+      <div class="mt-10 pt-8 border-t border-[var(--color-border)] text-xs sm:text-sm text-[var(--color-text-secondary)] space-y-4 leading-relaxed">
+        <h3 class="font-[var(--font-heading)] font-bold text-base text-[var(--color-text-primary)]">
+          Why Choose FinCalc India for Your Financial Calculations?
+        </h3>
+        <p>
+          Managing personal finance in India requires navigating evolving tax slabs, varying repo-rate linked loan interest rates, and compounding cycles. Whether you are taking an <strong>SBI Home Loan</strong>, planning a retirement corpus through <strong>PPF and NPS</strong>, calculating monthly <strong>Mutual Fund SIP compounding</strong>, or evaluating your tax liability under the <strong>New Tax Regime vs Old Tax Regime</strong>, FinCalc India provides verified financial formulas tailored for Indian individuals, salaried professionals, NRIs, and business owners.
+        </p>
+        <p>
+          Unlike generic spreadsheets or ad-cluttered platforms, our calculators execute with zero latency, display instant amortization schedules, and safeguard your financial privacy by running entirely within your browser.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<script>
+  // Real-time Instant Search and Filter Logic
+  const searchInput = document.getElementById('calc-search-input') as HTMLInputElement;
+  const cards = document.querySelectorAll('.calc-card-item');
+  const sections = document.querySelectorAll('.category-section');
+  const catTabs = document.querySelectorAll('.cat-tab-btn');
+  const quickPills = document.querySelectorAll('.quick-filter-chip');
+  const noResultsMsg = document.getElementById('no-results-msg');
+  const resetBtn = document.getElementById('reset-search-btn');
+  const counter = document.getElementById('search-results-counter');
+
+  let activeCategory = 'all';
+
+  function applyFilter() {
+    const query = (searchInput?.value || '').trim().toLowerCase();
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const el = card as HTMLElement;
+      const cardSearch = el.dataset.search || '';
+      const cardCat = el.dataset.category || '';
+
+      const matchesSearch = query === '' || cardSearch.includes(query);
+      const matchesCategory = activeCategory === 'all' || cardCat === activeCategory;
+
+      if (matchesSearch && matchesCategory) {
+        el.style.display = 'block';
+        visibleCount++;
+      } else {
+        el.style.display = 'none';
+      }
+    });
+
+    // Hide empty category sections
+    sections.forEach((sec) => {
+      const sectionEl = sec as HTMLElement;
+      const visibleCardsInSection = sectionEl.querySelectorAll('.calc-card-item:not([style*="display: none"])');
+      sectionEl.style.display = visibleCardsInSection.length > 0 ? 'block' : 'none';
+    });
+
+    if (noResultsMsg) {
+      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    if (counter) {
+      counter.textContent = query || activeCategory !== 'all'
+        ? `Found ${visibleCount} calculator${visibleCount === 1 ? '' : 's'}`
+        : `Showing all ${cards.length} calculators`;
+    }
+  }
+
+  searchInput?.addEventListener('input', applyFilter);
+
+  // Keyboard shortcut (Ctrl+K or /)
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement !== searchInput)) {
+      e.preventDefault();
+      searchInput?.focus();
+    }
+  });
+
+  // Category Tab Buttons
+  catTabs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      catTabs.forEach(b => {
+        b.classList.remove('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
+        b.classList.add('border-transparent', 'text-[var(--color-text-secondary)]');
+      });
+      btn.classList.add('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
+      btn.classList.remove('border-transparent', 'text-[var(--color-text-secondary)]');
+      activeCategory = (btn as HTMLElement).dataset.filter || 'all';
+      applyFilter();
+    });
+  });
+
+  // Quick Trending Pills
+  quickPills.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const q = chip.getAttribute('data-query') || '';
+      if (searchInput) {
+        searchInput.value = q;
+        searchInput.focus();
+        applyFilter();
+      }
+    });
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    activeCategory = 'all';
+    catTabs.forEach((b, i) => {
+      if (i === 0) {
+        b.classList.add('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
+        b.classList.remove('border-transparent', 'text-[var(--color-text-secondary)]');
+      } else {
+        b.classList.remove('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
+        b.classList.add('border-transparent', 'text-[var(--color-text-secondary)]');
+      }
+    });
+    applyFilter();
+  });
+</script>

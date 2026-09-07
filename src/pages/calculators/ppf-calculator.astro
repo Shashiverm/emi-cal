@@ -1,0 +1,319 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the current PPF interest rate in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Public Provident Fund (PPF) interest rate is currently 7.1% per annum, compounded annually. The rate is reviewed and announced quarterly by the Ministry of Finance, Government of India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is PPF considered completely tax-free (EEE)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PPF enjoys EEE (Exempt-Exempt-Exempt) tax status: 1) Investment up to ₹1.5 Lakh is tax-deductible under Section 80C, 2) Annual interest earned is completely exempt from income tax, and 3) The maturity proceeds are 100% tax-free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I extend my PPF account beyond 15 years?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, on completion of the mandatory 15-year tenure, you can extend your PPF account in blocks of 5 years indefinitely, either with or without fresh contributions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I deposit money in PPF to get maximum interest?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Interest in PPF is calculated on the lowest balance between the 5th and the end of each calendar month. Depositing before or on the 5th of every month ensures you earn interest for that full month."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="PPF Calculator — Public Provident Fund Returns & Maturity Calculation"
+  description="Calculate your PPF maturity amount at the 7.1% government rate. Year-wise balance growth, tax-saving calculations under Section 80C, and EEE tax-free wealth projection."
+  keywords="ppf calculator, public provident fund calculator, ppf interest rate 7.1, ppf maturity calculator, ppf extension rules, ppf tax benefit 80c, ppf vs elss, government saving scheme"
+  calculator="PPF Calculator"
+  category="Savings"
+  categoryBadge="badge-savings"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          PPF Contribution Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-medium">100% Sovereign Guarantee</span>
+      </div>
+
+      <!-- Yearly Investment -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="ppf-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Yearly Investment</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="ppf-amount-input" class="num-input w-32 text-right" value="150000" min="500" max="150000" step="500"/>
+          </div>
+        </div>
+        <input type="range" id="ppf-amount" min="500" max="150000" step="500" value="150000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹500 (Min)</span>
+          <span>₹75,000</span>
+          <span>₹1.5L (Max Limit)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="ppf-amount" data-val="12000">₹12K (₹1K/mo)</button>
+          <button type="button" class="preset-chip" data-preset-for="ppf-amount" data-val="50000">₹50K</button>
+          <button type="button" class="preset-chip" data-preset-for="ppf-amount" data-val="100000">₹1.0 Lakh</button>
+          <button type="button" class="preset-chip active" data-preset-for="ppf-amount" data-val="150000">₹1.5L (Max 80C)</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="ppf-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="ppf-rate-input" class="num-input w-24 text-right" value="7.1" min="1" max="15" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="ppf-rate" min="1" max="15" step="0.1" value="7.1"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1%</span>
+          <span>7.1% (Govt Set)</span>
+          <span>15%</span>
+        </div>
+      </div>
+
+      <!-- Tenure -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="ppf-tenure" class="text-sm font-medium text-[var(--color-text-secondary)]">Tenure Period</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="ppf-tenure-input" class="num-input w-20 text-right" value="15" min="15" max="50"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="ppf-tenure" min="15" max="50" step="5" value="15"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>15 Yr (Standard Lock-in)</span>
+          <span>50 Yr</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip active" data-preset-for="ppf-tenure" data-val="15">15 Yrs (Default)</button>
+          <button type="button" class="preset-chip" data-preset-for="ppf-tenure" data-val="20">20 Yrs (1 Ext)</button>
+          <button type="button" class="preset-chip" data-preset-for="ppf-tenure" data-val="25">25 Yrs (2 Ext)</button>
+          <button type="button" class="preset-chip" data-preset-for="ppf-tenure" data-val="30">30 Yrs (3 Ext)</button>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-lg bg-[var(--color-accent-indigo)]/10 border border-[var(--color-accent-indigo)]/20 text-xs text-[var(--color-text-secondary)] leading-relaxed">
+        💡 <strong>EEE Tax Exemption:</strong> Invested sum, yearly accumulated interest, and final maturity withdrawal are all <strong>100% tax-free</strong>.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Tax-Free Maturity Corpus</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--color-accent-emerald)]/10 text-[var(--color-accent-emerald)] border border-[var(--color-accent-emerald)]/20 font-medium">Safe & Guaranteed</span>
+        </div>
+        <div id="ppf-maturity" class="result-value gradient-text">₹0</div>
+        <p class="text-xs text-[var(--color-text-secondary)] mt-2">Guaranteed maturity amount credited to your bank</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1 font-medium">Total Invested Capital</div>
+          <div id="ppf-invested" class="font-[var(--font-mono)] font-bold text-lg text-[var(--color-accent-cyan)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-5">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1 font-medium">Total Interest Earned</div>
+          <div id="ppf-interest" class="font-[var(--font-mono)] font-bold text-lg text-[var(--color-accent-emerald)]">₹0</div>
+        </div>
+      </div>
+
+      <div class="glass-card-static p-6 flex flex-col items-center justify-center">
+        <div class="text-xs text-[var(--color-text-muted)] mb-3 font-medium">Invested vs Tax-Free Interest Earned</div>
+        <div class="chart-container">
+          <canvas id="ppf-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Year-wise Schedule Table -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-4 text-[var(--color-text-primary)]">
+      Year-wise PPF Growth Schedule
+    </h2>
+    <div id="ppf-table-wrapper" class="table-responsive-container">
+      <table class="amort-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Yearly Deposit</th>
+            <th>Annual Interest Earned</th>
+            <th>Closing Balance</th>
+          </tr>
+        </thead>
+        <tbody id="ppf-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6 text-[var(--color-text-primary)]">
+      Frequently Asked Questions (PPF Rules & Taxation)
+    </h2>
+    <div class="space-y-4">
+      {faqData.mainEntity.map(faq => (
+        <details class="group">
+          <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm sm:text-base flex items-center justify-between p-3.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-colors">
+            <span>{faq.name}</span>
+            <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3.5 pt-1">
+            {faq.acceptedAnswer.text}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
+<script>
+  function fmt(n: number) {
+    const s = Math.abs(Math.round(n)).toString();
+    let f = s.length <= 3 ? s : '';
+    if (s.length > 3) {
+      f = s.slice(-3);
+      let r = s.slice(0, -3);
+      while (r.length > 2) {
+        f = r.slice(-2) + ',' + f;
+        r = r.slice(0, -2);
+      }
+      if (r.length) f = r + ',' + f;
+    }
+    return '₹' + f;
+  }
+
+  let chart: any = null;
+
+  ['ppf-amount', 'ppf-rate', 'ppf-tenure'].forEach(id => {
+    const s = document.getElementById(id) as HTMLInputElement;
+    const i = document.getElementById(id + '-input') as HTMLInputElement;
+    s?.addEventListener('input', () => { i.value = s.value; calc(); });
+    i?.addEventListener('input', () => {
+      let v = parseFloat(i.value);
+      if (!isNaN(v)) {
+        v = Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v));
+        s.value = String(v);
+      }
+      calc();
+    });
+  });
+
+  // Preset Chips Listener
+  document.querySelectorAll('.preset-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-preset-for');
+      const val = btn.getAttribute('data-val');
+      if (!target || !val) return;
+
+      const slider = document.getElementById(target) as HTMLInputElement;
+      const input = document.getElementById(target + '-input') as HTMLInputElement;
+      if (slider && input) {
+        slider.value = val;
+        input.value = val;
+      }
+      document.querySelectorAll(`[data-preset-for="${target}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      calc();
+    });
+  });
+
+  function calc() {
+    const P = parseFloat((document.getElementById('ppf-amount-input') as HTMLInputElement).value) || 0;
+    const R = parseFloat((document.getElementById('ppf-rate-input') as HTMLInputElement).value) || 0;
+    const T = parseFloat((document.getElementById('ppf-tenure-input') as HTMLInputElement).value) || 0;
+    const r = R / 100;
+    let bal = 0;
+    const rows: string[] = [];
+
+    for (let y = 1; y <= T; y++) {
+      const int = Math.round((bal + P) * r);
+      bal = (bal + P) * (1 + r);
+      rows.push(`<tr>
+        <td class="font-medium">Year ${y}</td>
+        <td class="font-mono">${fmt(P)}</td>
+        <td class="font-mono text-[var(--color-accent-emerald)]">+${fmt(int)}</td>
+        <td class="font-mono font-semibold">${fmt(bal)}</td>
+      </tr>`);
+    }
+
+    const invested = P * T;
+    const interest = bal - invested;
+
+    document.getElementById('ppf-maturity')!.textContent = fmt(bal);
+    document.getElementById('ppf-invested')!.textContent = fmt(invested);
+    document.getElementById('ppf-interest')!.textContent = fmt(interest);
+    document.getElementById('ppf-tbody')!.innerHTML = rows.join('');
+
+    const c = document.getElementById('ppf-chart') as HTMLCanvasElement;
+    if (!c) return;
+    if (chart) chart.destroy();
+
+    // @ts-ignore
+    chart = new Chart(c.getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Invested Capital', 'Tax-Free Interest'],
+        datasets: [{
+          data: [invested, interest],
+          backgroundColor: ['#06b6d4', '#10b981'],
+          borderColor: ['#090d16', '#090d16'],
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '72%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#94a3b8', padding: 14, usePointStyle: true, font: { size: 12 } }
+          },
+          tooltip: {
+            callbacks: {
+              label: (c: any) => ` ${c.label}: ${fmt(c.raw)}`
+            }
+          }
+        }
+      }
+    });
+  }
+
+  calc();
+</script>

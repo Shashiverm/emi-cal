@@ -1,0 +1,483 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import bankData from '../../data/bank-rates.json';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is Home Loan EMI calculated in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Home Loan EMI is computed using the standard reducing balance formula: EMI = [P × r × (1+r)^n] / [(1+r)^n - 1], where P is the principal loan amount, r is the monthly interest rate (annual interest rate ÷ 12 ÷ 100), and n is the loan tenure in total months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the current home loan interest rate in top Indian banks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As of 2026, top Indian lenders like State Bank of India (SBI), HDFC Bank, ICICI Bank, and Bank of Baroda offer home loan interest rates starting around 8.40% to 9.15% per annum for borrowers with a CIBIL score of 750 or above."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I claim income tax deductions on Home Loan EMI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Under Section 80C of the Income Tax Act, you can claim up to ₹1.5 Lakh per financial year on principal repayment. Under Section 24(b), you can claim up to ₹2 Lakh per year on the interest paid for a self-occupied property."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it better to reduce home loan EMI or loan tenure during prepayment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reducing the loan tenure saves significantly more interest over the life of the loan compared to reducing the monthly EMI amount. However, reducing EMI provides immediate relief to your monthly household budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What minimum CIBIL score is required for the lowest home loan interest rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A credit score of 750 or higher is considered ideal by most Indian banks and housing finance companies (HFCs) to qualify for the lowest tier of home loan interest rates."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Home Loan EMI Calculator — Calculate Housing Loan EMI & Compare Bank Rates"
+  description="Free Home Loan EMI Calculator with live interest rate comparison for SBI, HDFC, ICICI, Axis & Kotak. Calculate monthly instalment, total interest, and tax savings under Section 80C & 24(b)."
+  keywords="home loan emi calculator, housing loan calculator, sbi home loan emi calculator, hdfc home loan calculator, icici home loan interest rate, home loan tax benefit 80c 24b, home loan calculator india, housing loan emi"
+  calculator="Home Loan EMI Calculator"
+  category="Loan & EMI"
+  categoryBadge="badge-loan"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Calculator Inputs -->
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Home Loan Parameters
+        </h2>
+        <span class="text-xs text-[var(--color-accent-cyan)] font-medium">Reducing Balance</span>
+      </div>
+
+      <!-- Loan Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="hl-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="hl-amount-input" class="num-input w-36 text-right" value="5000000" min="100000" max="100000000" step="100000"/>
+          </div>
+        </div>
+        <input type="range" id="hl-amount" min="100000" max="100000000" step="100000" value="5000000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹1 Lakh</span>
+          <span>₹50 Lakh</span>
+          <span>₹10 Crore</span>
+        </div>
+        <!-- Preset Chips -->
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="hl-amount" data-val="2500000">₹25L</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-amount" data-val="4000000">₹40L</button>
+          <button type="button" class="preset-chip active" data-preset-for="hl-amount" data-val="5000000">₹50L</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-amount" data-val="7500000">₹75L</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-amount" data-val="10000000">₹1 Cr</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="hl-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="hl-rate-input" class="num-input w-24 text-right" value="8.5" min="5" max="18" step="0.05"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="hl-rate" min="5" max="18" step="0.05" value="8.5"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>5.0%</span>
+          <span>8.5% (Typical)</span>
+          <span>18.0%</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="hl-rate" data-val="8.4">8.40% (SBI)</button>
+          <button type="button" class="preset-chip active" data-preset-for="hl-rate" data-val="8.5">8.50% (HDFC)</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-rate" data-val="8.75">8.75% (ICICI)</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-rate" data-val="9.0">9.00%</button>
+        </div>
+      </div>
+
+      <!-- Tenure -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="hl-tenure" class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Tenure</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="hl-tenure-input" class="num-input w-20 text-right" value="20" min="1" max="30"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="hl-tenure" min="1" max="30" step="1" value="20"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1 Year</span>
+          <span>15 Yrs</span>
+          <span>30 Years</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="hl-tenure" data-val="10">10 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-tenure" data-val="15">15 Yrs</button>
+          <button type="button" class="preset-chip active" data-preset-for="hl-tenure" data-val="20">20 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-tenure" data-val="25">25 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="hl-tenure" data-val="30">30 Yrs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <!-- Monthly EMI Card -->
+      <div class="glass-card p-6 md:p-8 animate-pulse-glow">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Monthly Instalment</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--color-accent-cyan)]/10 text-[var(--color-accent-cyan)] border border-[var(--color-accent-cyan)]/20 font-medium">Auto-Calculated</span>
+        </div>
+        <div id="hl-emi" class="result-value gradient-text">₹0</div>
+        <p class="text-xs text-[var(--color-text-secondary)] mt-2">Principal + Interest payable every month</p>
+      </div>
+
+      <!-- Financial Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="glass-card-static p-4">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Principal Amount</div>
+          <div id="hl-principal" class="font-[var(--font-mono)] font-bold text-base text-[var(--color-accent-cyan)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-4">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Interest</div>
+          <div id="hl-interest" class="font-[var(--font-mono)] font-bold text-base text-[var(--color-accent-rose)]">₹0</div>
+        </div>
+        <div class="glass-card-static p-4">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Total Payment</div>
+          <div id="hl-total" class="font-[var(--font-mono)] font-bold text-base text-[var(--color-text-primary)]">₹0</div>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="glass-card-static p-6 flex flex-col items-center justify-center">
+        <div class="text-xs text-[var(--color-text-muted)] mb-3 font-medium">Principal vs Interest Breakdown</div>
+        <div class="chart-container">
+          <canvas id="hl-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bank Rate Comparison -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl text-[var(--color-text-primary)]">
+        Live Home Loan Interest Rates — Top Indian Banks (2026)
+      </h2>
+      <span class="text-xs text-[var(--color-accent-emerald)] bg-[var(--color-accent-emerald)]/10 px-2.5 py-1 rounded-full border border-[var(--color-accent-emerald)]/20 w-fit">
+        Updated {bankData.lastUpdated}
+      </span>
+    </div>
+    <div class="table-responsive-container">
+      <table class="bank-table">
+        <thead>
+          <tr>
+            <th>Bank / Lender</th>
+            <th>Min Interest Rate</th>
+            <th>Max Interest Rate</th>
+            <th>Processing Fee</th>
+            <th>Quick Calculate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bankData.banks.map(b => (
+            <tr>
+              <td class="font-medium text-[var(--color-text-primary)]">
+                <span class="mr-2">{b.logo}</span>{b.shortName}
+              </td>
+              <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-emerald)] font-semibold">{b.rates.homeLoan.min}%</td>
+              <td class="font-[var(--font-mono)] text-sm text-[var(--color-accent-amber)]">{b.rates.homeLoan.max}%</td>
+              <td class="text-[var(--color-text-muted)] text-sm">{b.rates.homeLoan.processing}</td>
+              <td>
+                <button type="button" class="bank-apply-btn text-xs px-2.5 py-1 rounded bg-[var(--color-bg-elevated)] hover:bg-[var(--color-accent-cyan)]/20 hover:text-[var(--color-accent-cyan)] text-[var(--color-text-secondary)] border border-[var(--color-border)] transition-colors" data-rate={b.rates.homeLoan.min}>
+                  Apply {b.rates.homeLoan.min}%
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-[var(--color-text-muted)] mt-4 leading-relaxed">
+      * Interest rates are subject to borrower credit assessment, loan-to-value (LTV) ratio, and prevailing RBI repo rates.
+    </p>
+  </div>
+
+  <!-- Educational Guide & Formula Section -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="glass-card-static p-6 md:p-8 space-y-4">
+      <h3 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+        How Home Loan EMI is Calculated
+      </h3>
+      <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        Banks in India use the reducing balance formula to compute your monthly instalment. In this method, the interest is calculated only on the outstanding principal balance at the beginning of every month:
+      </p>
+      <div class="p-4 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)] font-mono text-center text-sm text-[var(--color-accent-cyan)]">
+        EMI = [P × r × (1+r)^n] / [(1+r)^n - 1]
+      </div>
+      <ul class="text-xs text-[var(--color-text-secondary)] space-y-1.5 list-disc list-inside">
+        <li><strong>P</strong> = Principal loan amount</li>
+        <li><strong>r</strong> = Monthly rate of interest (Annual Rate ÷ 12 ÷ 100)</li>
+        <li><strong>n</strong> = Loan duration in months (Years × 12)</li>
+      </ul>
+    </div>
+
+    <div class="glass-card-static p-6 md:p-8 space-y-4">
+      <h3 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+        Tax Benefits on Home Loans in India
+      </h3>
+      <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        Under the Old Tax Regime, homeowners can claim substantial tax deductions against their home loan repayments:
+      </p>
+      <div class="space-y-2 text-xs">
+        <div class="p-2.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)] flex justify-between items-center">
+          <span class="text-[var(--color-text-primary)] font-medium">Section 80C (Principal Repayment)</span>
+          <span class="text-[var(--color-accent-emerald)] font-mono font-semibold">Up to ₹1.5 Lakh/yr</span>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)] flex justify-between items-center">
+          <span class="text-[var(--color-text-primary)] font-medium">Section 24(b) (Interest - Self Occupied)</span>
+          <span class="text-[var(--color-accent-emerald)] font-mono font-semibold">Up to ₹2.0 Lakh/yr</span>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)] flex justify-between items-center">
+          <span class="text-[var(--color-text-primary)] font-medium">Section 80EEA (First Time Buyers)</span>
+          <span class="text-[var(--color-accent-emerald)] font-mono font-semibold">Up to ₹1.5 Lakh/yr</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RBI 2026 Regulatory Directives & Borrower Rights -->
+  <div class="mt-8 rounded-2xl bg-gradient-to-r from-[var(--color-bg-surface)] to-[var(--color-bg-elevated)] border border-cyan-500/30 p-6 md:p-8 shadow-lg">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[var(--color-border)]">
+      <div class="flex items-center gap-3">
+        <span class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </span>
+        <div>
+          <h3 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+            RBI Master Directives & Borrower Rights (2026)
+          </h3>
+          <p class="text-xs text-[var(--color-text-muted)]">Statutory consumer protections notified by the Reserve Bank of India</p>
+        </div>
+      </div>
+      <a href="/regulatory-framework#rbi-lending" class="inline-flex items-center gap-1.5 text-xs font-medium text-cyan-400 hover:text-cyan-300 bg-cyan-950/40 border border-cyan-800/60 px-3.5 py-2 rounded-lg transition-colors shrink-0">
+        <span>View Full Regulatory Guide</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+      <div class="p-3.5 rounded-xl bg-[var(--color-bg-base)]/60 border border-[var(--color-border)]">
+        <div class="font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-1.5">
+          <span class="text-emerald-400">✓</span> Zero Prepayment Penalty
+        </div>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Under RBI guidelines, banks & HFCs cannot charge foreclosure or prepayment fees on floating-rate individual housing loans.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-[var(--color-bg-base)]/60 border border-[var(--color-border)]">
+        <div class="font-semibold text-[var(--color-text-primary)] mb-1 flex items-center gap-1.5">
+          <span class="text-cyan-400">✓</span> Mandatory KFS Statement
+        </div>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Lenders must provide an explicit Key Fact Statement (KFS) detailing the all-inclusive Annual Percentage Rate (APR) before signing.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-[var(--color-bg-base)]/60 border border-[var(--color-border)]">
+        <div class="font-semibold text-[var(--color-accent-amber)] mb-1 flex items-center gap-1.5">
+          <span>⚠️</span> Prudent FOIR Limits (40-50%)
+        </div>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Total monthly debt servicing (all EMIs) should ideally remain within 40-50% of your take-home monthly salary.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-4 pt-3 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--color-text-muted)]">
+      <span>Official portals:</span>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://rbi.org.in" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">Reserve Bank of India (rbi.org.in) ↗</a>
+        <span class="text-[var(--color-border)]">•</span>
+        <a href="https://nhb.org.in" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">National Housing Bank (nhb.org.in) ↗</a>
+        <span class="text-[var(--color-border)]">•</span>
+        <a href="https://eportal.incometax.gov.in" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">Income Tax e-Filing ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Frequently Asked Questions Accordion -->
+  <div class="mt-10 glass-card-static p-6 md:p-8">
+    <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6 text-[var(--color-text-primary)]">
+      Frequently Asked Questions (Home Loan EMI)
+    </h2>
+    <div class="space-y-4">
+      {faqData.mainEntity.map(faq => (
+        <details class="group">
+          <summary class="cursor-pointer text-[var(--color-text-primary)] font-medium text-sm sm:text-base flex items-center justify-between p-3.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-colors">
+            <span>{faq.name}</span>
+            <svg class="w-4 h-4 text-[var(--color-text-muted)] group-open:rotate-180 transition-transform shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed p-3.5 pt-1">
+            {faq.acceptedAnswer.text}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
+<script>
+  function fmt(n: number) {
+    const s = Math.abs(Math.round(n)).toString();
+    let f = s.length <= 3 ? s : '';
+    if (s.length > 3) {
+      f = s.slice(-3);
+      let r = s.slice(0, -3);
+      while (r.length > 2) {
+        f = r.slice(-2) + ',' + f;
+        r = r.slice(0, -2);
+      }
+      if (r.length) f = r + ',' + f;
+    }
+    return '₹' + f;
+  }
+
+  let chart: any = null;
+
+  const amountSlider = document.getElementById('hl-amount') as HTMLInputElement;
+  const amountInput = document.getElementById('hl-amount-input') as HTMLInputElement;
+  const rateSlider = document.getElementById('hl-rate') as HTMLInputElement;
+  const rateInput = document.getElementById('hl-rate-input') as HTMLInputElement;
+  const tenureSlider = document.getElementById('hl-tenure') as HTMLInputElement;
+  const tenureInput = document.getElementById('hl-tenure-input') as HTMLInputElement;
+
+  function sync(slider: HTMLInputElement, input: HTMLInputElement, cb: () => void) {
+    slider?.addEventListener('input', () => { input.value = slider.value; cb(); });
+    input?.addEventListener('input', () => {
+      let v = parseFloat(input.value);
+      if (!isNaN(v)) {
+        v = Math.max(parseFloat(slider.min), Math.min(parseFloat(slider.max), v));
+        slider.value = String(v);
+      }
+      cb();
+    });
+  }
+
+  sync(amountSlider, amountInput, calc);
+  sync(rateSlider, rateInput, calc);
+  sync(tenureSlider, tenureInput, calc);
+
+  // Preset Chips Listener
+  document.querySelectorAll('.preset-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-preset-for');
+      const val = btn.getAttribute('data-val');
+      if (!target || !val) return;
+
+      const slider = document.getElementById(target) as HTMLInputElement;
+      const input = document.getElementById(target + '-input') as HTMLInputElement;
+      if (slider && input) {
+        slider.value = val;
+        input.value = val;
+      }
+      document.querySelectorAll(`[data-preset-for="${target}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      calc();
+    });
+  });
+
+  // Bank Apply Rate Button Listener
+  document.querySelectorAll('.bank-apply-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const rate = btn.getAttribute('data-rate');
+      if (!rate) return;
+      rateSlider.value = rate;
+      rateInput.value = rate;
+      calc();
+      // Scroll smoothly back to calculator card if on mobile
+      document.getElementById('hl-emi')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  function calc() {
+    const P = parseFloat(amountInput.value) || 0;
+    const R = parseFloat(rateInput.value) || 0;
+    const T = parseFloat(tenureInput.value) || 0;
+    const n = T * 12;
+    const r = R / 12 / 100;
+    const emi = r > 0 ? Math.round((P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)) : Math.round(P / n);
+    const total = emi * n;
+    const interest = total - P;
+
+    document.getElementById('hl-emi')!.textContent = fmt(emi);
+    document.getElementById('hl-principal')!.textContent = fmt(P);
+    document.getElementById('hl-interest')!.textContent = fmt(interest);
+    document.getElementById('hl-total')!.textContent = fmt(total);
+
+    const c = document.getElementById('hl-chart') as HTMLCanvasElement;
+    if (!c) return;
+    if (chart) chart.destroy();
+
+    // @ts-ignore
+    chart = new Chart(c.getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Principal Amount', 'Total Interest'],
+        datasets: [{
+          data: [P, interest],
+          backgroundColor: ['#06b6d4', '#f43f5e'],
+          borderColor: ['#090d16', '#090d16'],
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '72%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#94a3b8', padding: 14, usePointStyle: true, font: { size: 12, family: 'Inter' } }
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx: any) => ` ${ctx.label}: ${fmt(ctx.raw)}`
+            }
+          }
+        }
+      }
+    });
+  }
+
+  calc();
+</script>

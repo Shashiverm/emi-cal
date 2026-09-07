@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Regulatory Disclaimers — FinCalc India (2026)"
+  description="Regulatory disclaimers concerning RBI lending benchmarks, SEBI mutual fund guidelines, Income Tax Act provisions, and bank rate accuracy."
+  keywords="financial disclaimer, RBI compliance, SEBI disclaimer, income tax disclaimer, loan calculation disclaimer"
+>
+  <Header slot="header" />
+
+  <main class="container-main py-12 sm:py-16 max-w-4xl">
+    <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="text-[var(--color-text-muted)]">/</span>
+      <span class="text-[var(--color-text-primary)] font-medium">Regulatory Disclaimers</span>
+    </nav>
+
+    <div class="glass-card-static p-6 sm:p-10 border border-[var(--color-border)] space-y-8">
+      <div class="border-b border-[var(--color-border)] pb-6">
+        <span class="category-badge badge-tax mb-3">Regulatory Compliance</span>
+        <h1 class="font-[var(--font-heading)] font-bold text-2xl sm:text-4xl text-[var(--color-text-primary)] tracking-tight">
+          Regulatory Disclaimers & Consumer Notice
+        </h1>
+        <p class="text-xs text-[var(--color-text-muted)] mt-2">
+          Effective Period: <strong>Calendar Year 2026</strong> · Regulatory Jurisdiction: <strong>Republic of India</strong>
+        </p>
+      </div>
+
+      <!-- 1. Lending & EMI -->
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🏦</span>
+          <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+            1. Lending, Loan EMIs & Bank Rate Benchmarks (RBI Guidelines)
+          </h2>
+        </div>
+        <p>
+          Calculations on our <strong>Home Loan EMI</strong>, <strong>Car Loan EMI</strong>, <strong>Personal Loan EMI</strong>, and <strong>Universal EMI Calculator</strong> use the standard mathematical reducing-balance amortization method.
+        </p>
+        <div class="p-4 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)] text-xs space-y-2 text-[var(--color-text-secondary)]">
+          <p><strong>Please take note of the following lending conditions:</strong></p>
+          <ul class="list-disc list-inside space-y-1">
+            <li><strong>Indicative Interest Rates:</strong> Listed rates for State Bank of India (SBI), HDFC Bank, ICICI Bank, Axis Bank, Punjab National Bank (PNB), Bank of Baroda (BoB), and others are public benchmarks updated regularly. Actual rates sanctioned by lenders depend on individual credit evaluation, debt-to-income (FOIR) ratio, Loan-to-Value (LTV), and credit bureau scores (CIBIL / Experian).</li>
+            <li><strong>Key Fact Statement (KFS):</strong> Under RBI Master Directions, every regulated lender must provide a standardized Key Fact Statement disclosing the Annual Percentage Rate (APR), processing fees, legal charges, and stamp duty before loan sanction.</li>
+            <li><strong>Floating Rate Prepayment:</strong> As per RBI directives, commercial banks and HFCs are prohibited from levying foreclosure charges or prepayment penalties on floating-rate term loans sanctioned to individual borrowers for non-business purposes.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. Mutual Funds & Investments -->
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📈</span>
+          <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+            2. Mutual Fund SIPs & Wealth Projections (SEBI Caution)
+          </h2>
+        </div>
+        <p>
+          Calculations produced by the <strong>SIP Calculator</strong>, <strong>Step-Up SIP Calculator</strong>, <strong>Lumpsum Calculator</strong>, and <strong>CAGR Calculator</strong> represent mathematical compounding scenarios using hypothetical rates of return (e.g. 10%, 12%, 15%).
+        </p>
+        <div class="p-4 rounded-lg bg-rose-500/10 border border-rose-500/25 text-xs text-rose-300 space-y-2">
+          <p class="font-semibold text-rose-200">⚠️ SEBI Statutory Warning:</p>
+          <p>
+            <em>"Mutual fund investments are subject to market risks. Please read all scheme-related documents carefully before investing."</em>
+          </p>
+          <p>
+            Past returns or annualized index performance do not guarantee future performance. Actual mutual fund returns vary based on equity market cycles, fund management strategy, macroeconomic conditions, and holding periods.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. Income Tax & GST -->
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🧾</span>
+          <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+            3. Income Tax & GST Computations (Union Budget FY 2024-25 / 2025-26)
+          </h2>
+        </div>
+        <p>
+          Our <strong>Income Tax Calculator</strong>, <strong>HRA Calculator</strong>, and <strong>GST Calculator</strong> reflect the revised tax slabs and standard deductions (₹75,000 under New Tax Regime for salaried employees, Section 87A tax rebate up to ₹7 Lakh taxable income).
+        </p>
+        <p>
+          However, individual tax assessments may involve complex considerations including:
+        </p>
+        <ul class="list-disc list-inside space-y-1 text-xs pl-2">
+          <li>Surcharge on high net worth individuals (HNI), health and education cess (4%).</li>
+          <li>Set-off and carry forward of capital gains and business losses.</li>
+          <li>Marginal relief calculations under Section 87A near the ₹7,00,000 threshold.</li>
+          <li>Specific state GST (SGST) vs Central GST (CGST) and Integrated GST (IGST) input tax credit rules.</li>
+        </ul>
+        <p>
+          Always cross-check tax filings with a qualified Chartered Accountant (CA) or tax attorney prior to submitting ITR to the Income Tax Department.
+        </p>
+      </section>
+
+      <!-- 4. Sovereign Schemes -->
+      <section class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🛡️</span>
+          <h2 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+            4. Sovereign Small Savings Schemes (PPF, EPF, NPS, Gratuity)
+          </h2>
+        </div>
+        <p>
+          Interest rates for the <strong>Public Provident Fund (PPF)</strong> (currently 7.1%) and small savings are determined quarterly by the Ministry of Finance, Government of India. <strong>EPFO</strong> annual declared interest rates (e.g. 8.25%) are subject to annual ratification by the Ministry of Labour & Employment.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>

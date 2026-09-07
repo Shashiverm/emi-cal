@@ -1,0 +1,55 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+---
+<CalculatorLayout title="Flat vs Reducing Rate Calculator — EMI Comparison" description="Compare EMI under flat rate and reducing balance interest rate methods. See the difference in total interest paid and monthly EMI." keywords="flat vs reducing rate, flat interest rate, reducing balance method, emi comparison, flat rate vs reducing rate calculator" calculator="Flat vs Reducing Rate" category="Loan & EMI" categoryBadge="badge-loan">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in">
+      <h2 class="font-[var(--font-heading)] font-semibold text-xl mb-6">Loan Details</h2>
+      <div class="mb-6"><div class="flex items-center justify-between mb-2"><label class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Amount</label><div class="flex items-center gap-1"><span class="text-[var(--color-text-muted)] text-sm">₹</span><input type="number" id="fvr-amount-input" class="num-input w-36 text-right" value="1000000" min="10000" max="100000000" step="10000"/></div></div><input type="range" id="fvr-amount" min="10000" max="100000000" step="10000" value="1000000"/><div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1"><span>₹10K</span><span>₹10Cr</span></div></div>
+      <div class="mb-6"><div class="flex items-center justify-between mb-2"><label class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label><div class="flex items-center gap-1"><input type="number" id="fvr-rate-input" class="num-input w-24 text-right" value="10" min="1" max="30" step="0.1"/><span class="text-[var(--color-text-muted)] text-sm">%</span></div></div><input type="range" id="fvr-rate" min="1" max="30" step="0.1" value="10"/><div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1"><span>1%</span><span>30%</span></div></div>
+      <div class="mb-6"><div class="flex items-center justify-between mb-2"><label class="text-sm font-medium text-[var(--color-text-secondary)]">Loan Tenure</label><div class="flex items-center gap-1"><input type="number" id="fvr-tenure-input" class="num-input w-20 text-right" value="5" min="1" max="30"/><span class="text-[var(--color-text-muted)] text-sm">Years</span></div></div><input type="range" id="fvr-tenure" min="1" max="30" step="1" value="5"/><div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1"><span>1 Yr</span><span>30 Yr</span></div></div>
+    </div>
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card p-5 border-l-4 border-l-[var(--color-accent-emerald)]">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Reducing Balance EMI</div>
+          <div id="fvr-reducing-emi" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-emerald)]">₹0</div>
+          <div class="text-xs text-[var(--color-text-muted)] mt-2">Total Interest</div>
+          <div id="fvr-reducing-int" class="font-[var(--font-mono)] font-semibold text-sm text-[var(--color-text-secondary)]">₹0</div>
+          <div class="text-xs text-[var(--color-text-muted)] mt-1">Total Payment</div>
+          <div id="fvr-reducing-total" class="font-[var(--font-mono)] font-semibold text-sm text-[var(--color-text-secondary)]">₹0</div>
+        </div>
+        <div class="glass-card p-5 border-l-4 border-l-[var(--color-accent-amber)]">
+          <div class="text-xs text-[var(--color-text-muted)] mb-1">Flat Rate EMI</div>
+          <div id="fvr-flat-emi" class="font-[var(--font-mono)] font-bold text-xl text-[var(--color-accent-amber)]">₹0</div>
+          <div class="text-xs text-[var(--color-text-muted)] mt-2">Total Interest</div>
+          <div id="fvr-flat-int" class="font-[var(--font-mono)] font-semibold text-sm text-[var(--color-text-secondary)]">₹0</div>
+          <div class="text-xs text-[var(--color-text-muted)] mt-1">Total Payment</div>
+          <div id="fvr-flat-total" class="font-[var(--font-mono)] font-semibold text-sm text-[var(--color-text-secondary)]">₹0</div>
+        </div>
+      </div>
+      <div class="glass-card p-5 animate-pulse-glow">
+        <div class="text-xs text-[var(--color-text-muted)] mb-1">You Save with Reducing Balance</div>
+        <div id="fvr-savings" class="font-[var(--font-mono)] font-bold text-2xl gradient-text">₹0</div>
+        <div class="text-xs text-[var(--color-accent-emerald)] mt-1">✓ Reducing balance is always cheaper</div>
+      </div>
+      <div class="glass-card-static p-6 flex justify-center"><div class="chart-container"><canvas id="fvr-chart"></canvas></div></div>
+    </div>
+  </div>
+</CalculatorLayout>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
+<script>
+  function fmt(n){const s=Math.abs(Math.round(n)).toString();let f=s.length<=3?s:'';if(s.length>3){f=s.slice(-3);let r=s.slice(0,-3);while(r.length>2){f=r.slice(-2)+','+f;r=r.slice(0,-2);}if(r.length)f=r+','+f;}return '₹'+f;}
+  let chart=null;
+  ['fvr-amount','fvr-rate','fvr-tenure'].forEach(function(id){var s=document.getElementById(id),i=document.getElementById(id+'-input');s&&s.addEventListener('input',function(){i.value=s.value;calc();});i&&i.addEventListener('input',function(){var v=parseFloat(i.value);if(!isNaN(v)){v=Math.max(parseFloat(s.min),Math.min(parseFloat(s.max),v));s.value=String(v);}calc();});});
+  function calc(){var P=parseFloat(document.getElementById('fvr-amount-input').value)||0;var R=parseFloat(document.getElementById('fvr-rate-input').value)||0;var T=parseFloat(document.getElementById('fvr-tenure-input').value)||0;var n=T*12;var r=R/12/100;
+  // Reducing
+  var rEmi=r>0?Math.round((P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)):Math.round(P/n);var rTotal=rEmi*n;var rInt=rTotal-P;
+  // Flat
+  var fInt=P*(R/100)*T;var fTotal=P+fInt;var fEmi=Math.round(fTotal/n);
+  document.getElementById('fvr-reducing-emi').textContent=fmt(rEmi);document.getElementById('fvr-reducing-int').textContent=fmt(rInt);document.getElementById('fvr-reducing-total').textContent=fmt(rTotal);
+  document.getElementById('fvr-flat-emi').textContent=fmt(fEmi);document.getElementById('fvr-flat-int').textContent=fmt(fInt);document.getElementById('fvr-flat-total').textContent=fmt(fTotal);
+  document.getElementById('fvr-savings').textContent=fmt(fTotal-rTotal);
+  var c=document.getElementById('fvr-chart');if(!c)return;if(chart)chart.destroy();chart=new Chart(c.getContext('2d'),{type:'doughnut',data:{labels:['Reducing Interest','Flat Interest'],datasets:[{data:[rInt,fInt],backgroundColor:['#10b981','#f59e0b'],borderColor:['#0a0a0f','#0a0a0f'],borderWidth:3,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:true,cutout:'70%',plugins:{legend:{position:'bottom',labels:{color:'#9ca3af',padding:16,usePointStyle:true,font:{size:12}}},tooltip:{callbacks:{label:function(c){return ' '+c.label+': '+fmt(c.raw);}}}}}});}
+  calc();
+</script>

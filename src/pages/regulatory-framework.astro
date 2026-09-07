@@ -1,0 +1,231 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const officialPortals = [
+  {
+    name: 'Reserve Bank of India (RBI)',
+    url: 'https://www.rbi.org.in',
+    desc: 'Central banking authority governing monetary policy, repo rates, and lending guidelines.',
+    category: 'Lending & Banking'
+  },
+  {
+    name: 'Income Tax Department (ITD)',
+    url: 'https://www.incometax.gov.in',
+    desc: 'Official e-filing portal for Income Tax Returns (ITR), PAN, tax slabs, and Section 87A rules.',
+    category: 'Taxation'
+  },
+  {
+    name: 'Securities and Exchange Board of India (SEBI)',
+    url: 'https://www.sebi.gov.in',
+    desc: 'Statutory market regulator overseeing mutual funds, stock exchanges, and investor protection.',
+    category: 'Investments'
+  },
+  {
+    name: 'Employees\' Provident Fund Organisation (EPFO)',
+    url: 'https://www.epfindia.gov.in',
+    desc: 'Statutory body managing EPF accounts, universal account numbers (UAN), and pension schemes.',
+    category: 'Retirement'
+  },
+  {
+    name: 'PFRDA (National Pension System)',
+    url: 'https://www.pfrda.org.in',
+    desc: 'Regulator for National Pension System (NPS) Tier I & II accounts and annuity service providers.',
+    category: 'Retirement'
+  },
+  {
+    name: 'GST Portal (Goods & Services Tax)',
+    url: 'https://www.gst.gov.in',
+    desc: 'Official national portal for indirect tax filing, GST registration, and tax rate notifications.',
+    category: 'Taxation'
+  },
+  {
+    name: 'National Housing Bank (NHB)',
+    url: 'https://nhb.org.in',
+    desc: 'Principal agency to promote housing finance institutions and regulate housing credit standards.',
+    category: 'Housing Loans'
+  },
+  {
+    name: 'Investor Education & Protection Fund (IEPF)',
+    url: 'https://www.iepf.gov.in',
+    desc: 'Ministry of Corporate Affairs initiative promoting investor awareness and unclaimed asset recovery.',
+    category: 'Consumer Rights'
+  }
+];
+---
+
+<Layout
+  title="Government Rules, Tax Laws & RBI Lending Guidelines (2026)"
+  description="Comprehensive guide on RBI loan guidelines, Key Fact Statement (KFS), New Tax Regime revisions (FY 2024-25 / 2025-26), mutual fund capital gains, and official government portal links."
+  keywords="rbi loan guidelines 2026, key fact statement kfs, new tax regime rules, capital gains tax mutual funds, epf rules 2026, home loan prepayment penalty rbi"
+>
+  <Header slot="header" />
+
+  <main class="container-main py-12 sm:py-16 max-w-5xl">
+    <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="text-[var(--color-text-muted)]">/</span>
+      <span class="text-[var(--color-text-primary)] font-medium">Government Rules & Compliance</span>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="glass-card-static p-6 sm:p-10 border border-[var(--color-border)] mb-10">
+      <div class="border-b border-[var(--color-border)] pb-6 mb-8">
+        <span class="category-badge badge-loan mb-3">Regulatory Handbook 2026</span>
+        <h1 class="font-[var(--font-heading)] font-bold text-2xl sm:text-4xl text-[var(--color-text-primary)] tracking-tight">
+          Government Rules, Tax Framework & RBI Lending Directives
+        </h1>
+        <p class="text-sm text-[var(--color-text-secondary)] mt-3 leading-relaxed max-w-3xl">
+          An authoritative reference handbook outlining statutory consumer protections, RBI lending master directions, the revised Union Budget tax regime, and verified government portal references for Indian citizens.
+        </p>
+      </div>
+
+      <!-- Statutory Caution Banner -->
+      <div class="p-5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs sm:text-sm space-y-2 mb-10">
+        <div class="flex items-center gap-2 font-bold text-amber-400 text-sm">
+          <span>⚠️</span> Statutory Consumer Caution & Prudent Borrowing Guidelines
+        </div>
+        <p class="leading-relaxed">
+          Before committing to any loan or investment in India, borrowers and investors must observe these three golden rules:
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 pl-2 text-xs">
+          <li><strong>The 40% FOIR Rule:</strong> Your total monthly EMI commitments (home, car, personal loans) should ideally not exceed 40% to 50% of your net monthly take-home salary.</li>
+          <li><strong>Check the KFS Document:</strong> Never sign a loan agreement without inspecting the RBI-mandated Key Fact Statement disclosing the true all-inclusive Annual Percentage Rate (APR).</li>
+          <li><strong>Unregulated Loan App Warning:</strong> Never borrow from unverified mobile lending apps that are not registered NBFCs or commercial banks listed on the official RBI portal.</li>
+        </ul>
+      </div>
+
+      <!-- Section 1: RBI Master Directions on Lending -->
+      <div class="space-y-6 mb-12">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold">1</span>
+          <h2 class="font-[var(--font-heading)] font-bold text-xl sm:text-2xl text-[var(--color-text-primary)]">
+            RBI Master Directions on Retail Lending & EMIs (2026)
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="glass-card p-5 border border-[var(--color-border)]">
+            <h3 class="font-semibold text-sm text-[var(--color-accent-cyan)] mb-2">
+              Key Fact Statement (KFS) Mandate
+            </h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+              Effective across all banks and NBFCs, lenders must provide a one-page standardized Key Fact Statement (KFS) to every retail and MSME borrower. It explicitly breaks down loan principal, interest rate, processing charges, insurance costs, and the all-inclusive <strong>Annual Percentage Rate (APR)</strong> before disbursement.
+            </p>
+          </div>
+
+          <div class="glass-card p-5 border border-[var(--color-border)]">
+            <h3 class="font-semibold text-sm text-[var(--color-accent-emerald)] mb-2">
+              Zero Prepayment Penalty on Floating Rates
+            </h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+              Under RBI fair lending directives, commercial banks and Housing Finance Companies (HFCs) are strictly prohibited from charging foreclosure or prepayment penalties on floating-rate term loans granted to individual borrowers for purposes other than business.
+            </p>
+          </div>
+
+          <div class="glass-card p-5 border border-[var(--color-border)]">
+            <h3 class="font-semibold text-sm text-[var(--color-accent-amber)] mb-2">
+              Prohibition of Penal Interest Capitalization
+            </h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+              In case of default or delayed EMI payment, lenders may only levy reasonable 'penal charges' (not penal interest rate increments). Lenders are strictly forbidden from capitalizing penal charges into the principal loan balance to compound interest upon interest.
+            </p>
+          </div>
+
+          <div class="glass-card p-5 border border-[var(--color-border)]">
+            <h3 class="font-semibold text-sm text-[var(--color-accent-rose)] mb-2">
+              External Benchmark Linked Rates (EBLR)
+            </h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+              All floating-rate home and personal loans sanctioned by scheduled commercial banks must be linked to external market benchmarks (predominantly the RBI Repo Rate), ensuring immediate transmission of monetary policy rate cuts to existing retail borrowers.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Income Tax & Capital Gains Regulations -->
+      <div class="space-y-6 mb-12">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold">2</span>
+          <h2 class="font-[var(--font-heading)] font-bold text-xl sm:text-2xl text-[var(--color-text-primary)]">
+            Union Budget Tax Architecture (FY 2024-25 / FY 2025-26)
+          </h2>
+        </div>
+
+        <div class="glass-card-static p-5 border border-[var(--color-border)] space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+            <div class="p-3.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)]">
+              <strong class="text-[var(--color-text-primary)] block mb-1">Standard Deduction: ₹75,000</strong>
+              Enhanced from ₹50,000 to ₹75,000 under the New Tax Regime for salaried individuals and pensioners.
+            </div>
+            <div class="p-3.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)]">
+              <strong class="text-[var(--color-text-primary)] block mb-1">Zero Tax up to ₹7.75 Lakhs</strong>
+              Salaried employees pay ₹0 tax on gross salary up to ₹7,75,000 due to the enhanced deduction + Section 87A rebate.
+            </div>
+            <div class="p-3.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border)]">
+              <strong class="text-[var(--color-text-primary)] block mb-1">Mutual Fund LTCG: 12.5%</strong>
+              Long-term capital gains on equity mutual funds (holding &gt; 1 yr) taxed at 12.5% on gains exceeding ₹1.25 Lakh/yr.
+            </div>
+          </div>
+
+          <div class="text-xs text-[var(--color-text-secondary)] leading-relaxed space-y-2 pt-2">
+            <p>
+              <strong>Bank Deposit TDS (Section 194A):</strong> Commercial banks deduct 10% Tax Deducted at Source (TDS) if total annual interest earned across all your Fixed Deposits (FDs) and Recurring Deposits (RDs) exceeds ₹40,000 (₹50,000 for senior citizens). If your total income is below the taxable exemption threshold, you can submit Form 15G (Form 15H for senior citizens) to prevent TDS deduction.
+            </p>
+            <p>
+              <strong>Home Loan Tax Benefits:</strong> Under the Old Tax Regime, homeowners can claim principal repayment up to ₹1.5 Lakh under Section 80C and interest up to ₹2.0 Lakh under Section 24(b).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Official Government Portals Directory -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold">3</span>
+          <h2 class="font-[var(--font-heading)] font-bold text-xl sm:text-2xl text-[var(--color-text-primary)]">
+            Verified Government & Regulatory Portals Directory
+          </h2>
+        </div>
+
+        <p class="text-xs sm:text-sm text-[var(--color-text-secondary)]">
+          All external links connect directly to official <code>.gov.in</code> and <code>.org.in</code> public regulatory websites:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {officialPortals.map(portal => (
+            <a
+              href={portal.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card p-5 border border-[var(--color-border)] hover:border-[var(--color-accent-cyan)]/50 group transition-all block"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                  {portal.category}
+                </span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-hover:text-[var(--color-accent-cyan)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </div>
+              <h3 class="font-[var(--font-heading)] font-semibold text-sm sm:text-base text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+                {portal.name}
+              </h3>
+              <p class="text-xs text-[var(--color-text-secondary)] mt-1 leading-relaxed">
+                {portal.desc}
+              </p>
+              <div class="mt-3 text-[11px] font-mono text-[var(--color-accent-cyan)] opacity-70 group-hover:opacity-100 transition-opacity">
+                {portal.url} ↗
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</Layout>

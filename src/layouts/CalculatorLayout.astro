@@ -1,0 +1,448 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  calculator: string;
+  category: string;
+  categoryBadge?: string;
+  structuredData?: object;
+}
+
+const { title, description, keywords, calculator, category, categoryBadge = 'badge-other', structuredData } = Astro.props;
+
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fincalc.in/" },
+    { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://fincalc.in/" },
+    { "@type": "ListItem", "position": 3, "name": calculator }
+  ]
+};
+
+const webAppData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": calculator,
+  "description": description,
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+};
+
+const mergedStructuredData = structuredData
+  ? [breadcrumbData, webAppData, structuredData]
+  : [breadcrumbData, webAppData];
+---
+
+<Layout title={title} description={description} keywords={keywords}>
+  <Header slot="header" />
+
+  <!-- Page Header & Breadcrumb -->
+  <div class="container-main pt-5 pb-4 sm:pt-7 sm:pb-6">
+    <nav class="breadcrumb mb-3.5 sm:mb-4 print:hidden" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="text-[var(--color-text-muted)]">/</span>
+      <span class="text-[var(--color-text-muted)]">{category}</span>
+      <span class="text-[var(--color-text-muted)]">/</span>
+      <span class="text-[var(--color-text-primary)] font-medium truncate max-w-[220px] sm:max-w-none">{calculator}</span>
+    </nav>
+
+    <!-- Print Only Header -->
+    <div class="hidden print:block mb-6 pb-4 border-b border-slate-300">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-900">{calculator} Report</h1>
+          <p class="text-xs text-slate-600">FinCalc India — Accurate Financial Computation Suite</p>
+        </div>
+        <div class="text-right text-xs text-slate-500">
+          <p id="print-date">Date: {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+          <p>Portal: https://fincalc.in</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="flex flex-col gap-3">
+        <span class={`category-badge ${categoryBadge} w-fit print:hidden`}>{category}</span>
+        <h1 class="font-[var(--font-heading)] font-bold text-2xl sm:text-3xl md:text-4xl text-[var(--color-text-primary)] tracking-tight">
+          {calculator}
+        </h1>
+        <p class="text-[var(--color-text-secondary)] text-sm sm:text-base max-w-2xl leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <!-- Export Action Toolbar -->
+      <div class="flex flex-wrap items-center gap-2 print:hidden shrink-0">
+        <div class="text-xs font-medium text-[var(--color-text-muted)] mr-1 hidden sm:inline-block">Export:</div>
+        <button
+          id="export-pdf-btn"
+          type="button"
+          class="export-btn export-btn-pdf"
+          title="Export A4 PDF Report"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          PDF (A4)
+        </button>
+
+        <button
+          id="export-excel-btn"
+          type="button"
+          class="export-btn export-btn-excel"
+          title="Export Excel Spreadsheet (.csv / .xlsx)"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="8" y1="13" x2="16" y2="13"></line>
+            <line x1="8" y1="17" x2="16" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Excel (.xlsx)
+        </button>
+
+        <button
+          id="export-print-btn"
+          type="button"
+          class="export-btn export-btn-print"
+          title="Print this Calculation Report"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="export-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-xl bg-slate-900/95 border border-slate-700 text-white text-sm shadow-2xl flex items-center gap-2.5 backdrop-blur-md">
+      <span id="toast-icon">📊</span>
+      <span id="toast-msg">Exporting report...</span>
+    </div>
+  </div>
+
+  <!-- Calculator Content -->
+  <div id="calculator-content-wrapper" class="container-main pb-16">
+    <slot />
+  </div>
+
+  <!-- Structured Data -->
+  {mergedStructuredData.map(sd => (
+    <script type="application/ld+json" set:html={JSON.stringify(sd)} />
+  ))}
+
+  <Footer slot="footer" />
+</Layout>
+
+<script>
+  // Universal Export Engine for FinCalc India
+  function showToast(message: string, icon = '✅') {
+    const toast = document.getElementById('export-toast');
+    const msg = document.getElementById('toast-msg');
+    const ico = document.getElementById('toast-icon');
+    if (!toast || !msg || !ico) return;
+    msg.textContent = message;
+    ico.textContent = icon;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    setTimeout(() => {
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3200);
+  }
+
+  function getCalculatorData() {
+    const title = document.querySelector('h1')?.textContent?.trim() || 'Financial Calculation';
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+    // 1. Extract Inputs
+    const inputs: Array<{ label: string; value: string }> = [];
+    document.querySelectorAll('label').forEach(lbl => {
+      const labelText = lbl.textContent?.trim() || '';
+      if (!labelText || labelText.length > 50) return;
+      const parent = lbl.closest('.mb-6') || lbl.parentElement?.parentElement;
+      const inputEl = parent?.querySelector('input[type="number"], select') as HTMLInputElement | HTMLSelectElement;
+      if (inputEl) {
+        let val = inputEl.value;
+        if (inputEl.tagName === 'SELECT') {
+          val = (inputEl as HTMLSelectElement).selectedOptions[0]?.text || val;
+        } else if (inputEl.type === 'number') {
+          const num = parseFloat(val);
+          if (!isNaN(num)) {
+            val = num.toLocaleString('en-IN');
+          }
+        }
+        inputs.push({ label: labelText, value: val });
+      }
+    });
+
+    // 2. Extract Results
+    const results: Array<{ label: string; value: string }> = [];
+    const mainResult = document.querySelector('.result-value');
+    if (mainResult) {
+      const prev = mainResult.previousElementSibling?.cloneNode(true) as HTMLElement;
+      let label = 'Monthly Instalment';
+      if (prev) {
+        prev.querySelectorAll('span, button, svg').forEach(s => s.remove());
+        label = prev.textContent?.trim() || 'Monthly Instalment';
+      }
+      results.push({ label, value: mainResult.textContent?.trim() || '' });
+    }
+
+    document.querySelectorAll('.glass-card-static, .glass-card').forEach(card => {
+      const labelEl = card.querySelector('.text-xs, .text-sm');
+      const valEl = card.querySelector('.font-\\[var\\(--font-mono\\)\\], .font-mono, .result-value');
+      if (labelEl && valEl && !card.contains(mainResult as Node)) {
+        const lbl = labelEl.textContent?.trim() || '';
+        const val = valEl.textContent?.trim() || '';
+        if (lbl && val && val.startsWith('₹') && !results.some(r => r.label === lbl)) {
+          results.push({ label: lbl, value: val });
+        }
+      }
+    });
+
+    // 3. Extract Tables (Amortization, Schedule, or Bank Comparison)
+    const tables: Array<{ title: string; headers: string[]; rows: string[][] }> = [];
+    document.querySelectorAll('table').forEach(table => {
+      const headers: string[] = [];
+      table.querySelectorAll('th').forEach(th => headers.push(th.textContent?.trim() || ''));
+
+      const rows: string[][] = [];
+      table.querySelectorAll('tbody tr').forEach(tr => {
+        const row: string[] = [];
+        tr.querySelectorAll('td').forEach(td => {
+          // Exclude action buttons like 'Apply 8.4%' from data table export
+          const btn = td.querySelector('button');
+          if (btn) {
+            row.push(btn.getAttribute('data-rate') ? btn.getAttribute('data-rate') + '%' : td.textContent?.trim() || '');
+          } else {
+            row.push(td.textContent?.trim() || '');
+          }
+        });
+        if (row.length > 0) rows.push(row);
+      });
+
+      const heading = table.closest('.glass-card-static, #amort-wrapper')?.querySelector('h2, h3')?.textContent?.trim() || 'Schedule Breakdown';
+      if (headers.length > 0 && rows.length > 0) {
+        tables.push({ title: heading, headers, rows });
+      }
+    });
+
+    return { title, dateStr, inputs, results, tables };
+  }
+
+  // --- EXCEL (.CSV with UTF-8 BOM) EXPORT ---
+  function exportToExcel() {
+    const data = getCalculatorData();
+    let csv = '\uFEFF'; // UTF-8 BOM for Microsoft Excel
+
+    // Header Metadata
+    csv += `"FinCalc India - Financial Calculation Report"\n`;
+    csv += `"Calculator","${data.title.replace(/\s+Report$/i, '')}"\n`;
+    csv += `"Generated On","${data.dateStr}"\n`;
+    csv += `"Portal","https://fincalc.in"\n\n`;
+
+    // Section 1: Inputs
+    csv += `"--- INPUT PARAMETERS ---",""\n`;
+    csv += `"Parameter","Value"\n`;
+    data.inputs.forEach(item => {
+      csv += `"${item.label.replace(/"/g, '""')}","${item.value.replace(/"/g, '""')}"\n`;
+    });
+    csv += `\n`;
+
+    // Section 2: Calculation Results
+    csv += `"--- COMPUTED RESULTS ---",""\n`;
+    csv += `"Financial Metric","Amount"\n`;
+    data.results.forEach(item => {
+      csv += `"${item.label.replace(/"/g, '""')}","${item.value.replace(/"/g, '""')}"\n`;
+    });
+    csv += `\n`;
+
+    // Section 3: Tables
+    data.tables.forEach(table => {
+      csv += `"--- ${table.title.toUpperCase()} ---",""\n`;
+      csv += table.headers.map(h => `"${h.replace(/"/g, '""')}"`).join(',') + '\n';
+      table.rows.forEach(row => {
+        csv += row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',') + '\n';
+      });
+      csv += `\n`;
+    });
+
+    csv += `"Disclaimer","Calculations are executed client-side. FinCalc India guarantees 100% data privacy."\n`;
+
+    // Download Blob
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const cleanName = data.title.toLowerCase().replace(/report/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    a.href = url;
+    a.download = `${cleanName}-report-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('Excel report downloaded successfully!', '📊');
+  }
+
+  // --- PDF (A4) EXPORT ---
+  function exportToPDF() {
+    const data = getCalculatorData();
+
+    // Generate formatted A4 printable document window
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      // If popup blocked, fallback to standard window.print()
+      window.print();
+      return;
+    }
+
+    const tableHtml = data.tables.map(t => `
+      <div style="margin-top: 24px;">
+        <h3 style="font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 8px; border-bottom: 1.5px solid #0f172a; padding-bottom: 4px;">${t.title}</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+          <thead>
+            <tr style="background: #f1f5f9;">
+              ${t.headers.map(h => `<th style="border: 1px solid #cbd5e1; padding: 6px 8px; text-align: left; font-weight: 600; color: #1e293b;">${h}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${t.rows.map((r, i) => `
+              <tr style="background: ${i % 2 === 0 ? '#ffffff' : '#f8fafc'};">
+                ${r.map(c => `<td style="border: 1px solid #cbd5e1; padding: 5px 8px; color: #334155;">${c}</td>`).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `).join('');
+
+    const html = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>${data.title} — Official Report</title>
+        <style>
+          @page { size: A4 portrait; margin: 12mm 14mm; }
+          body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a; margin: 0; padding: 0; font-size: 12px; line-height: 1.4; }
+          .header-box { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 16px; border-bottom: 2px solid #0284c7; margin-bottom: 20px; }
+          .logo-text { font-size: 22px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
+          .logo-badge { background: #0284c7; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 14px; margin-right: 4px; }
+          .doc-title { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 4px 0; }
+          .subtext { color: #64748b; font-size: 11px; margin: 0; }
+          .meta-box { text-align: right; font-size: 10px; color: #64748b; }
+          .highlight-card { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+          .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+          .panel { border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; background: #ffffff; }
+          .panel-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
+          .data-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #f1f5f9; }
+          .data-label { color: #64748b; }
+          .data-val { font-weight: 600; color: #0f172a; font-family: 'JetBrains Mono', monospace; }
+          .footer-box { margin-top: 30px; padding-top: 12px; border-top: 1px solid #e2e8f0; font-size: 9px; color: #94a3b8; display: flex; justify-content: space-between; }
+        </style>
+      </head>
+      <body>
+        <div class="header-box">
+          <div>
+            <div class="logo-text"><span class="logo-badge">₹</span>FinCalc India</div>
+            <p class="subtext">Official Financial Computation & Amortization Report</p>
+          </div>
+          <div class="meta-box">
+            <p><strong>Report Date:</strong> ${data.dateStr}</p>
+            <p><strong>Source:</strong> fincalc.in/calculators</p>
+            <p><strong>Status:</strong> Verified & Client-Side Computed</p>
+          </div>
+        </div>
+
+        <h2 class="doc-title">${data.title}</h2>
+        <p style="color: #64748b; font-size: 11px; margin-bottom: 18px;">Summary of computed monthly commitments, interest breakdowns, and projected milestones.</p>
+
+        <!-- KPI Highlight -->
+        ${data.results[0] ? `
+          <div class="highlight-card">
+            <div>
+              <div style="font-size: 11px; text-transform: uppercase; font-weight: 600; color: #166534;">Primary Calculation</div>
+              <div style="font-size: 24px; font-weight: 800; color: #15803d; font-family: monospace;">${data.results[0].value}</div>
+              <div style="font-size: 11px; color: #166534;">${data.results[0].label}</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; color: #475569;">
+              <p style="margin: 0;"><strong>Method:</strong> Reducing Balance / Compounding</p>
+              <p style="margin: 2px 0 0 0;"><strong>Currency:</strong> Indian Rupee (INR ₹)</p>
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Inputs & Results 2-Column Grid -->
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">Input Parameters</div>
+            ${data.inputs.map(i => `
+              <div class="data-row">
+                <span class="data-label">${i.label}</span>
+                <span class="data-val">${i.value}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">Calculation Breakdown</div>
+            ${data.results.map(r => `
+              <div class="data-row">
+                <span class="data-label">${r.label}</span>
+                <span class="data-val">${r.value}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Tables if present -->
+        ${tableHtml}
+
+        <!-- Disclaimer & Security Stamp -->
+        <div class="footer-box">
+          <span>This financial calculation is generated for informational and planning purposes based on standardized Indian banking algorithms.</span>
+          <span>FinCalc India © 2026 — 100% Private</span>
+        </div>
+
+        <script>
+          window.onload = function() {
+            setTimeout(function() {
+              window.print();
+            }, 300);
+          };
+        <\/script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.open();
+    printWindow.document.write(html);
+    printWindow.document.close();
+
+    showToast('A4 PDF Preview generated! Click Save as PDF.', '📄');
+  }
+
+  // Hook up event listeners
+  document.getElementById('export-excel-btn')?.addEventListener('click', exportToExcel);
+  document.getElementById('export-pdf-btn')?.addEventListener('click', exportToPDF);
+  document.getElementById('export-print-btn')?.addEventListener('click', () => {
+    window.print();
+  });
+</script>
