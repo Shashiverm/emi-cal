@@ -83,8 +83,8 @@ const structuredData = {
   <section class="container-main pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-18 md:pb-20">
     <div class="max-w-4xl mx-auto text-center animate-fade-in">
       <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 mb-6 shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
         <span>Updated for FY 2024-25 & 2025-26 Budget Tax Slabs</span>
       </div>
 
@@ -110,20 +110,20 @@ const structuredData = {
           <input
             type="text"
             id="calc-search-input"
-            class="w-full pl-12 pr-28 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-slate-500 focus:outline-none focus:border-[var(--color-accent-indigo)] focus:ring-2 focus:ring-indigo-500/20 shadow-lg transition-all"
+            class="w-full pl-12 pr-28 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-slate-400 focus:outline-none focus:border-[var(--color-accent-indigo)] focus:ring-2 focus:ring-indigo-500/20 shadow-lg transition-all"
             placeholder="Search all 38 calculators (e.g. SIP, Home Loan, SSY, Tax, Salary, Rent vs Buy)..."
             autocomplete="off"
             aria-label="Search calculators"
           />
           <div class="absolute right-3.5 flex items-center gap-1.5 pointer-events-none">
-            <kbd class="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono text-slate-400 bg-slate-800/80 border border-slate-700 rounded shadow-sm">Ctrl + K</kbd>
+            <kbd class="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 rounded shadow-xs">Ctrl + K</kbd>
           </div>
         </div>
       </div>
 
       <!-- Quick Trending Tags -->
       <div class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs text-[var(--color-text-muted)]">
-        <span class="font-medium text-slate-400">🔥 Popular:</span>
+        <span class="font-medium text-slate-500 dark:text-slate-400">🔥 Popular:</span>
         <button type="button" class="quick-filter-chip preset-chip" data-query="Home Loan">Home Loan EMI</button>
         <button type="button" class="quick-filter-chip preset-chip" data-query="SIP">SIP Returns</button>
         <button type="button" class="quick-filter-chip preset-chip" data-query="Sukanya">SSY (8.2%)</button>
@@ -136,18 +136,18 @@ const structuredData = {
 
       <!-- Live Sovereign & Bank Rates Ticker Ribbon -->
       <div class="max-w-4xl mx-auto mt-8 overflow-x-auto no-scrollbar">
-        <div class="flex items-center gap-2 min-w-max p-2 rounded-xl bg-slate-800/30 border border-[var(--color-border)] text-xs">
-          <span class="font-bold text-emerald-400 flex items-center gap-1.5 px-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div class="flex items-center gap-2 min-w-max p-2 rounded-xl bg-slate-100/90 dark:bg-slate-800/30 border border-[var(--color-border)] text-xs">
+          <span class="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 px-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
             Govt & Bank Rates (2026):
           </span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">RBI Repo: <strong class="text-white">6.50%</strong></span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">Home Loan: <strong class="text-white">8.50%</strong></span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">SSY: <strong class="text-emerald-400">8.20%</strong></span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">SCSS: <strong class="text-emerald-400">8.20%</strong></span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">EPF: <strong class="text-emerald-400">8.25%</strong></span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">POMIS: <strong class="text-white">7.40%</strong></span>
-          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">PPF: <strong class="text-white">7.10%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">RBI Repo: <strong class="text-slate-900 dark:text-white">6.50%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">Home Loan: <strong class="text-slate-900 dark:text-white">8.50%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">SSY: <strong class="text-emerald-700 dark:text-emerald-400">8.20%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">SCSS: <strong class="text-emerald-700 dark:text-emerald-400">8.20%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">EPF: <strong class="text-emerald-700 dark:text-emerald-400">8.25%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">POMIS: <strong class="text-slate-900 dark:text-white">7.40%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">PPF: <strong class="text-slate-900 dark:text-white">7.10%</strong></span>
         </div>
       </div>
     </div>
@@ -179,7 +179,7 @@ const structuredData = {
       <div class="flex items-center gap-2">
         <button
           type="button"
-          class="cat-tab-btn active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all border border-indigo-500/30 bg-indigo-500/15 text-indigo-400"
+          class="cat-tab-btn active"
           data-filter="all"
         >
           All Calculators <span class="ml-1 opacity-70">({calculators.length})</span>
@@ -187,14 +187,14 @@ const structuredData = {
         {categories.map((cat) => (
           <button
             type="button"
-            class="cat-tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-800/60 border border-transparent transition-all whitespace-nowrap"
+            class="cat-tab-btn"
             data-filter={cat.name}
           >
             {cat.name} <span class="ml-1 opacity-60 text-xs">({cat.count})</span>
           </button>
         ))}
       </div>
-      <div id="search-results-counter" class="text-xs text-slate-400 whitespace-nowrap hidden sm:block">
+      <div id="search-results-counter" class="text-xs text-[var(--color-text-muted)] whitespace-nowrap hidden sm:block">
         Showing all {calculators.length} calculators
       </div>
     </div>
@@ -209,7 +209,7 @@ const structuredData = {
         <section id={cat.id} class="container-main pb-12 sm:pb-16 category-section" data-cat-name={cat.name}>
           <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mb-6">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700/60 flex items-center justify-center text-lg">
+              <div class="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 flex items-center justify-center text-lg shadow-xs">
                 {cat.icon}
               </div>
               <h2 class="font-[var(--font-heading)] font-bold text-xl sm:text-2xl text-[var(--color-text-primary)] tracking-tight">
@@ -420,12 +420,8 @@ const structuredData = {
   // Category Tab Buttons
   catTabs.forEach((btn) => {
     btn.addEventListener('click', () => {
-      catTabs.forEach(b => {
-        b.classList.remove('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
-        b.classList.add('border-transparent', 'text-[var(--color-text-secondary)]');
-      });
-      btn.classList.add('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
-      btn.classList.remove('border-transparent', 'text-[var(--color-text-secondary)]');
+      catTabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       activeCategory = (btn as HTMLElement).dataset.filter || 'all';
       applyFilter();
     });
@@ -448,11 +444,9 @@ const structuredData = {
     activeCategory = 'all';
     catTabs.forEach((b, i) => {
       if (i === 0) {
-        b.classList.add('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
-        b.classList.remove('border-transparent', 'text-[var(--color-text-secondary)]');
+        b.classList.add('active');
       } else {
-        b.classList.remove('active', 'border-indigo-500/30', 'bg-indigo-500/15', 'text-indigo-400');
-        b.classList.add('border-transparent', 'text-[var(--color-text-secondary)]');
+        b.classList.remove('active');
       }
     });
     applyFilter();

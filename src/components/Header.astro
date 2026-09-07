@@ -29,7 +29,7 @@ const navCategories = [
       {navCategories.map((cat) => (
         <a
           href={cat.href}
-          class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-800/60 transition-all duration-150"
+          class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-200/70 dark:hover:bg-slate-800/60 transition-all duration-150"
         >
           {cat.name}
         </a>
@@ -42,7 +42,7 @@ const navCategories = [
       <button
         id="global-search-btn"
         type="button"
-        class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-slate-600 text-xs font-medium text-slate-300 transition-all cursor-pointer shadow-sm"
+        class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-800 border border-slate-300/80 dark:border-slate-700/60 text-xs font-medium text-slate-700 dark:text-slate-300 transition-all cursor-pointer shadow-sm"
         aria-label="Search all 38 calculators (Ctrl+K)"
         title="Search calculators (Ctrl+K)"
       >
@@ -51,14 +51,14 @@ const navCategories = [
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <span class="hidden sm:inline">Search</span>
-        <kbd class="hidden md:inline-block px-1.5 py-0.2 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono text-slate-400">Ctrl+K</kbd>
+        <kbd class="hidden md:inline-block px-1.5 py-0.2 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-[10px] font-mono text-slate-600 dark:text-slate-400">Ctrl+K</kbd>
       </button>
 
       <!-- Global Currency Selector -->
       <div class="relative">
         <select
           id="global-currency-select"
-          class="appearance-none bg-slate-800/90 hover:bg-slate-800 border border-slate-700/70 text-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 pr-7 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 cursor-pointer shadow-sm transition-all"
+          class="appearance-none bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-800 border border-slate-300/80 dark:border-slate-700/70 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 pr-7 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 cursor-pointer shadow-sm transition-all"
           title="Change calculation currency display"
           aria-label="Select currency"
         >
@@ -79,7 +79,7 @@ const navCategories = [
       <button
         id="theme-toggle-btn"
         type="button"
-        class="p-1.5 sm:p-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white transition-all cursor-pointer"
+        class="p-1.5 sm:p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-800 border border-slate-300/80 dark:border-slate-700/60 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white transition-all cursor-pointer shadow-sm"
         aria-label="Toggle dark and light theme"
         title="Toggle Theme"
       >
@@ -104,7 +104,7 @@ const navCategories = [
       <!-- Mobile Menu Toggle Button -->
       <button
         id="mobile-menu-btn"
-        class="lg:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:text-white hover:bg-slate-800 transition-colors"
+        class="lg:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         aria-label="Toggle navigation menu"
         aria-expanded="false"
       >
@@ -118,19 +118,19 @@ const navCategories = [
   </div>
 
   <!-- Mobile Dropdown Navigation -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-[var(--color-border)] bg-[#090d16]/95 backdrop-blur-2xl">
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-[var(--color-border)] bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-2xl">
     <nav class="container-main py-4 flex flex-col gap-1">
       {navCategories.map((cat) => (
         <a
           href={cat.href}
-          class="px-4 py-2.5 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:text-white hover:bg-slate-800/80 transition-all"
+          class="px-4 py-2.5 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all"
         >
           {cat.name}
         </a>
       ))}
       <a
         href="/#calc-search-input"
-        class="mt-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 flex items-center gap-2"
+        class="mt-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 flex items-center gap-2"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
@@ -160,11 +160,13 @@ const navCategories = [
   function updateThemeUI(isLight: boolean) {
     if (isLight) {
       document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
       sunIcon?.classList.add('hidden');
       moonIcon?.classList.remove('hidden');
       localStorage.setItem('fincalc_theme', 'light');
     } else {
       document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
       sunIcon?.classList.remove('hidden');
       moonIcon?.classList.add('hidden');
       localStorage.setItem('fincalc_theme', 'dark');

@@ -26,7 +26,7 @@ import '../styles/global.css';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,7 +74,9 @@ import '../styles/global.css';
         const theme = localStorage.getItem('fincalc_theme') || 'dark';
         if (theme === 'light') {
           document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
         } else {
+          document.documentElement.classList.add('dark');
           document.documentElement.classList.remove('light');
         }
         window.__fincalcCurrency = localStorage.getItem('fincalc_currency') || 'INR';
@@ -109,21 +111,21 @@ import '../styles/global.css';
             placeholder="Type to search all 38 calculators (e.g., SIP, Home Loan, Tax, SSY)..."
             autocomplete="off"
           />
-          <kbd id="cmd-palette-close-btn" class="px-2 py-0.5 text-xs text-slate-400 bg-slate-800 border border-slate-700 rounded cursor-pointer hover:bg-slate-700 hover:text-white">Esc</kbd>
+          <kbd id="cmd-palette-close-btn" class="px-2 py-0.5 text-xs text-slate-400 bg-slate-800 border border-slate-700 rounded cursor-pointer hover:bg-slate-700 hover:text-white transition-colors">Esc</kbd>
         </div>
 
         <!-- Search Results Container -->
-        <div id="cmd-palette-results" class="overflow-y-auto p-2 max-h-[55vh] divide-y divide-slate-800/40">
+        <div id="cmd-palette-results" class="overflow-y-auto p-2 max-h-[55vh] divide-y divide-[var(--color-border)]/50">
           <!-- Dynamically populated -->
         </div>
 
         <!-- Footer Shortcuts -->
         <div class="px-4 py-2.5 border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] flex items-center justify-between text-[11px] text-[var(--color-text-muted)]">
           <div class="flex items-center gap-3">
-            <span><kbd class="px-1 py-0.2 rounded bg-slate-800 border border-slate-700 font-mono">↑</kbd> <kbd class="px-1 py-0.2 rounded bg-slate-800 border border-slate-700 font-mono">↓</kbd> to navigate</span>
-            <span><kbd class="px-1.5 py-0.2 rounded bg-slate-800 border border-slate-700 font-mono">Enter</kbd> to select</span>
+            <span><kbd class="px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono">↑</kbd> <kbd class="px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono">↓</kbd> to navigate</span>
+            <span><kbd class="px-1.5 py-0.2 rounded bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono">Enter</kbd> to select</span>
           </div>
-          <span class="font-semibold text-indigo-400">38 Instant Calculators</span>
+          <span class="font-semibold text-indigo-500 dark:text-indigo-400">38 Instant Calculators</span>
         </div>
       </div>
     </div>
@@ -159,7 +161,7 @@ import '../styles/global.css';
 
         if (list.length === 0) {
           resultsContainer.innerHTML = `
-            <div class="py-8 text-center text-xs text-slate-400">
+            <div class="py-8 text-center text-xs text-[var(--color-text-muted)]">
               No matching calculators found.
             </div>
           `;
@@ -169,7 +171,7 @@ import '../styles/global.css';
         resultsContainer.innerHTML = list.map((item, idx) => `
           <a
             href="/calculators/${item.slug}"
-            class="cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer ${idx === 0 ? 'bg-indigo-600/20 text-indigo-200 border border-indigo-500/30' : 'hover:bg-slate-800/60 text-[var(--color-text-secondary)]'}"
+            class="cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer text-[var(--color-text-secondary)] ${idx === 0 ? 'selected' : ''}"
             data-index="${idx}"
           >
             <div class="flex items-center gap-3 min-w-0">
@@ -179,7 +181,7 @@ import '../styles/global.css';
                 <div class="text-[11px] text-[var(--color-text-muted)] truncate">${item.description}</div>
               </div>
             </div>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 shrink-0 ml-2">
+            <span class="cmd-category-tag text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 shrink-0 ml-2">
               ${item.category}
             </span>
           </a>
@@ -199,10 +201,10 @@ import '../styles/global.css';
         const items = document.querySelectorAll('.cmd-result-item');
         items.forEach((it, i) => {
           if (i === selectedIndex) {
-            it.className = 'cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer bg-indigo-600/20 text-indigo-200 border border-indigo-500/30';
+            it.classList.add('selected');
             it.scrollIntoView({ block: 'nearest' });
           } else {
-            it.className = 'cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer hover:bg-slate-800/60 text-[var(--color-text-secondary)]';
+            it.classList.remove('selected');
           }
         });
       }
