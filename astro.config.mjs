@@ -5,6 +5,11 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://fincalc.in',
+  trailingSlash: 'never',
+  build: {
+    format: 'directory',
+    inlineStylesheets: 'auto',
+  },
   vite: {
     plugins: [tailwindcss()],
     server: {
@@ -14,7 +19,4 @@ export default defineConfig({
     }
   },
   integrations: [sitemap()],
-  build: {
-    inlineStylesheets: 'auto',
-  },
 });
