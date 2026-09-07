@@ -1,5 +1,9 @@
 # FinCalc India 🇮🇳 — Comprehensive Financial Calculator Suite
 
+[![Live on Vercel](https://img.shields.io/badge/Live%20Demo-fincal--orcin.vercel.app-00dfa2?style=for-the-badge&logo=vercel&logoColor=black)](https://fincal-orcin.vercel.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+
+> **🚀 Live Website:** [**https://fincal-orcin.vercel.app/**](https://fincal-orcin.vercel.app/)  
 > **Lightning-fast, client-side, privacy-focused financial calculators for Indian borrowers, investors, and taxpayers.**  
 > Built with **Astro.js**, **Vanilla CSS + Tailwind CSS v4**, and **Chart.js** — loaded in milliseconds with zero server dependencies.
 

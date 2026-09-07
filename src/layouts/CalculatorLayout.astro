@@ -19,8 +19,8 @@ const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fincalc.in/" },
-    { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://fincalc.in/" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fincal-orcin.vercel.app/" },
+    { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://fincal-orcin.vercel.app/" },
     { "@type": "ListItem", "position": 3, "name": calculator }
   ]
 };
@@ -62,7 +62,7 @@ const mergedStructuredData = structuredData
         </div>
         <div class="text-right text-xs text-slate-500">
           <p id="print-date">Date: {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
-          <p>Portal: https://fincalc.in</p>
+          <p>Portal: https://fincal-orcin.vercel.app</p>
         </div>
       </div>
     </div>
@@ -256,7 +256,7 @@ const mergedStructuredData = structuredData
     csv += `"FinCalc India - Financial Calculation Report"\n`;
     csv += `"Calculator","${data.title.replace(/\s+Report$/i, '')}"\n`;
     csv += `"Generated On","${data.dateStr}"\n`;
-    csv += `"Portal","https://fincalc.in"\n\n`;
+    csv += `"Portal","https://fincal-orcin.vercel.app"\n\n`;
 
     // Section 1: Inputs
     csv += `"--- INPUT PARAMETERS ---",""\n`;
@@ -366,7 +366,7 @@ const mergedStructuredData = structuredData
           </div>
           <div class="meta-box">
             <p><strong>Report Date:</strong> ${data.dateStr}</p>
-            <p><strong>Source:</strong> fincalc.in/calculators</p>
+            <p><strong>Source:</strong> fincal-orcin.vercel.app/calculators</p>
             <p><strong>Status:</strong> Verified & Client-Side Computed</p>
           </div>
         </div>
