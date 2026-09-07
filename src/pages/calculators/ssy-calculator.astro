@@ -1,0 +1,296 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the current interest rate on Sukanya Samriddhi Yojana (SSY)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The government of India has fixed the SSY interest rate at 8.2% per annum for the current quarter, compounded annually. This is one of the highest sovereign-guaranteed interest rates in India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the deposit tenure and maturity period for SSY?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You only need to make deposits for the first 15 years from the date of account opening. The account matures 21 years from opening, meaning interest continues to compound for the remaining 6 years without any fresh deposits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is SSY completely tax-free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Sukanya Samriddhi Yojana enjoys triple EEE (Exempt-Exempt-Exempt) tax exemption status: deposits are eligible for deduction under Section 80C up to ₹1.5 Lakh/year, the annual compounding interest is tax-free, and the entire maturity proceeds at 21 years are 100% tax-exempt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can funds be withdrawn early for higher education or marriage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Partial withdrawal up to 50% of the account balance is permitted once the girl child attains the age of 18 years, specifically for higher education expenses. Premature closure is permitted upon marriage after 18 years."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Sukanya Samriddhi Yojana Calculator (SSY 2026) — 8.2% Sovereign Returns"
+  description="Calculate your girl child's SSY maturity amount at 8.2% sovereign interest. View year-wise balance accumulation, 15-year deposit schedule & 21-year tax-free wealth projection."
+  keywords="ssy calculator, sukanya samriddhi yojana calculator, ssy interest rate 8.2, ssy maturity calculator, girl child saving scheme, post office ssy, ssy vs ppf, 80c tax saving"
+  calculator="SSY Calculator"
+  category="Savings & Deposits"
+  categoryBadge="badge-savings"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          SSY Contribution Plan
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">8.2% p.a. Sovereign</span>
+      </div>
+
+      <!-- Yearly Deposit Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="ssy-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Yearly Deposit Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="ssy-amount-input" class="num-input w-32 text-right" value="150000" min="250" max="150000" step="1000"/>
+          </div>
+        </div>
+        <input type="range" id="ssy-amount" min="250" max="150000" step="1000" value="150000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹250 (Min)</span>
+          <span>₹75,000</span>
+          <span>₹1.5L (Max Limit)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="ssy-amount" data-val="12000">₹12K (₹1K/mo)</button>
+          <button type="button" class="preset-chip" data-preset-for="ssy-amount" data-val="50000">₹50,000</button>
+          <button type="button" class="preset-chip" data-preset-for="ssy-amount" data-val="100000">₹1.0 Lakh</button>
+          <button type="button" class="preset-chip active" data-preset-for="ssy-amount" data-val="150000">₹1.5L (Max 80C)</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="ssy-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Govt Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="ssy-rate-input" class="num-input w-24 text-right" value="8.2" min="1" max="15" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="ssy-rate" min="1" max="15" step="0.1" value="8.2"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>5%</span>
+          <span>8.2% (Current Sovereign Rate)</span>
+          <span>12%</span>
+        </div>
+      </div>
+
+      <!-- Girl Child Age at Start -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="ssy-age" class="text-sm font-medium text-[var(--color-text-secondary)]">Girl Child Age at Account Opening</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="ssy-age-input" class="num-input w-20 text-right" value="1" min="0" max="10"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Yrs</span>
+          </div>
+        </div>
+        <input type="range" id="ssy-age" min="0" max="10" step="1" value="1"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>0 (Infant)</span>
+          <span>5 Yrs</span>
+          <span>10 Yrs (Max Entry)</span>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300 leading-relaxed">
+        🌟 <strong>Triple EEE Exemption:</strong> 15-year deposit tenure, account matures after 21 years. All maturity proceeds and interest are 100% tax-free under Indian Income Tax Act.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Projected Maturity Corpus (21 Yrs)</span>
+          <div id="ssy-maturity" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹69,27,244</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Total wealth accumulated for your daughter's future</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Total Invested (15 Yrs)</span>
+            <div id="ssy-total-invested" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">₹22,50,000</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Total Interest Earned</span>
+            <div id="ssy-total-interest" class="text-lg font-bold text-emerald-400 mt-0.5">₹46,77,244</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ratio Visualizer -->
+      <div class="glass-card p-5">
+        <div class="flex items-center justify-between text-xs mb-2">
+          <span class="text-[var(--color-text-secondary)]">Deposit vs Interest Ratio</span>
+          <span id="ssy-interest-percent" class="font-bold text-emerald-400">67.5% Compound Interest</span>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-3 flex overflow-hidden">
+          <div id="ssy-invested-bar" class="bg-indigo-500 h-full transition-all duration-300" style="width: 32.5%"></div>
+          <div id="ssy-interest-bar" class="bg-emerald-400 h-full transition-all duration-300" style="width: 67.5%"></div>
+        </div>
+        <div class="flex justify-between text-[11px] text-[var(--color-text-muted)] mt-2">
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Principal Invested</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Sovereign Interest</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schedule Table -->
+  <div class="mt-10 glass-card p-6 md:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div>
+        <h3 class="font-[var(--font-heading)] font-semibold text-lg text-[var(--color-text-primary)]">
+          21-Year SSY Balance Growth Schedule
+        </h3>
+        <p class="text-xs text-[var(--color-text-secondary)]">Deposits stop at Year 15, interest compounds till Year 21</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto max-h-96 overflow-y-auto">
+      <table class="w-full text-xs sm:text-sm text-left border-collapse" id="ssy-schedule-table">
+        <thead class="sticky top-0 bg-slate-900/90 backdrop-blur-md border-b border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold">
+          <tr>
+            <th class="py-2.5 px-3">Year</th>
+            <th class="py-2.5 px-3 text-right">Annual Deposit</th>
+            <th class="py-2.5 px-3 text-right">Interest Earned</th>
+            <th class="py-2.5 px-3 text-right">Total Deposited</th>
+            <th class="py-2.5 px-3 text-right">Closing Balance</th>
+          </tr>
+        </thead>
+        <tbody id="ssy-schedule-body" class="divide-y divide-[var(--color-border)] font-mono">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Key Features of Sukanya Samriddhi Yojana</h4>
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>Eligibility:</strong> Open for a girl child from birth up to 10 years of age.</li>
+        <li><strong>Limit:</strong> Minimum ₹250/year and maximum ₹1,50,000/fiscal year.</li>
+        <li><strong>Deposit Horizon:</strong> Contributions mandatory for the first 15 years.</li>
+        <li><strong>Maturity:</strong> 21 years from account opening date.</li>
+        <li><strong>Account limit:</strong> Maximum 2 accounts per family (one for each girl child, or 3 in case of twin girls).</li>
+      </ul>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">SSY vs PPF Comparison</h4>
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>Interest Rate:</strong> SSY yields 8.2% vs PPF's 7.1% (110 bps higher sovereign interest).</li>
+        <li><strong>Target Purpose:</strong> SSY is dedicated for girl child higher education & marriage.</li>
+        <li><strong>Lock-in:</strong> SSY locks until 21 years (partial withdrawal allowed at age 18) vs PPF's 15-year tenure.</li>
+        <li><strong>Tax Advantage:</strong> Both enjoy complete EEE status under Section 80C.</li>
+      </ul>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateSSY, formatCurrency } from '../../utils/calculations';
+
+  const amountInput = document.getElementById('ssy-amount') as HTMLInputElement;
+  const amountNum = document.getElementById('ssy-amount-input') as HTMLInputElement;
+  const rateInput = document.getElementById('ssy-rate') as HTMLInputElement;
+  const rateNum = document.getElementById('ssy-rate-input') as HTMLInputElement;
+  const ageInput = document.getElementById('ssy-age') as HTMLInputElement;
+  const ageNum = document.getElementById('ssy-age-input') as HTMLInputElement;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateSSY();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateSSY();
+    });
+  }
+
+  sync(amountInput, amountNum);
+  sync(rateInput, rateNum);
+  sync(ageInput, ageNum);
+
+  // Preset buttons
+  document.querySelectorAll('.preset-chip[data-preset-for="ssy-amount"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="ssy-amount"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '150000';
+      if (amountInput && amountNum) {
+        amountInput.value = val;
+        amountNum.value = val;
+        updateSSY();
+      }
+    });
+  });
+
+  function updateSSY() {
+    const deposit = parseFloat(amountInput?.value || '150000');
+    const rate = parseFloat(rateInput?.value || '8.2');
+
+    const res = calculateSSY(deposit, rate);
+
+    const matEl = document.getElementById('ssy-maturity');
+    const invEl = document.getElementById('ssy-total-invested');
+    const intEl = document.getElementById('ssy-total-interest');
+    const invBar = document.getElementById('ssy-invested-bar');
+    const intBar = document.getElementById('ssy-interest-bar');
+    const pctEl = document.getElementById('ssy-interest-percent');
+
+    if (matEl) matEl.textContent = formatCurrency(res.maturityValue);
+    if (invEl) invEl.textContent = formatCurrency(res.totalInvested);
+    if (intEl) intEl.textContent = formatCurrency(res.totalInterest);
+
+    if (res.maturityValue > 0) {
+      const intPct = Math.round((res.totalInterest / res.maturityValue) * 100);
+      const invPct = 100 - intPct;
+      if (invBar) invBar.style.width = `${invPct}%`;
+      if (intBar) intBar.style.width = `${intPct}%`;
+      if (pctEl) pctEl.textContent = `${intPct}% Compound Interest`;
+    }
+
+    // Update Schedule Table
+    const tbody = document.getElementById('ssy-schedule-body');
+    if (tbody) {
+      tbody.innerHTML = res.schedule.map(row => `
+        <tr class="hover:bg-slate-800/40 transition-colors">
+          <td class="py-2 px-3 text-[var(--color-text-secondary)]">Year ${row.year}${row.year > 15 ? ' <span class="text-[10px] text-amber-400 font-sans">(Interest Only)</span>' : ''}</td>
+          <td class="py-2 px-3 text-right text-[var(--color-text-primary)]">${formatCurrency(row.deposit)}</td>
+          <td class="py-2 px-3 text-right text-emerald-400">+${formatCurrency(row.interestEarned)}</td>
+          <td class="py-2 px-3 text-right text-[var(--color-text-secondary)]">${formatCurrency(row.totalDeposit)}</td>
+          <td class="py-2 px-3 text-right font-bold text-[var(--color-text-primary)]">${formatCurrency(row.closingBalance)}</td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  updateSSY();
+</script>

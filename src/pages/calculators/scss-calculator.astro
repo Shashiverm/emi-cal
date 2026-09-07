@@ -1,0 +1,228 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Senior Citizen Savings Scheme (SCSS) interest rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SCSS interest rate is currently 8.2% per annum, backed with sovereign guarantee by the Government of India. Interest is paid out every calendar quarter directly to the investor's bank account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the maximum investment limit in SCSS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The maximum deposit limit per individual in SCSS was enhanced to ₹30 Lakhs (from ₹15 Lakhs). A married couple above 60 years can jointly deposit up to ₹60 Lakhs across individual accounts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is eligible to invest in SCSS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Individuals aged 60 years or older are eligible. Retired civilian employees between 55–60 years who have opted for VRS/superannuation, and retired defence personnel aged 50+ are also eligible subject to conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is SCSS eligible for Section 80C tax deduction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, investments up to ₹1.5 Lakhs qualify for tax deduction under Section 80C under the Old Tax Regime. The quarterly interest earned is taxable as per your income tax slab; TDS applies if annual interest exceeds ₹50,000."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="SCSS Calculator — Senior Citizen Savings Scheme (8.2% Quarterly Income)"
+  description="Calculate your quarterly pension payout and 5-year interest earnings under Senior Citizen Savings Scheme (SCSS) at 8.2% interest. Up to ₹30 Lakh deposit."
+  keywords="scss calculator, senior citizen savings scheme calculator, scss interest rate 8.2, quarterly pension payout, post office scss, senior citizen tax saving, scss vs fd"
+  calculator="SCSS Calculator"
+  category="Savings & Deposits"
+  categoryBadge="badge-savings"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Deposit Parameters
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">8.2% Quarterly Payout</span>
+      </div>
+
+      <!-- Deposit Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="scss-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Total Deposit Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="scss-amount-input" class="num-input w-32 text-right" value="1500000" min="1000" max="3000000" step="10000"/>
+          </div>
+        </div>
+        <input type="range" id="scss-amount" min="1000" max="3000000" step="10000" value="1500000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹1,000 (Min)</span>
+          <span>₹15 Lakhs</span>
+          <span>₹30 Lakhs (Max)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="scss-amount" data-val="500000">₹5 Lakhs</button>
+          <button type="button" class="preset-chip" data-preset-for="scss-amount" data-val="1000000">₹10 Lakhs</button>
+          <button type="button" class="preset-chip active" data-preset-for="scss-amount" data-val="1500000">₹15 Lakhs</button>
+          <button type="button" class="preset-chip" data-preset-for="scss-amount" data-val="3000000">₹30L (Max Limit)</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="scss-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="scss-rate-input" class="num-input w-24 text-right" value="8.2" min="1" max="15" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="scss-rate" min="1" max="15" step="0.1" value="8.2"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>5%</span>
+          <span>8.2% (Current Govt Rate)</span>
+          <span>12%</span>
+        </div>
+      </div>
+
+      <!-- Tenure -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-[var(--color-text-secondary)]">Scheme Tenure</span>
+          <span class="text-sm font-bold text-[var(--color-text-primary)]">5 Years (Extendable by 3 Yrs)</span>
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800/40 border border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
+          Lock-in is 5 years. Interest is credited automatically on the 1st working day of April, July, October, and January.
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Quarterly Regular Payout</span>
+          <div id="scss-quarterly" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹30,750</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Direct pension credited every 3 months into your account</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Annual Pension Income</span>
+            <div id="scss-annual" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">₹1,23,000 / yr</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Total 5-Yr Interest</span>
+            <div id="scss-total-interest" class="text-lg font-bold text-emerald-400 mt-0.5">₹6,15,000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights Box -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Principal Refund at Maturity</span>
+          <span id="scss-principal-refund" class="font-bold text-[var(--color-text-primary)]">₹15,00,000</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Effective Monthly Payout Equivalent</span>
+          <span id="scss-monthly-equiv" class="font-bold text-indigo-400">₹10,250 / mo</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Section 80C Tax Deduction</span>
+          <span class="font-bold text-emerald-400">Up to ₹1.50 Lakh</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">SCSS Interest Payout Dates</h4>
+      <p>Interest in SCSS is credited four times a year on designated dates:</p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Q1 Payout:</strong> 1st working day of April</li>
+        <li><strong>Q2 Payout:</strong> 1st working day of July</li>
+        <li><strong>Q3 Payout:</strong> 1st working day of October</li>
+        <li><strong>Q4 Payout:</strong> 1st working day of January</li>
+      </ul>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Taxation Rules for SCSS</h4>
+      <p>1. <strong>Section 80TTB:</strong> Senior citizens can claim up to ₹50,000 interest income tax-free every financial year.</p>
+      <p>2. <strong>TDS:</strong> Tax Deducted at Source (10%) applies if total interest from SCSS exceeds ₹50,000 in a year. Submit Form 15H if total income is below the taxable threshold.</p>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateSCSS, formatCurrency } from '../../utils/calculations';
+
+  const amountInput = document.getElementById('scss-amount') as HTMLInputElement;
+  const amountNum = document.getElementById('scss-amount-input') as HTMLInputElement;
+  const rateInput = document.getElementById('scss-rate') as HTMLInputElement;
+  const rateNum = document.getElementById('scss-rate-input') as HTMLInputElement;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateSCSS();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateSCSS();
+    });
+  }
+
+  sync(amountInput, amountNum);
+  sync(rateInput, rateNum);
+
+  document.querySelectorAll('.preset-chip[data-preset-for="scss-amount"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="scss-amount"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '1500000';
+      if (amountInput && amountNum) {
+        amountInput.value = val;
+        amountNum.value = val;
+        updateSCSS();
+      }
+    });
+  });
+
+  function updateSCSS() {
+    const deposit = parseFloat(amountInput?.value || '1500000');
+    const rate = parseFloat(rateInput?.value || '8.2');
+
+    const res = calculateSCSS(deposit, rate);
+
+    const qEl = document.getElementById('scss-quarterly');
+    const aEl = document.getElementById('scss-annual');
+    const tEl = document.getElementById('scss-total-interest');
+    const pEl = document.getElementById('scss-principal-refund');
+    const mEl = document.getElementById('scss-monthly-equiv');
+
+    if (qEl) qEl.textContent = formatCurrency(res.quarterlyIncome);
+    if (aEl) aEl.textContent = `${formatCurrency(res.annualIncome)} / yr`;
+    if (tEl) tEl.textContent = formatCurrency(res.totalInterest);
+    if (pEl) pEl.textContent = formatCurrency(res.deposit);
+    if (mEl) mEl.textContent = `${formatCurrency(Math.round(res.annualIncome / 12))} / mo`;
+  }
+
+  updateSCSS();
+</script>

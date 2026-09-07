@@ -1,0 +1,212 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the TDS rate under Section 194J for technical and professional services?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under Section 194J, technical fees, royalty, and BPO call center payments attract 2% TDS. Other professional services (such as legal, architectural, medical, CA, engineering) attract 10% TDS. Threshold exemption limit is ₹30,000 per financial year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if PAN is not provided to the deductor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under Section 206AA of the Income Tax Act, if a valid PAN is not furnished by the payee, TDS is mandatorily deducted at a punitive rate of 20% (or the applicable rate, whichever is higher)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I check if TDS deducted was credited to my tax account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can verify all TDS credits by downloading your Form 26AS or Annual Information Statement (AIS) directly from the Income Tax e-Filing portal."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="TDS Calculator India 2026 — Tax Deducted at Source Rates & Net Pay"
+  description="Calculate TDS for Section 194C (Contractors), 194J (Professional / Tech fees), 194I (Rent), 194A (Interest). Check threshold limits and PAN vs Non-PAN 20% rate."
+  keywords="tds calculator india, tax deducted at source calculator, section 194j tds rate, section 194c tds contractor, tds on rent 194i, 206aa non pan tds, tds deduction chart 2026"
+  calculator="TDS Calculator"
+  category="Tax & Salary"
+  categoryBadge="badge-tax"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Payment & Section Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-amber)] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">Updated TDS Rates</span>
+      </div>
+
+      <!-- Payment Section Selection -->
+      <div>
+        <label for="tds-section" class="text-sm font-medium text-[var(--color-text-secondary)] mb-1.5 block">Select TDS Nature of Payment</label>
+        <select id="tds-section" class="w-full text-xs sm:text-sm font-medium rounded-lg p-3 bg-slate-800 border border-slate-700 text-slate-200">
+          <option value="194J_tech" selected>194J — Technical / Royalty / Call Centre Fees (2%)</option>
+          <option value="194J_prof">194J — Professional Fees (Legal, CA, Medical, Design) (10%)</option>
+          <option value="194C_ind">194C — Contractor / Sub-contractor (Individual / HUF) (1%)</option>
+          <option value="194C_oth">194C — Contractor (Company / Partnership Firm) (2%)</option>
+          <option value="194I_land">194I — Rent for Land, Building or Furniture (10%)</option>
+          <option value="194I_plant">194I — Rent for Plant & Machinery (2%)</option>
+          <option value="194A_bank">194A — Bank Fixed Deposit / Securities Interest (10%)</option>
+          <option value="194H_comm">194H — Commission or Brokerage (5%)</option>
+          <option value="194Q_goods">194Q — Purchase of Goods exceeding ₹50 Lakhs (0.1%)</option>
+        </select>
+      </div>
+
+      <!-- Gross Invoice / Payment Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="tds-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Gross Bill / Invoice Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="tds-amount-input" class="num-input w-32 text-right" value="100000" min="1000" max="10000000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="tds-amount" min="5000" max="1000000" step="5000" value="100000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹5,000</span>
+          <span>₹5.0 Lakhs</span>
+          <span>₹10.0 Lakhs</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="tds-amount" data-val="30000">₹30K (Threshold)</button>
+          <button type="button" class="preset-chip" data-preset-for="tds-amount" data-val="50000">₹50K</button>
+          <button type="button" class="preset-chip active" data-preset-for="tds-amount" data-val="100000">₹1.0 Lakh</button>
+          <button type="button" class="preset-chip" data-preset-for="tds-amount" data-val="250000">₹2.5 Lakhs</button>
+        </div>
+      </div>
+
+      <!-- PAN Provided Checkbox -->
+      <div class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-800/40 border border-[var(--color-border)]">
+        <input type="checkbox" id="tds-has-pan" class="w-4 h-4 rounded text-indigo-600 bg-slate-800 border-slate-600 cursor-pointer" checked/>
+        <label for="tds-has-pan" class="text-xs text-[var(--color-text-secondary)] cursor-pointer">
+          <strong class="text-[var(--color-text-primary)]">Valid PAN Available:</strong> Unchecking applies Section 206AA penal rate of <strong>20%</strong>.
+        </label>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Net Receivable In-Hand</span>
+          <div id="tds-net-payable" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹98,000</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Amount actually disbursed to payee after deducting tax</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">TDS Deducted</span>
+            <div id="tds-amount-disp" class="text-lg font-bold text-rose-400 mt-0.5">₹2,000</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Applicable Rate</span>
+            <div id="tds-rate-disp" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">2.0%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance Info Box -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Exemption Threshold Limit</span>
+          <span id="tds-limit-disp" class="font-bold text-[var(--color-text-primary)]">₹30,000 / fiscal year</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Gross Bill Total</span>
+          <span id="tds-gross-disp" class="font-bold text-indigo-400">₹1,00,000</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Form 16A TDS Certificate</span>
+          <span class="font-bold text-emerald-400">Issued Quarterly</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">TDS Due Dates & Deposit Schedule</h4>
+      <p>TDS deducted during any calendar month must be deposited to the Government by the <strong>7th of the following month</strong> (except for March TDS, which can be deposited until April 30th).</p>
+      <p>Failure to deposit TDS on time attracts interest penalty at 1.5% per month under Section 201(1A).</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Claiming Refund for Excess TDS</h4>
+      <p>If your total annual taxable income is below the basic tax exemption limit (₹3 Lakhs under New Regime, ₹2.5 Lakhs under Old Regime), all TDS deducted throughout the year can be claimed as a <strong>100% tax refund</strong> with interest by filing your annual ITR.</p>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateTDS, formatCurrency } from '../../utils/calculations';
+
+  const sectionSelect = document.getElementById('tds-section') as HTMLSelectElement;
+  const amountInput = document.getElementById('tds-amount') as HTMLInputElement;
+  const amountNum = document.getElementById('tds-amount-input') as HTMLInputElement;
+  const hasPanCheck = document.getElementById('tds-has-pan') as HTMLInputElement;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateTDS();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateTDS();
+    });
+  }
+
+  sync(amountInput, amountNum);
+  sectionSelect?.addEventListener('change', updateTDS);
+  hasPanCheck?.addEventListener('change', updateTDS);
+
+  document.querySelectorAll('.preset-chip[data-preset-for="tds-amount"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="tds-amount"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '100000';
+      if (amountInput && amountNum) {
+        amountInput.value = val;
+        amountNum.value = val;
+        updateTDS();
+      }
+    });
+  });
+
+  function updateTDS() {
+    const sec = sectionSelect?.value || '194J_tech';
+    const amount = parseFloat(amountInput?.value || '100000');
+    const hasPan = hasPanCheck?.checked ?? true;
+
+    const res = calculateTDS(amount, sec, hasPan);
+
+    const netEl = document.getElementById('tds-net-payable');
+    const tdsEl = document.getElementById('tds-amount-disp');
+    const rateEl = document.getElementById('tds-rate-disp');
+    const limitEl = document.getElementById('tds-limit-disp');
+    const grossEl = document.getElementById('tds-gross-disp');
+
+    if (netEl) netEl.textContent = formatCurrency(res.netPayable);
+    if (tdsEl) tdsEl.textContent = formatCurrency(res.tdsAmount);
+    if (rateEl) rateEl.textContent = `${res.applicableRate}%${!hasPan ? ' (Punitive Sec 206AA)' : ''}`;
+    if (limitEl) limitEl.textContent = `${formatCurrency(res.thresholdLimit)} / year`;
+    if (grossEl) grossEl.textContent = formatCurrency(amount);
+  }
+
+  updateTDS();
+</script>

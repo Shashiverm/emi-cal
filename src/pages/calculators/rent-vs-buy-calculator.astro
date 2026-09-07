@@ -1,0 +1,302 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it financially better to buy a home or rent in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the price-to-rent ratio, rental yield (typically 2.5% to 3.5% in Indian metro cities like Bengaluru and Mumbai), and expected equity returns. In many cases, renting and investing the large down payment + EMI difference into equity mutual funds (12% CAGR) yields a higher net worth over 15–20 years than real estate appreciation (6%–8%)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the 5% rule in real estate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 5% rule estimates the unrecoverable cost of owning a home: 1% property tax/maintenance + 1% depreciation/repair + 3% cost of capital (difference between mortgage rate and safe returns). If annual rent is less than 5% of the property value, renting is financially superior."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What hidden costs exist in buying a house?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hidden costs include 5%–7% stamp duty and registration fees, 1%–2% brokerage, monthly society maintenance, property taxes, interior renovation (10%–15% of cost), and loan processing fees."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Rent vs Buy Calculator 2026 — Indian Property Wealth Decision Simulator"
+  description="Compare 10 to 25-year net worth of buying a house vs renting and investing downpayment in equity mutual funds. Detailed comparison with Indian real estate & rent inflation."
+  keywords="rent vs buy calculator india, should i buy a house or rent, rent vs buy property wealth, home loan emi vs rent, equity sip vs real estate, rent vs buy mumbai bangalore"
+  calculator="Rent vs Buy Calculator"
+  category="Loan & EMI"
+  categoryBadge="badge-loan"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Property & Rent Inputs
+        </h2>
+        <span class="text-xs text-[var(--color-accent-indigo)] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20">15-Year Wealth Model</span>
+      </div>
+
+      <!-- Property Value -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="rvb-price" class="text-sm font-medium text-[var(--color-text-secondary)]">Property Purchase Price</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="rvb-price-input" class="num-input w-32 text-right" value="7500000" min="2000000" max="50000000" step="100000"/>
+          </div>
+        </div>
+        <input type="range" id="rvb-price" min="2000000" max="30000000" step="250000" value="7500000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹20 Lakhs</span>
+          <span>₹1.5 Crores</span>
+          <span>₹3.0 Crores</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="rvb-price" data-val="5000000">₹50 Lakhs</button>
+          <button type="button" class="preset-chip active" data-preset-for="rvb-price" data-val="7500000">₹75 Lakhs</button>
+          <button type="button" class="preset-chip" data-preset-for="rvb-price" data-val="12000000">₹1.20 Cr</button>
+          <button type="button" class="preset-chip" data-preset-for="rvb-price" data-val="20000000">₹2.00 Cr</button>
+        </div>
+      </div>
+
+      <!-- Monthly Rent Equivalent -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="rvb-rent" class="text-sm font-medium text-[var(--color-text-secondary)]">Equivalent Monthly Rent for same home</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="rvb-rent-input" class="num-input w-28 text-right" value="25000" min="5000" max="250000" step="1000"/>
+          </div>
+        </div>
+        <input type="range" id="rvb-rent" min="5000" max="100000" step="1000" value="25000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>₹5,000</span>
+          <span>₹50,000</span>
+          <span>₹1.0 Lakh</span>
+        </div>
+      </div>
+
+      <!-- Rates Grid -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="rvb-apprec" class="text-xs font-medium text-[var(--color-text-secondary)]">Property Growth (p.a.)</label>
+            <div class="flex items-center gap-1">
+              <input type="number" id="rvb-apprec-input" class="num-input w-16 text-right text-xs" value="7" min="3" max="15" step="0.5"/>
+              <span class="text-[var(--color-text-muted)] text-xs">%</span>
+            </div>
+          </div>
+          <input type="range" id="rvb-apprec" min="3" max="15" step="0.5" value="7"/>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="rvb-equity" class="text-xs font-medium text-[var(--color-text-secondary)]">Equity MF Return (p.a.)</label>
+            <div class="flex items-center gap-1">
+              <input type="number" id="rvb-equity-input" class="num-input w-16 text-right text-xs" value="12" min="8" max="18" step="0.5"/>
+              <span class="text-[var(--color-text-muted)] text-xs">%</span>
+            </div>
+          </div>
+          <input type="range" id="rvb-equity" min="8" max="18" step="0.5" value="12"/>
+        </div>
+      </div>
+
+      <!-- Simulation Years -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="rvb-years" class="text-sm font-medium text-[var(--color-text-secondary)]">Simulation Horizon</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="rvb-years-input" class="num-input w-20 text-right" value="15" min="5" max="25"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Yrs</span>
+          </div>
+        </div>
+        <input type="range" id="rvb-years" min="5" max="25" step="5" value="15"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>5 Yrs</span>
+          <span>15 Yrs</span>
+          <span>25 Yrs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-300">Financial Winner</span>
+            <span id="rvb-verdict-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              Renting & Investing Wins
+            </span>
+          </div>
+          <div id="rvb-net-worth-diff" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-2">₹42.8 Lakhs Ahead</div>
+          <p id="rvb-verdict-text" class="text-xs text-[var(--color-text-secondary)] mt-1">Renting and investing down payment in mutual funds generates higher wealth.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Buyer Net Worth</span>
+            <div id="rvb-buyer-nw" class="text-lg font-bold text-indigo-400 mt-0.5">₹1.86 Crores</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Renter Net Worth</span>
+            <div id="rvb-renter-nw" class="text-lg font-bold text-emerald-400 mt-0.5">₹2.29 Crores</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Breakdown -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Down Payment Required (20%)</span>
+          <span id="rvb-downpayment" class="font-bold text-[var(--color-text-primary)]">₹15,00,000</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Monthly Home Loan EMI (8.5%, 20 Yrs)</span>
+          <span id="rvb-emi-disp" class="font-bold text-indigo-400">₹52,069 / mo</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Initial Monthly Rent</span>
+          <span id="rvb-rent-disp" class="font-bold text-emerald-400">₹25,000 / mo</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Monthly Cash Saved by Renter</span>
+          <span id="rvb-monthly-saved" class="font-bold text-amber-400">₹27,069 / mo (Invested in SIP)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Why Does Renting Often Win Financially?</h4>
+      <p>In Indian tier-1 cities (Mumbai, Gurgaon, Bengaluru), residential <strong>rental yields hover between 2.5% to 3.5%</strong>, while home loan interest rates are <strong>8.5%</strong>. By renting, you avoid high interest outflow and invest both the 20% down payment and monthly savings into equity compounding at 12%+.</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">When Does Buying Make More Sense?</h4>
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>Emotional Stability:</strong> No landlord hassles, complete autonomy, and pride of ownership.</li>
+        <li><strong>High Rental Yields:</strong> If rental yield exceeds 5% in your locality.</li>
+        <li><strong>Forced Savings:</strong> For individuals with low investment discipline, an EMI acts as mandatory savings.</li>
+      </ul>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateRentVsBuy, formatShort, formatCurrency } from '../../utils/calculations';
+
+  const priceInput = document.getElementById('rvb-price') as HTMLInputElement;
+  const priceNum = document.getElementById('rvb-price-input') as HTMLInputElement;
+  const rentInput = document.getElementById('rvb-rent') as HTMLInputElement;
+  const rentNum = document.getElementById('rvb-rent-input') as HTMLInputElement;
+  const apprecInput = document.getElementById('rvb-apprec') as HTMLInputElement;
+  const apprecNum = document.getElementById('rvb-apprec-input') as HTMLInputElement;
+  const equityInput = document.getElementById('rvb-equity') as HTMLInputElement;
+  const equityNum = document.getElementById('rvb-equity-input') as HTMLInputElement;
+  const yearsInput = document.getElementById('rvb-years') as HTMLInputElement;
+  const yearsNum = document.getElementById('rvb-years-input') as HTMLInputElement;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateRentVsBuy();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateRentVsBuy();
+    });
+  }
+
+  sync(priceInput, priceNum);
+  sync(rentInput, rentNum);
+  sync(apprecInput, apprecNum);
+  sync(equityInput, equityNum);
+  sync(yearsInput, yearsNum);
+
+  document.querySelectorAll('.preset-chip[data-preset-for="rvb-price"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="rvb-price"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '7500000';
+      if (priceInput && priceNum) {
+        priceInput.value = val;
+        priceNum.value = val;
+        updateRentVsBuy();
+      }
+    });
+  });
+
+  function updateRentVsBuy() {
+    const propertyPrice = parseFloat(priceInput?.value || '7500000');
+    const monthlyRent = parseFloat(rentInput?.value || '25000');
+    const propertyAppreciation = parseFloat(apprecInput?.value || '7');
+    const equityReturnRate = parseFloat(equityInput?.value || '12');
+    const simulationYears = parseInt(yearsInput?.value || '15');
+
+    const res = calculateRentVsBuy({
+      propertyPrice,
+      downPaymentPercent: 20,
+      loanRate: 8.5,
+      loanTenureYears: 20,
+      monthlyRent,
+      rentInflation: 6,
+      propertyAppreciation,
+      equityReturnRate,
+      simulationYears,
+    });
+
+    const badge = document.getElementById('rvb-verdict-badge');
+    const diffEl = document.getElementById('rvb-net-worth-diff');
+    const descEl = document.getElementById('rvb-verdict-text');
+    const bNwEl = document.getElementById('rvb-buyer-nw');
+    const rNwEl = document.getElementById('rvb-renter-nw');
+    const dpEl = document.getElementById('rvb-downpayment');
+    const emiEl = document.getElementById('rvb-emi-disp');
+    const rentDisp = document.getElementById('rvb-rent-disp');
+    const savedEl = document.getElementById('rvb-monthly-saved');
+
+    if (bNwEl) bNwEl.textContent = formatShort(res.buyerNetWorth);
+    if (rNwEl) rNwEl.textContent = formatShort(res.renterNetWorth);
+    if (dpEl) dpEl.textContent = formatCurrency(res.downPayment);
+    if (emiEl) emiEl.textContent = `${formatCurrency(res.emi)} / mo`;
+    if (rentDisp) rentDisp.textContent = `${formatCurrency(monthlyRent)} / mo`;
+
+    const monthlyDiff = Math.max(0, res.emi - monthlyRent);
+    if (savedEl) savedEl.textContent = `${formatCurrency(monthlyDiff)} / mo (Invested in SIP)`;
+
+    if (res.winner === 'rent') {
+      if (badge) {
+        badge.textContent = 'Renting & Investing Wins';
+        badge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+      }
+      if (diffEl) diffEl.textContent = `${formatShort(res.difference)} Ahead`;
+      if (descEl) descEl.textContent = `Over ${simulationYears} years, investing the down payment and monthly savings in equity builds more wealth than buying.`;
+    } else {
+      if (badge) {
+        badge.textContent = 'Buying Property Wins';
+        badge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30';
+      }
+      if (diffEl) diffEl.textContent = `${formatShort(res.difference)} Ahead`;
+      if (descEl) descEl.textContent = `Over ${simulationYears} years, high property appreciation outpaces equity growth and eliminates rent escalation.`;
+    }
+  }
+
+  updateRentVsBuy();
+</script>

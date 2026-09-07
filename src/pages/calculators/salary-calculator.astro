@@ -1,0 +1,240 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is my monthly in-hand take-home salary much lower than CTC / 12?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cost to Company (CTC) includes employer contributions that are not paid out monthly: 1) Employer Provident Fund (12% of basic), 2) Gratuity provision (approx 4.81% of basic), 3) Group health insurance, and 4) Performance bonuses. From your gross salary, Employee PF (12%), Professional Tax (₹200/mo), and Income Tax (TDS) are further deducted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the standard salary component split in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Typically: Basic Salary is 40%–50% of CTC, House Rent Allowance (HRA) is 40%–50% of Basic, Employer & Employee EPF is 12% of basic each, Gratuity is 4.81% of basic, and the balance is paid as Special Allowance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is EPF mandatory for all private sector employees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EPF is mandatory for employees with basic wages up to ₹15,000 per month in establishments with 20+ workers. For higher basic salaries, companies may cap EPF contribution at ₹1,800/month (12% of ₹15,000) or contribute on full basic salary."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Salary Calculator India (CTC to In-Hand Take-Home 2026)"
+  description="Convert your Annual CTC into accurate monthly in-hand take-home salary. Complete breakdown of Basic, HRA, Employee EPF, Gratuity, Professional Tax, and Income Tax."
+  keywords="salary calculator india, ctc to in hand salary calculator, take home salary calculator 2026, salary breakdown calculator, monthly in hand salary from ctc, pf deduction from ctc"
+  calculator="Salary In-Hand Calculator"
+  category="Tax & Salary"
+  categoryBadge="badge-tax"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          CTC & City Configuration
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">New Tax Regime</span>
+      </div>
+
+      <!-- Annual CTC -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="sal-ctc" class="text-sm font-medium text-[var(--color-text-secondary)]">Annual CTC (Cost to Company)</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="sal-ctc-input" class="num-input w-32 text-right" value="1200000" min="300000" max="10000000" step="50000"/>
+          </div>
+        </div>
+        <input type="range" id="sal-ctc" min="300000" max="5000000" step="50000" value="1200000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹3.0 Lakhs</span>
+          <span>₹25 Lakhs</span>
+          <span>₹50 Lakhs</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="sal-ctc" data-val="600000">₹6 LPA</button>
+          <button type="button" class="preset-chip" data-preset-for="sal-ctc" data-val="1000000">₹10 LPA</button>
+          <button type="button" class="preset-chip active" data-preset-for="sal-ctc" data-val="1200000">₹12 LPA</button>
+          <button type="button" class="preset-chip" data-preset-for="sal-ctc" data-val="2500000">₹25 LPA</button>
+        </div>
+      </div>
+
+      <!-- City Type -->
+      <div>
+        <label class="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">City of Employment</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" id="city-metro" class="city-btn active py-2.5 px-3 rounded-lg border border-indigo-500 bg-indigo-500/20 text-xs font-semibold text-indigo-300 transition-all text-center">
+            Metro (Delhi, Mumbai, Kol, Chn, Blr)
+          </button>
+          <button type="button" id="city-nonmetro" class="city-btn py-2.5 px-3 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-400 hover:text-white transition-all text-center">
+            Non-Metro City
+          </button>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-slate-800/40 border border-[var(--color-border)] text-xs text-[var(--color-text-secondary)] leading-relaxed">
+        💼 <strong>Automatic Deductions:</strong> Accounts for ₹75,000 standard deduction, employee PF (12%), employer PF, gratuity, and professional tax.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Monthly In-Hand Take-Home</span>
+          <div id="sal-in-hand" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹82,433</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Actual net amount credited into your bank account on salary day</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Annual Take-Home</span>
+            <div id="sal-annual-inhand" class="text-lg font-bold text-emerald-400 mt-0.5">₹9,89,200</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Monthly Deductions</span>
+            <div id="sal-monthly-ded" class="text-lg font-bold text-rose-400 mt-0.5">₹17,567 / mo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Itemized Salary Breakdown -->
+      <div class="glass-card p-5 space-y-2.5 text-xs">
+        <div class="flex justify-between items-center pb-2 border-b border-[var(--color-border)] font-semibold text-[var(--color-text-primary)]">
+          <span>Component</span>
+          <span>Monthly</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>Basic Salary (45%)</span>
+          <span id="sal-basic" class="font-bold text-[var(--color-text-primary)]">₹45,000</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>House Rent Allowance (HRA)</span>
+          <span id="sal-hra" class="font-bold text-[var(--color-text-primary)]">₹22,500</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>Special & Other Allowances</span>
+          <span id="sal-special" class="font-bold text-[var(--color-text-primary)]">₹26,800</span>
+        </div>
+        <div class="flex justify-between items-center text-rose-400">
+          <span>Employee Provident Fund (EPF 12%)</span>
+          <span id="sal-pf" class="font-bold">-₹5,400</span>
+        </div>
+        <div class="flex justify-between items-center text-rose-400">
+          <span>Professional Tax (PT)</span>
+          <span class="font-bold">-₹200</span>
+        </div>
+        <div class="flex justify-between items-center text-rose-400">
+          <span>Estimated Income Tax (TDS)</span>
+          <span id="sal-tax" class="font-bold">-₹6,267</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Difference Between CTC and Gross Salary</h4>
+      <p><strong>Gross Salary</strong> is CTC minus employer contributions (Employer PF, gratuity provision, medical insurance). Gross salary is the amount shown at the top of your monthly payslip before employee deductions.</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Optimizing In-Hand Salary</h4>
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>NPS Corporate (80CCD 2):</strong> Up to 14% of Basic contributed directly by employer reduces taxable income with zero lock-in penalty.</li>
+        <li><strong>Food & Fuel Cards:</strong> Tax-free vouchers can increase net take-home by up to ₹3,000/month.</li>
+      </ul>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateSalaryInHand, formatCurrency } from '../../utils/calculations';
+
+  const ctcInput = document.getElementById('sal-ctc') as HTMLInputElement;
+  const ctcNum = document.getElementById('sal-ctc-input') as HTMLInputElement;
+  const metroBtn = document.getElementById('city-metro');
+  const nonMetroBtn = document.getElementById('city-nonmetro');
+
+  let cityType = 'metro';
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateSalary();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateSalary();
+    });
+  }
+
+  sync(ctcInput, ctcNum);
+
+  metroBtn?.addEventListener('click', () => {
+    cityType = 'metro';
+    metroBtn.className = 'city-btn active py-2.5 px-3 rounded-lg border border-indigo-500 bg-indigo-500/20 text-xs font-semibold text-indigo-300 transition-all text-center';
+    if (nonMetroBtn) nonMetroBtn.className = 'city-btn py-2.5 px-3 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-400 hover:text-white transition-all text-center';
+    updateSalary();
+  });
+
+  nonMetroBtn?.addEventListener('click', () => {
+    cityType = 'nonmetro';
+    nonMetroBtn.className = 'city-btn active py-2.5 px-3 rounded-lg border border-indigo-500 bg-indigo-500/20 text-xs font-semibold text-indigo-300 transition-all text-center';
+    if (metroBtn) metroBtn.className = 'city-btn py-2.5 px-3 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-400 hover:text-white transition-all text-center';
+    updateSalary();
+  });
+
+  document.querySelectorAll('.preset-chip[data-preset-for="sal-ctc"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="sal-ctc"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '1200000';
+      if (ctcInput && ctcNum) {
+        ctcInput.value = val;
+        ctcNum.value = val;
+        updateSalary();
+      }
+    });
+  });
+
+  function updateSalary() {
+    const ctc = parseFloat(ctcInput?.value || '1200000');
+    const res = calculateSalaryInHand(ctc, cityType);
+
+    const inhandEl = document.getElementById('sal-in-hand');
+    const annEl = document.getElementById('sal-annual-inhand');
+    const dedEl = document.getElementById('sal-monthly-ded');
+    const basicEl = document.getElementById('sal-basic');
+    const hraEl = document.getElementById('sal-hra');
+    const specEl = document.getElementById('sal-special');
+    const pfEl = document.getElementById('sal-pf');
+    const taxEl = document.getElementById('sal-tax');
+
+    if (inhandEl) inhandEl.textContent = formatCurrency(res.monthlyInHand);
+    if (annEl) annEl.textContent = formatCurrency(res.annualInHand);
+    if (dedEl) dedEl.textContent = `${formatCurrency(Math.round(ctc / 12) - res.monthlyInHand)} / mo`;
+    if (basicEl) basicEl.textContent = formatCurrency(Math.round(res.basicSalary / 12));
+    if (hraEl) hraEl.textContent = formatCurrency(Math.round(res.hra / 12));
+    if (specEl) specEl.textContent = formatCurrency(Math.round(res.specialAllowance / 12));
+    if (pfEl) pfEl.textContent = `-${formatCurrency(Math.round(res.employeePF / 12))}`;
+    if (taxEl) taxEl.textContent = `-${formatCurrency(Math.round(res.estimatedAnnualTax / 12))}`;
+  }
+
+  updateSalary();
+</script>

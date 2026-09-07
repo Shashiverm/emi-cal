@@ -1,0 +1,258 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the current Post Office MIS interest rate in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Post Office Monthly Income Scheme (POMIS) offers a 7.4% per annum interest rate, credited on a monthly basis directly into the investor's savings account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the maximum deposit limits for Single vs Joint accounts in POMIS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The maximum deposit limit is ₹9 Lakhs for a single account holder and ₹15 Lakhs for a joint account (opened with up to 3 adults). All joint holders have an equal share in investment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the tenure and premature withdrawal rule for POMIS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The scheme has a 5-year lock-in. No withdrawal is permitted in Year 1. Withdrawal between 1–3 years incurs a 2% deduction from principal, while withdrawal after 3 years incurs a 1% deduction."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Post Office MIS Calculator (POMIS 2026) — 7.4% Monthly Guaranteed Income"
+  description="Calculate your monthly interest income under Post Office Monthly Income Scheme (POMIS) at 7.4% interest. Compare Single (₹9L) and Joint (₹15L) limits with sovereign safety."
+  keywords="pomis calculator, post office monthly income scheme calculator, pomis interest rate 7.4, post office mis monthly interest, mis calculator 2026, post office guaranteed income"
+  calculator="POMIS Calculator"
+  category="Savings & Deposits"
+  categoryBadge="badge-savings"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Account Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">7.4% Monthly Payout</span>
+      </div>
+
+      <!-- Account Type -->
+      <div>
+        <label class="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">Account Holding Type</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" id="type-single" class="account-type-btn active py-2.5 px-3 rounded-lg border border-indigo-500 bg-indigo-500/15 text-xs font-semibold text-indigo-300 transition-all text-center">
+            Single Account (Max ₹9L)
+          </button>
+          <button type="button" id="type-joint" class="account-type-btn py-2.5 px-3 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-400 hover:text-white transition-all text-center">
+            Joint Account (Max ₹15L)
+          </button>
+        </div>
+      </div>
+
+      <!-- Deposit Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="mis-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Deposit Amount</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="mis-amount-input" class="num-input w-32 text-right" value="900000" min="1000" max="1500000" step="5000"/>
+          </div>
+        </div>
+        <input type="range" id="mis-amount" min="1000" max="900000" step="5000" value="900000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹1,000 (Min)</span>
+          <span id="mis-slider-mid">₹4.5 Lakhs</span>
+          <span id="mis-slider-max">₹9 Lakhs (Max)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1" id="mis-preset-container">
+          <button type="button" class="preset-chip" data-preset-for="mis-amount" data-val="300000">₹3 Lakhs</button>
+          <button type="button" class="preset-chip" data-preset-for="mis-amount" data-val="500000">₹5 Lakhs</button>
+          <button type="button" class="preset-chip active" data-preset-for="mis-amount" data-val="900000">₹9L (Single Max)</button>
+          <button type="button" class="preset-chip hidden" id="chip-15l" data-preset-for="mis-amount" data-val="1500000">₹15L (Joint Max)</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="mis-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Annual Interest Rate</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="mis-rate-input" class="num-input w-24 text-right" value="7.4" min="1" max="15" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="mis-rate" min="1" max="15" step="0.1" value="7.4"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>4%</span>
+          <span>7.4% (Govt Set Rate)</span>
+          <span>12%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Guaranteed Monthly Income</span>
+          <div id="mis-monthly" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹5,550</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Credited on the same day each month into your post office savings account</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Annual Income</span>
+            <div id="mis-annual" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">₹66,600 / yr</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Total 5-Yr Earnings</span>
+            <div id="mis-total-interest" class="text-lg font-bold text-emerald-400 mt-0.5">₹3,33,000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights Box -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Principal Returned at 5 Yrs</span>
+          <span id="mis-principal-refund" class="font-bold text-[var(--color-text-primary)]">₹9,00,000 (100%)</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Total Cash Returned (Principal + Interest)</span>
+          <span id="mis-total-cash" class="font-bold text-emerald-400">₹12,33,000</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">TDS Deduction</span>
+          <span class="font-bold text-indigo-400">No TDS deducted at source</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">How POMIS Works</h4>
+      <p>1. Open an account at any India Post Office branch with a minimum of ₹1,000.</p>
+      <p>2. Interest is paid out every calendar month from the date of deposit.</p>
+      <p>3. If monthly interest is not claimed, it does NOT earn additional interest. Link your post office savings account for auto-credit or set up an auto-transfer to an RD.</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Premature Closure Charges</h4>
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>0 to 1 Year:</strong> Premature withdrawal not permitted.</li>
+        <li><strong>1 to 3 Years:</strong> Permitted with a 2% penalty deducted from the deposit amount.</li>
+        <li><strong>3 to 5 Years:</strong> Permitted with a 1% penalty deducted from the deposit amount.</li>
+      </ul>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculatePOMIS, formatCurrency } from '../../utils/calculations';
+
+  const amountInput = document.getElementById('mis-amount') as HTMLInputElement;
+  const amountNum = document.getElementById('mis-amount-input') as HTMLInputElement;
+  const rateInput = document.getElementById('mis-rate') as HTMLInputElement;
+  const rateNum = document.getElementById('mis-rate-input') as HTMLInputElement;
+  const singleBtn = document.getElementById('type-single');
+  const jointBtn = document.getElementById('type-joint');
+  const chip15L = document.getElementById('chip-15l');
+  const sliderMid = document.getElementById('mis-slider-mid');
+  const sliderMax = document.getElementById('mis-slider-max');
+
+  let isJoint = false;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updatePOMIS();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updatePOMIS();
+    });
+  }
+
+  sync(amountInput, amountNum);
+  sync(rateInput, rateNum);
+
+  singleBtn?.addEventListener('click', () => {
+    isJoint = false;
+    singleBtn.className = 'account-type-btn active py-2.5 px-3 rounded-lg border border-indigo-500 bg-indigo-500/15 text-xs font-semibold text-indigo-300 transition-all text-center';
+    if (jointBtn) jointBtn.className = 'account-type-btn py-2.5 px-3 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-400 hover:text-white transition-all text-center';
+    if (amountInput) {
+      amountInput.max = '900000';
+      if (parseFloat(amountInput.value) > 900000) amountInput.value = '900000';
+    }
+    if (amountNum) {
+      amountNum.max = '900000';
+      if (parseFloat(amountNum.value) > 900000) amountNum.value = '900000';
+    }
+    if (sliderMid) sliderMid.textContent = '₹4.5 Lakhs';
+    if (sliderMax) sliderMax.textContent = '₹9 Lakhs (Max)';
+    chip15L?.classList.add('hidden');
+    updatePOMIS();
+  });
+
+  jointBtn?.addEventListener('click', () => {
+    isJoint = true;
+    jointBtn.className = 'account-type-btn active py-2.5 px-3 rounded-lg border border-indigo-500 bg-indigo-500/15 text-xs font-semibold text-indigo-300 transition-all text-center';
+    if (singleBtn) singleBtn.className = 'account-type-btn py-2.5 px-3 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-400 hover:text-white transition-all text-center';
+    if (amountInput) amountInput.max = '1500000';
+    if (amountNum) amountNum.max = '1500000';
+    if (sliderMid) sliderMid.textContent = '₹7.5 Lakhs';
+    if (sliderMax) sliderMax.textContent = '₹15 Lakhs (Max)';
+    chip15L?.classList.remove('hidden');
+    updatePOMIS();
+  });
+
+  document.querySelectorAll('.preset-chip[data-preset-for="mis-amount"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="mis-amount"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '900000';
+      if (amountInput && amountNum) {
+        amountInput.value = val;
+        amountNum.value = val;
+        updatePOMIS();
+      }
+    });
+  });
+
+  function updatePOMIS() {
+    const deposit = parseFloat(amountInput?.value || '900000');
+    const rate = parseFloat(rateInput?.value || '7.4');
+
+    const res = calculatePOMIS(deposit, rate);
+
+    const mEl = document.getElementById('mis-monthly');
+    const aEl = document.getElementById('mis-annual');
+    const tEl = document.getElementById('mis-total-interest');
+    const pEl = document.getElementById('mis-principal-refund');
+    const tcEl = document.getElementById('mis-total-cash');
+
+    if (mEl) mEl.textContent = formatCurrency(res.monthlyIncome);
+    if (aEl) aEl.textContent = `${formatCurrency(res.annualIncome)} / yr`;
+    if (tEl) tEl.textContent = formatCurrency(res.totalInterest);
+    if (pEl) pEl.textContent = `${formatCurrency(res.deposit)} (100%)`;
+    if (tcEl) tcEl.textContent = formatCurrency(res.deposit + res.totalInterest);
+  }
+
+  updatePOMIS();
+</script>

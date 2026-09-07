@@ -95,7 +95,7 @@ const structuredData = {
       </h1>
 
       <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mx-auto mb-8">
-        Free, lightning-fast financial calculators for Indian borrowers and investors. Compare interest rates across <strong class="text-[var(--color-text-primary)]">SBI, HDFC, ICICI, Axis</strong> & more.
+        Free, lightning-fast financial calculators for Indian borrowers and investors. 38 specialized tools with multi-currency support, live bank rates, and Budget 2024-26 rules.
       </p>
 
       <!-- Live Search Box -->
@@ -111,7 +111,7 @@ const structuredData = {
             type="text"
             id="calc-search-input"
             class="w-full pl-12 pr-28 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-slate-500 focus:outline-none focus:border-[var(--color-accent-indigo)] focus:ring-2 focus:ring-indigo-500/20 shadow-lg transition-all"
-            placeholder="Search 25+ calculators (e.g. SIP, Home Loan, Tax, PPF, GST)..."
+            placeholder="Search all 38 calculators (e.g. SIP, Home Loan, SSY, Tax, Salary, Rent vs Buy)..."
             autocomplete="off"
             aria-label="Search calculators"
           />
@@ -126,30 +126,49 @@ const structuredData = {
         <span class="font-medium text-slate-400">🔥 Popular:</span>
         <button type="button" class="quick-filter-chip preset-chip" data-query="Home Loan">Home Loan EMI</button>
         <button type="button" class="quick-filter-chip preset-chip" data-query="SIP">SIP Returns</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="Sukanya">SSY (8.2%)</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="Salary">In-Hand Salary</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="Rent vs Buy">Rent vs Buy</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="Capital Gains">Capital Gains</button>
         <button type="button" class="quick-filter-chip preset-chip" data-query="Income Tax">Old vs New Tax</button>
-        <button type="button" class="quick-filter-chip preset-chip" data-query="PPF">PPF</button>
-        <button type="button" class="quick-filter-chip preset-chip" data-query="FD">FD Rates</button>
-        <button type="button" class="quick-filter-chip preset-chip" data-query="GST">GST</button>
+        <button type="button" class="quick-filter-chip preset-chip" data-query="SCSS">SCSS (8.2%)</button>
+      </div>
+
+      <!-- Live Sovereign & Bank Rates Ticker Ribbon -->
+      <div class="max-w-4xl mx-auto mt-8 overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-2 min-w-max p-2 rounded-xl bg-slate-800/30 border border-[var(--color-border)] text-xs">
+          <span class="font-bold text-emerald-400 flex items-center gap-1.5 px-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Govt & Bank Rates (2026):
+          </span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">RBI Repo: <strong class="text-white">6.50%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">Home Loan: <strong class="text-white">8.50%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">SSY: <strong class="text-emerald-400">8.20%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">SCSS: <strong class="text-emerald-400">8.20%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">EPF: <strong class="text-emerald-400">8.25%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">POMIS: <strong class="text-white">7.40%</strong></span>
+          <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">PPF: <strong class="text-white">7.10%</strong></span>
+        </div>
       </div>
     </div>
 
     <!-- Quick Stats Bar -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-10 max-w-4xl mx-auto animate-fade-in-delay">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-8 max-w-4xl mx-auto animate-fade-in-delay">
       <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
-        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-cyan)]">25+</div>
-        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Free Calculators</div>
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-cyan)]">38</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Free Financial Tools</div>
       </div>
       <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
-        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-emerald)]">10+</div>
-        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Indian Banks Live</div>
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-emerald)]">12+</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Sovereign & Bank Rates</div>
       </div>
       <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
         <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-violet)]">100%</div>
         <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Client-Side Private</div>
       </div>
       <div class="glass-card-static p-4 text-center border border-[var(--color-border)]">
-        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-amber)]">&lt;50ms</div>
-        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Instant Compute</div>
+        <div class="font-[var(--font-mono)] font-bold text-xl sm:text-2xl text-[var(--color-accent-amber)]">&lt;10ms</div>
+        <div class="text-xs text-[var(--color-text-muted)] mt-1 font-medium">Instant Live Compute</div>
       </div>
     </div>
   </section>

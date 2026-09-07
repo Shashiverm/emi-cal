@@ -1,0 +1,216 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Atal Pension Yojana (APY)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Atal Pension Yojana is a Government of India-backed pension scheme aimed at unorganized sector workers and citizens. It guarantees a lifelong monthly pension of ₹1,000, ₹2,000, ₹3,000, ₹4,000, or ₹5,000 starting from the age of 60."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is eligible to join Atal Pension Yojana?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Any Indian citizen between 18 and 40 years of age with a bank savings account or post office savings account can join APY. Minimum contribution period is 20 years."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens after the death of the subscriber?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upon the subscriber's demise, the exact same pension is paid to the spouse for life. After the demise of both subscriber and spouse, the entire accumulated pension corpus (approx ₹8.5 Lakhs for a ₹5,000 pension) is returned to the nominee."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Atal Pension Yojana Calculator (APY 2026) — Guaranteed Govt Pension"
+  description="Calculate your monthly contribution for ₹1,000 to ₹5,000 guaranteed monthly pension under Atal Pension Yojana (APY). View contribution tables for age 18 to 40."
+  keywords="apy calculator, atal pension yojana calculator, apy monthly contribution chart, guaranteed pension scheme, post office apy, apy 5000 pension chart, nps lite apy"
+  calculator="APY Calculator"
+  category="Provident Fund & Retirement"
+  categoryBadge="badge-retirement"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Pension & Age Criteria
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Govt Guaranteed</span>
+      </div>
+
+      <!-- Current Age -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="apy-age" class="text-sm font-medium text-[var(--color-text-secondary)]">Your Current Age</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="apy-age-input" class="num-input w-20 text-right" value="25" min="18" max="40"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Years</span>
+          </div>
+        </div>
+        <input type="range" id="apy-age" min="18" max="40" step="1" value="25"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>18 Yrs (Lowest Premium)</span>
+          <span>30 Yrs</span>
+          <span>40 Yrs (Max Entry)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="apy-age" data-val="18">18 Yrs</button>
+          <button type="button" class="preset-chip active" data-preset-for="apy-age" data-val="25">25 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="apy-age" data-val="30">30 Yrs</button>
+          <button type="button" class="preset-chip" data-preset-for="apy-age" data-val="35">35 Yrs</button>
+        </div>
+      </div>
+
+      <!-- Desired Monthly Pension -->
+      <div>
+        <label class="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">Desired Monthly Pension at Age 60</label>
+        <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+          <button type="button" class="pension-btn py-2 px-2 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-300 hover:text-white transition-all text-center" data-val="1000">₹1,000</button>
+          <button type="button" class="pension-btn py-2 px-2 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-300 hover:text-white transition-all text-center" data-val="2000">₹2,000</button>
+          <button type="button" class="pension-btn py-2 px-2 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-300 hover:text-white transition-all text-center" data-val="3000">₹3,000</button>
+          <button type="button" class="pension-btn py-2 px-2 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-300 hover:text-white transition-all text-center" data-val="4000">₹4,000</button>
+          <button type="button" class="pension-btn active py-2 px-2 rounded-lg border border-indigo-500 bg-indigo-500/20 text-xs font-semibold text-indigo-300 transition-all text-center" data-val="5000">₹5,000</button>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300 leading-relaxed">
+        🛡️ <strong>Triple Protection:</strong> Lifetime pension to subscriber, continued to spouse upon death, and 100% corpus returned to legal heirs/nominee afterwards.
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Required Monthly Contribution</span>
+          <div id="apy-monthly-premium" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹376 / mo</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Auto-debited from your savings account till age 60</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Monthly Pension at 60</span>
+            <div id="apy-pension-display" class="text-lg font-bold text-emerald-400 mt-0.5">₹5,000 / mo</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Nominee Corpus Refund</span>
+            <div id="apy-nominee-corpus" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">₹8,50,000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frequency Breakdown -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Quarterly Auto-Debit Option</span>
+          <span id="apy-quarterly" class="font-bold text-[var(--color-text-primary)]">₹1,128 / quarter</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Half-Yearly Auto-Debit Option</span>
+          <span id="apy-halfyearly" class="font-bold text-[var(--color-text-primary)]">₹2,256 / 6-months</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Contribution Period</span>
+          <span id="apy-tenure" class="font-bold text-indigo-400">35 Years</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Total Cumulative Investment</span>
+          <span id="apy-total-invested" class="font-bold text-[var(--color-text-primary)]">₹1,57,920</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Why Start APY Early at Age 18?</h4>
+      <p>The sooner you start, the smaller your contribution. At age 18, securing a ₹5,000 monthly pension requires only <strong>₹210 per month</strong> (approx ₹7/day). If you wait until age 40, the monthly contribution shoots up to <strong>₹1,454 per month</strong> for the exact same pension!</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Tax Deductions for APY</h4>
+      <p>Contributions to Atal Pension Yojana are eligible for tax deduction under <strong>Section 80CCD(1)</strong> within the ₹1.5 Lakh limit, and additional deductions under <strong>Section 80CCD(1B)</strong> up to ₹50,000 under the Old Tax Regime.</p>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateAPY, formatCurrency } from '../../utils/calculations';
+
+  const ageInput = document.getElementById('apy-age') as HTMLInputElement;
+  const ageNum = document.getElementById('apy-age-input') as HTMLInputElement;
+  let targetPension = 5000;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateAPY();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateAPY();
+    });
+  }
+
+  sync(ageInput, ageNum);
+
+  document.querySelectorAll('.pension-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pension-btn').forEach(b => {
+        b.className = 'pension-btn py-2 px-2 rounded-lg border border-slate-700 bg-slate-800/60 text-xs font-semibold text-slate-300 hover:text-white transition-all text-center';
+      });
+      btn.className = 'pension-btn active py-2 px-2 rounded-lg border border-indigo-500 bg-indigo-500/20 text-xs font-semibold text-indigo-300 transition-all text-center';
+      targetPension = parseInt(btn.getAttribute('data-val') || '5000');
+      updateAPY();
+    });
+  });
+
+  document.querySelectorAll('.preset-chip[data-preset-for="apy-age"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="apy-age"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '25';
+      if (ageInput && ageNum) {
+        ageInput.value = val;
+        ageNum.value = val;
+        updateAPY();
+      }
+    });
+  });
+
+  function updateAPY() {
+    const age = parseInt(ageInput?.value || '25');
+    const res = calculateAPY(age, targetPension);
+
+    const mEl = document.getElementById('apy-monthly-premium');
+    const pEl = document.getElementById('apy-pension-display');
+    const cEl = document.getElementById('apy-nominee-corpus');
+    const qEl = document.getElementById('apy-quarterly');
+    const hEl = document.getElementById('apy-halfyearly');
+    const tEl = document.getElementById('apy-tenure');
+    const tiEl = document.getElementById('apy-total-invested');
+
+    if (mEl) mEl.textContent = `${formatCurrency(res.monthlyContribution)} / mo`;
+    if (pEl) pEl.textContent = `${formatCurrency(res.targetPension)} / mo`;
+    if (cEl) cEl.textContent = formatCurrency(res.corpusAt60);
+    if (qEl) qEl.textContent = `${formatCurrency(res.quarterlyContribution)} / quarter`;
+    if (hEl) hEl.textContent = `${formatCurrency(res.halfYearlyContribution)} / 6-months`;
+    if (tEl) tEl.textContent = `${res.investmentYears} Years (till age 60)`;
+    if (tiEl) tiEl.textContent = formatCurrency(res.totalInvested);
+  }
+
+  updateAPY();
+</script>

@@ -68,6 +68,19 @@ import '../styles/global.css';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
 
+    <!-- Theme & Currency Initialization (Zero Flash) -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('fincalc_theme') || 'dark';
+        if (theme === 'light') {
+          document.documentElement.classList.add('light');
+        } else {
+          document.documentElement.classList.remove('light');
+        }
+        window.__fincalcCurrency = localStorage.getItem('fincalc_currency') || 'INR';
+      })();
+    </script>
+
     <!-- Structured Data -->
     {structuredData && (
       <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
@@ -79,5 +92,176 @@ import '../styles/global.css';
       <slot />
     </main>
     <slot name="footer" />
+
+    <!-- Global Command Palette Modal (Ctrl+K) -->
+    <div id="cmd-palette-backdrop" class="cmd-modal-backdrop" role="dialog" aria-modal="true" aria-label="Command Palette">
+      <div class="cmd-modal-dialog">
+        <!-- Search Header -->
+        <div class="flex items-center px-4 py-3.5 border-b border-[var(--color-border)] gap-3 bg-[var(--color-bg-card)]">
+          <svg class="w-5 h-5 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            id="cmd-palette-input"
+            type="text"
+            class="w-full bg-transparent text-[var(--color-text-primary)] text-sm placeholder-slate-400 focus:outline-none"
+            placeholder="Type to search all 38 calculators (e.g., SIP, Home Loan, Tax, SSY)..."
+            autocomplete="off"
+          />
+          <kbd id="cmd-palette-close-btn" class="px-2 py-0.5 text-xs text-slate-400 bg-slate-800 border border-slate-700 rounded cursor-pointer hover:bg-slate-700 hover:text-white">Esc</kbd>
+        </div>
+
+        <!-- Search Results Container -->
+        <div id="cmd-palette-results" class="overflow-y-auto p-2 max-h-[55vh] divide-y divide-slate-800/40">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Footer Shortcuts -->
+        <div class="px-4 py-2.5 border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] flex items-center justify-between text-[11px] text-[var(--color-text-muted)]">
+          <div class="flex items-center gap-3">
+            <span><kbd class="px-1 py-0.2 rounded bg-slate-800 border border-slate-700 font-mono">↑</kbd> <kbd class="px-1 py-0.2 rounded bg-slate-800 border border-slate-700 font-mono">↓</kbd> to navigate</span>
+            <span><kbd class="px-1.5 py-0.2 rounded bg-slate-800 border border-slate-700 font-mono">Enter</kbd> to select</span>
+          </div>
+          <span class="font-semibold text-indigo-400">38 Instant Calculators</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      import calculators from '../data/calculators.json';
+
+      const backdrop = document.getElementById('cmd-palette-backdrop');
+      const input = document.getElementById('cmd-palette-input') as HTMLInputElement | null;
+      const resultsContainer = document.getElementById('cmd-palette-results');
+      const closeBtn = document.getElementById('cmd-palette-close-btn');
+
+      let selectedIndex = 0;
+      let currentFiltered: typeof calculators = [];
+
+      function openPalette() {
+        backdrop?.classList.add('active');
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+        renderResults(calculators);
+      }
+
+      function closePalette() {
+        backdrop?.classList.remove('active');
+      }
+
+      function renderResults(list: typeof calculators) {
+        currentFiltered = list;
+        selectedIndex = 0;
+        if (!resultsContainer) return;
+
+        if (list.length === 0) {
+          resultsContainer.innerHTML = `
+            <div class="py-8 text-center text-xs text-slate-400">
+              No matching calculators found.
+            </div>
+          `;
+          return;
+        }
+
+        resultsContainer.innerHTML = list.map((item, idx) => `
+          <a
+            href="/calculators/${item.slug}"
+            class="cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer ${idx === 0 ? 'bg-indigo-600/20 text-indigo-200 border border-indigo-500/30' : 'hover:bg-slate-800/60 text-[var(--color-text-secondary)]'}"
+            data-index="${idx}"
+          >
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xl shrink-0">${item.icon}</span>
+              <div class="min-w-0">
+                <div class="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] truncate">${item.name}</div>
+                <div class="text-[11px] text-[var(--color-text-muted)] truncate">${item.description}</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 shrink-0 ml-2">
+              ${item.category}
+            </span>
+          </a>
+        `).join('');
+
+        // Attach click and mouseover
+        document.querySelectorAll('.cmd-result-item').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            const idx = parseInt(el.getAttribute('data-index') || '0');
+            updateSelection(idx);
+          });
+        });
+      }
+
+      function updateSelection(idx: number) {
+        selectedIndex = idx;
+        const items = document.querySelectorAll('.cmd-result-item');
+        items.forEach((it, i) => {
+          if (i === selectedIndex) {
+            it.className = 'cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer bg-indigo-600/20 text-indigo-200 border border-indigo-500/30';
+            it.scrollIntoView({ block: 'nearest' });
+          } else {
+            it.className = 'cmd-result-item flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer hover:bg-slate-800/60 text-[var(--color-text-secondary)]';
+          }
+        });
+      }
+
+      input?.addEventListener('input', () => {
+        const q = input.value.toLowerCase().trim();
+        if (!q) {
+          renderResults(calculators);
+          return;
+        }
+        const filtered = calculators.filter(c => {
+          const matchName = c.name.toLowerCase().includes(q);
+          const matchDesc = c.description.toLowerCase().includes(q);
+          const matchCat = c.category.toLowerCase().includes(q);
+          const matchKeys = c.keywords && c.keywords.some(k => k.toLowerCase().includes(q));
+          return matchName || matchDesc || matchCat || matchKeys;
+        });
+        renderResults(filtered);
+      });
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if (!backdrop?.classList.contains('active')) {
+          if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            openPalette();
+          }
+          return;
+        }
+
+        if (e.key === 'Escape') {
+          closePalette();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (currentFiltered.length > 0) {
+            const next = (selectedIndex + 1) % currentFiltered.length;
+            updateSelection(next);
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (currentFiltered.length > 0) {
+            const prev = (selectedIndex - 1 + currentFiltered.length) % currentFiltered.length;
+            updateSelection(prev);
+          }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (currentFiltered[selectedIndex]) {
+            window.location.href = `/calculators/${currentFiltered[selectedIndex].slug}`;
+          }
+        }
+      });
+
+      backdrop?.addEventListener('click', (e) => {
+        if (e.target === backdrop) closePalette();
+      });
+      closeBtn?.addEventListener('click', closePalette);
+
+      // Expose globally for Header or page triggers
+      (window as any).__openFincalcSearch = openPalette;
+    </script>
   </body>
 </html>

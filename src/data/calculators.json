@@ -9,6 +9,33 @@
     "keywords": ["emi calculator", "loan emi", "emi calculation", "monthly emi"]
   },
   {
+    "id": "loan-eligibility",
+    "name": "Loan Eligibility Calculator",
+    "slug": "loan-eligibility-calculator",
+    "description": "Check maximum loan eligibility and allowable EMI based on income & FOIR",
+    "category": "Loan & EMI",
+    "icon": "🎯",
+    "keywords": ["loan eligibility calculator", "foir calculator", "max loan amount", "home loan eligibility"]
+  },
+  {
+    "id": "education-loan",
+    "name": "Education Loan Calculator",
+    "slug": "education-loan-calculator",
+    "description": "Calculate student loan EMI with course moratorium period & 80E tax deduction",
+    "category": "Loan & EMI",
+    "icon": "🎓",
+    "keywords": ["education loan emi calculator", "student loan moratorium", "study loan interest deduction 80e"]
+  },
+  {
+    "id": "rent-vs-buy",
+    "name": "Rent vs Buy Calculator",
+    "slug": "rent-vs-buy-calculator",
+    "description": "Compare 10-25 year net wealth of buying a home vs renting & investing in equity",
+    "category": "Loan & EMI",
+    "icon": "🏘️",
+    "keywords": ["rent vs buy calculator", "should i buy home or rent", "property vs sip wealth comparison"]
+  },
+  {
     "id": "flat-vs-reducing",
     "name": "Flat vs Reducing Rate",
     "slug": "flat-vs-reducing-rate",
@@ -72,15 +99,6 @@
     "keywords": ["sip calculator", "systematic investment plan", "sip returns", "mutual fund sip"]
   },
   {
-    "id": "lumpsum",
-    "name": "Lumpsum Calculator",
-    "slug": "lumpsum-calculator",
-    "description": "Calculate returns for lumpsum investments to achieve your financial goals",
-    "category": "Investment",
-    "icon": "💎",
-    "keywords": ["lumpsum calculator", "one time investment", "lumpsum returns"]
-  },
-  {
     "id": "step-up-sip",
     "name": "Step-Up SIP Calculator",
     "slug": "step-up-sip-calculator",
@@ -88,6 +106,15 @@
     "category": "Investment",
     "icon": "📊",
     "keywords": ["step up sip", "sip with yearly increase", "top up sip calculator"]
+  },
+  {
+    "id": "lumpsum",
+    "name": "Lumpsum Calculator",
+    "slug": "lumpsum-calculator",
+    "description": "Calculate returns for lumpsum investments to achieve your financial goals",
+    "category": "Investment",
+    "icon": "💎",
+    "keywords": ["lumpsum calculator", "one time investment", "lumpsum returns"]
   },
   {
     "id": "swp",
@@ -99,28 +126,64 @@
     "keywords": ["swp calculator", "systematic withdrawal plan", "swp returns"]
   },
   {
+    "id": "mutual-fund",
+    "name": "Mutual Fund Returns Calculator",
+    "slug": "mutual-fund-calculator",
+    "description": "Calculate absolute returns, annualized CAGR & total wealth across mutual fund categories",
+    "category": "Investment",
+    "icon": "📊",
+    "keywords": ["mutual fund returns calculator", "cagr calculator mutual fund", "rolling returns", "sip vs lumpsum mf"]
+  },
+  {
     "id": "fd",
     "name": "FD Calculator",
     "slug": "fd-calculator",
-    "description": "Check returns on your Fixed Deposits without any hassle",
+    "description": "Calculate Fixed Deposit maturity value and interest earned across tenures",
     "category": "Savings & Deposits",
     "icon": "🏦",
-    "keywords": ["fd calculator", "fixed deposit calculator", "fd interest rate", "fd returns"]
+    "keywords": ["fd calculator", "fixed deposit calculator", "fd interest rate", "fd maturity"]
   },
   {
     "id": "rd",
     "name": "RD Calculator",
     "slug": "rd-calculator",
-    "description": "Check returns on your Recurring Deposit in just a few clicks",
+    "description": "Calculate maturity value of Recurring Deposit in just a few clicks",
     "category": "Savings & Deposits",
     "icon": "🔄",
     "keywords": ["rd calculator", "recurring deposit calculator", "rd interest rate"]
   },
   {
+    "id": "ssy",
+    "name": "Sukanya Samriddhi Yojana (SSY)",
+    "slug": "ssy-calculator",
+    "description": "Calculate returns for Sukanya Samriddhi Yojana with sovereign 8.2% tax-free interest",
+    "category": "Savings & Deposits",
+    "icon": "👧",
+    "keywords": ["ssy calculator", "sukanya samriddhi yojana", "girl child savings", "ssy interest rate 8.2"]
+  },
+  {
+    "id": "scss",
+    "name": "Senior Citizen Savings Scheme (SCSS)",
+    "slug": "scss-calculator",
+    "description": "Calculate quarterly pension income & maturity on Govt SCSS scheme at 8.2% p.a.",
+    "category": "Savings & Deposits",
+    "icon": "👴",
+    "keywords": ["scss calculator", "senior citizen savings scheme", "quarterly interest payout", "post office scss"]
+  },
+  {
+    "id": "pomis",
+    "name": "Post Office Monthly Income (POMIS)",
+    "slug": "pomis-calculator",
+    "description": "Calculate guaranteed monthly interest income on Post Office MIS at 7.4% p.a.",
+    "category": "Savings & Deposits",
+    "icon": "📮",
+    "keywords": ["pomis calculator", "post office mis", "monthly income scheme", "pomis 7.4 interest"]
+  },
+  {
     "id": "ppf",
     "name": "PPF Calculator",
     "slug": "ppf-calculator",
-    "description": "Calculate your returns on Public Provident Fund (PPF)",
+    "description": "Calculate your returns on Public Provident Fund (PPF) at 7.1% tax-free rate",
     "category": "Provident Fund & Retirement",
     "icon": "🛡️",
     "keywords": ["ppf calculator", "public provident fund", "ppf interest rate", "ppf returns"]
@@ -129,7 +192,7 @@
     "id": "epf",
     "name": "EPF Calculator",
     "slug": "epf-calculator",
-    "description": "Calculate returns for your Employee Provident Fund (EPF)",
+    "description": "Calculate returns for your Employee Provident Fund (EPF) at 8.25% interest",
     "category": "Provident Fund & Retirement",
     "icon": "🏭",
     "keywords": ["epf calculator", "employee provident fund", "pf calculator", "epf returns"]
@@ -138,16 +201,25 @@
     "id": "nps",
     "name": "NPS Calculator",
     "slug": "nps-calculator",
-    "description": "Calculate returns for your National Pension System (NPS)",
+    "description": "Calculate returns and monthly pension for your National Pension System (NPS)",
     "category": "Provident Fund & Retirement",
     "icon": "🧓",
     "keywords": ["nps calculator", "national pension system", "nps returns", "pension calculator"]
   },
   {
+    "id": "apy",
+    "name": "Atal Pension Yojana (APY)",
+    "slug": "apy-calculator",
+    "description": "Estimate monthly contribution needed for guaranteed ₹1,000 - ₹5,000 monthly pension",
+    "category": "Provident Fund & Retirement",
+    "icon": "☂️",
+    "keywords": ["apy calculator", "atal pension yojana", "apy contribution chart", "guaranteed pension scheme"]
+  },
+  {
     "id": "retirement",
     "name": "Retirement Calculator",
     "slug": "retirement-calculator",
-    "description": "Calculate how much you need for a comfortable and relaxed retirement",
+    "description": "Calculate how much you need for a comfortable and relaxed retirement corpus",
     "category": "Provident Fund & Retirement",
     "icon": "🌴",
     "keywords": ["retirement calculator", "retirement planning", "retirement corpus", "retirement fund"]
@@ -156,7 +228,7 @@
     "id": "gratuity",
     "name": "Gratuity Calculator",
     "slug": "gratuity-calculator",
-    "description": "Calculate how much gratuity you will receive when you retire",
+    "description": "Calculate how much gratuity you will receive under Payment of Gratuity Act",
     "category": "Provident Fund & Retirement",
     "icon": "🎁",
     "keywords": ["gratuity calculator", "gratuity calculation", "gratuity amount"]
@@ -165,16 +237,52 @@
     "id": "income-tax",
     "name": "Income Tax Calculator",
     "slug": "income-tax-calculator",
-    "description": "Calculate your payable income tax – Old vs New regime comparison",
+    "description": "Calculate payable tax and compare Old vs New tax regime under FY 2024-25 & 2025-26 rules",
     "category": "Tax & Salary",
     "icon": "📋",
     "keywords": ["income tax calculator", "tax calculator india", "old vs new regime", "income tax 2026"]
   },
   {
+    "id": "salary",
+    "name": "Salary / CTC In-Hand Calculator",
+    "slug": "salary-calculator",
+    "description": "Convert gross Annual CTC into accurate monthly take-home in-hand salary",
+    "category": "Tax & Salary",
+    "icon": "💼",
+    "keywords": ["salary calculator", "ctc to in hand salary", "take home salary calculator", "epf deduction"]
+  },
+  {
+    "id": "tds",
+    "name": "TDS Calculator",
+    "slug": "tds-calculator",
+    "description": "Calculate Tax Deducted at Source for professional fees, contractors, rent & interest",
+    "category": "Tax & Salary",
+    "icon": "🧾",
+    "keywords": ["tds calculator", "tax deducted at source", "section 194c 194j 194i", "tds rate chart"]
+  },
+  {
+    "id": "capital-gains",
+    "name": "Capital Gains Tax Calculator",
+    "slug": "capital-gains-calculator",
+    "description": "Calculate STCG & LTCG tax for Equity (12.5%), Real Estate & Debt under Budget 2024 rules",
+    "category": "Tax & Salary",
+    "icon": "📈",
+    "keywords": ["capital gains tax calculator", "ltcg stcg calculator", "budget 2024 capital gains", "equity real estate tax"]
+  },
+  {
+    "id": "stamp-duty",
+    "name": "Stamp Duty & Registration Calculator",
+    "slug": "stamp-duty-calculator",
+    "description": "Calculate state-wise property stamp duty and registration fees with gender concessions",
+    "category": "Tax & Salary",
+    "icon": "🏛️",
+    "keywords": ["stamp duty calculator", "property registration charges", "state wise stamp duty", "female property concession"]
+  },
+  {
     "id": "hra",
     "name": "HRA Calculator",
     "slug": "hra-calculator",
-    "description": "Calculate your House Rent Allowance exemption",
+    "description": "Calculate House Rent Allowance tax exemption under Section 10(13A)",
     "category": "Tax & Salary",
     "icon": "🏘️",
     "keywords": ["hra calculator", "hra exemption", "house rent allowance calculator"]
@@ -183,10 +291,19 @@
     "id": "gst",
     "name": "GST Calculator",
     "slug": "gst-calculator",
-    "description": "Calculate your payable GST amount — inclusive and exclusive",
+    "description": "Calculate your payable GST amount — inclusive and exclusive of GST rates",
     "category": "Tax & Salary",
     "icon": "🧾",
     "keywords": ["gst calculator", "gst calculation", "gst inclusive exclusive"]
+  },
+  {
+    "id": "currency-converter",
+    "name": "Live Currency Converter",
+    "slug": "currency-converter",
+    "description": "Convert between INR, USD, EUR, GBP, AED, SGD, CAD & more with instant exchange rates",
+    "category": "Other",
+    "icon": "💱",
+    "keywords": ["currency converter", "usd to inr", "eur gbp aed to inr live", "forex rate exchange"]
   },
   {
     "id": "simple-interest",
@@ -201,7 +318,7 @@
     "id": "compound-interest",
     "name": "Compound Interest Calculator",
     "slug": "compound-interest-calculator",
-    "description": "Calculate compound interest with ease — quarterly, monthly, yearly",
+    "description": "Calculate compound interest with ease — quarterly, monthly, yearly compounding",
     "category": "Other",
     "icon": "📐",
     "keywords": ["compound interest calculator", "ci calculator", "compound interest formula"]
@@ -210,7 +327,7 @@
     "id": "cagr",
     "name": "CAGR Calculator",
     "slug": "cagr-calculator",
-    "description": "The simplest compound annual growth rate calculator",
+    "description": "The simplest compound annual growth rate calculator for any investment period",
     "category": "Other",
     "icon": "📉",
     "keywords": ["cagr calculator", "compound annual growth rate", "cagr formula"]
@@ -219,7 +336,7 @@
     "id": "inflation",
     "name": "Inflation Calculator",
     "slug": "inflation-calculator",
-    "description": "Calculate inflation-adjusted prices and future value of money",
+    "description": "Calculate inflation-adjusted prices and future purchasing power of money",
     "category": "Other",
     "icon": "📦",
     "keywords": ["inflation calculator", "inflation rate india", "future value of money"]

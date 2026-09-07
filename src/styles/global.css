@@ -521,3 +521,144 @@ input[type="range"]::-moz-range-thumb {
     font-weight: 700 !important;
   }
 }
+
+/* ---- Light Theme Overrides ---- */
+html.light {
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f8fafc;
+  --color-bg-input: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-focus: #4f46e5;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+}
+
+html.light .fintech-bg {
+  background-color: #f8fafc;
+  background-image:
+    radial-gradient(ellipse 90% 45% at 50% -15%, rgba(99, 102, 241, 0.08), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 15%, rgba(16, 185, 129, 0.05), transparent 60%);
+}
+
+html.light header {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+html.light footer {
+  background-color: #f8fafc !important;
+  border-top-color: #e2e8f0 !important;
+}
+
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
+}
+
+html.light .glass-card-static {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+html.light input[type="number"], 
+html.light input[type="text"], 
+html.light select {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light input[type="range"] {
+  background: #e2e8f0 !important;
+}
+
+html.light .currency-symbol {
+  color: #64748b !important;
+}
+
+html.light .schedule-row-even {
+  background-color: rgba(241, 245, 249, 0.6);
+}
+
+html.light .preset-chip {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+html.light .preset-chip:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* ---- Command Palette Modal ---- */
+.cmd-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.cmd-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cmd-modal-dialog {
+  width: 100%;
+  max-width: 620px;
+  max-height: 75vh;
+  border-radius: 1rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.96) translateY(-10px);
+  transition: transform 0.2s ease;
+}
+.cmd-modal-backdrop.active .cmd-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* ---- Shareable URL & Copy Toast ---- */
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+.share-btn:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ---- Dynamic Donut SVG Chart ---- */
+.donut-svg {
+  transform: rotate(-90deg);
+  border-radius: 50%;
+}
+.donut-segment {
+  transition: stroke-dasharray 0.6s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+}

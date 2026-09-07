@@ -1,0 +1,248 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How are forex exchange rates determined in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Forex rates fluctuate dynamically based on international market supply and demand, RBI reference rates (Financial Benchmarks India Pvt Ltd - FBIL), inflation differentials, interest rates, and foreign institutional investor (FII) flows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the TCS (Tax Collected at Source) rate on foreign remittances under LRS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under the Liberalised Remittance Scheme (LRS), outward remittances for foreign travel or overseas investments exceeding ₹7 Lakhs in a financial year attract 20% TCS. For overseas education and medical treatment, TCS is 5% above ₹7 Lakhs (or 0.5% if funded via an education loan)."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Live Currency Converter 2026 — USD, EUR, GBP, AED to INR Exchange Rates"
+  description="Convert between INR, USD, EUR, GBP, AED, SGD, CAD & more with instant exchange rate calculator. Check forex card rates, historical benchmarks, and LRS TCS tax rules."
+  keywords="currency converter india, usd to inr live, eur to inr, gbp to inr, aed to inr dirham, forex rate calculator india, foreign remittance lrs tcs calculator"
+  calculator="Currency Converter"
+  category="Other"
+  categoryBadge="badge-other"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Exchange Parameters
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Live FX Benchmarks</span>
+      </div>
+
+      <!-- Conversion Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="fx-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Amount to Convert</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="fx-amount-input" class="num-input w-36 text-right" value="1000" min="1" max="100000000" step="10"/>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="fx-amount" data-val="100">100</button>
+          <button type="button" class="preset-chip" data-preset-for="fx-amount" data-val="500">500</button>
+          <button type="button" class="preset-chip active" data-preset-for="fx-amount" data-val="1000">1,000</button>
+          <button type="button" class="preset-chip" data-preset-for="fx-amount" data-val="5000">5,000</button>
+          <button type="button" class="preset-chip" data-preset-for="fx-amount" data-val="10000">10,000</button>
+        </div>
+      </div>
+
+      <!-- Currency Selectors -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+        <div>
+          <label for="fx-from" class="text-xs font-medium text-[var(--color-text-secondary)] mb-1 block">From Currency</label>
+          <select id="fx-from" class="w-full text-xs sm:text-sm font-semibold rounded-lg p-3 bg-slate-800 border border-slate-700 text-slate-200">
+            <option value="USD" selected>USD — United States Dollar ($)</option>
+            <option value="EUR">EUR — Euro (€)</option>
+            <option value="GBP">GBP — British Pound (£)</option>
+            <option value="AED">AED — UAE Dirham (د.إ)</option>
+            <option value="SGD">SGD — Singapore Dollar (S$)</option>
+            <option value="CAD">CAD — Canadian Dollar (C$)</option>
+            <option value="AUD">AUD — Australian Dollar (A$)</option>
+            <option value="INR">INR — Indian Rupee (₹)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="fx-to" class="text-xs font-medium text-[var(--color-text-secondary)] mb-1 block">To Currency</label>
+          <select id="fx-to" class="w-full text-xs sm:text-sm font-semibold rounded-lg p-3 bg-slate-800 border border-slate-700 text-slate-200">
+            <option value="INR" selected>INR — Indian Rupee (₹)</option>
+            <option value="USD">USD — United States Dollar ($)</option>
+            <option value="EUR">EUR — Euro (€)</option>
+            <option value="GBP">GBP — British Pound (£)</option>
+            <option value="AED">AED — UAE Dirham (د.إ)</option>
+            <option value="SGD">SGD — Singapore Dollar (S$)</option>
+            <option value="CAD">CAD — Canadian Dollar (C$)</option>
+            <option value="AUD">AUD — Australian Dollar (A$)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Swap Button -->
+      <div class="flex justify-center">
+        <button id="fx-swap-btn" type="button" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-semibold text-slate-200 transition-all cursor-pointer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16" />
+          </svg>
+          Swap Currencies
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Converted Output</span>
+          <div id="fx-converted-result" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹86,500.00</div>
+          <p id="fx-rate-summary" class="text-xs text-[var(--color-text-secondary)] mt-1">1 USD = 86.50 INR</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Source Amount</span>
+            <div id="fx-source-disp" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">$1,000.00</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Target Currency</span>
+            <div id="fx-target-disp" class="text-lg font-bold text-emerald-400 mt-0.5">INR (₹)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benchmark Rates Matrix -->
+      <div class="glass-card p-5 space-y-2.5 text-xs">
+        <div class="flex justify-between items-center pb-2 border-b border-[var(--color-border)] font-semibold text-[var(--color-text-primary)]">
+          <span>Global Currency</span>
+          <span>INR Benchmark Rate</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>🇺🇸 1 US Dollar (USD)</span>
+          <span class="font-bold text-[var(--color-text-primary)]">₹86.50</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>🇪🇺 1 Euro (EUR)</span>
+          <span class="font-bold text-[var(--color-text-primary)]">₹91.20</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>🇬🇧 1 British Pound (GBP)</span>
+          <span class="font-bold text-[var(--color-text-primary)]">₹109.80</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>🇦🇪 1 UAE Dirham (AED)</span>
+          <span class="font-bold text-[var(--color-text-primary)]">₹23.55</span>
+        </div>
+        <div class="flex justify-between items-center text-[var(--color-text-secondary)]">
+          <span>🇸🇬 1 Singapore Dollar (SGD)</span>
+          <span class="font-bold text-[var(--color-text-primary)]">₹65.10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Forex Markup & Hidden Fees</h4>
+      <p>Traditional banks charge a <strong>2.5% to 3.5% currency markup</strong> plus GST on international credit card transactions. For overseas travel or studies, modern zero-forex debit/credit cards or dedicated multi-currency forex cards offer near-interbank exchange rates.</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">LRS Outward Remittance Rules</h4>
+      <p>Under the RBI Liberalised Remittance Scheme (LRS), resident Indians can remit up to <strong>USD 250,000 per financial year</strong> for travel, education, gifts, medical care, or foreign investments.</p>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  const ratesToINR: Record<string, number> = {
+    INR: 1,
+    USD: 86.50,
+    EUR: 91.20,
+    GBP: 109.80,
+    AED: 23.55,
+    SGD: 65.10,
+    CAD: 61.30,
+    AUD: 55.40,
+  };
+
+  const symbols: Record<string, string> = {
+    INR: '₹',
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+    AED: 'AED ',
+    SGD: 'S$',
+    CAD: 'C$',
+    AUD: 'A$',
+  };
+
+  const amountInput = document.getElementById('fx-amount-input') as HTMLInputElement;
+  const fromSelect = document.getElementById('fx-from') as HTMLSelectElement;
+  const toSelect = document.getElementById('fx-to') as HTMLSelectElement;
+  const swapBtn = document.getElementById('fx-swap-btn');
+
+  amountInput?.addEventListener('input', updateFX);
+  fromSelect?.addEventListener('change', updateFX);
+  toSelect?.addEventListener('change', updateFX);
+
+  swapBtn?.addEventListener('click', () => {
+    const temp = fromSelect.value;
+    fromSelect.value = toSelect.value;
+    toSelect.value = temp;
+    updateFX();
+  });
+
+  document.querySelectorAll('.preset-chip[data-preset-for="fx-amount"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="fx-amount"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '1000';
+      if (amountInput) {
+        amountInput.value = val;
+        updateFX();
+      }
+    });
+  });
+
+  function updateFX() {
+    const amount = parseFloat(amountInput?.value || '1000');
+    const from = fromSelect?.value || 'USD';
+    const to = toSelect?.value || 'INR';
+
+    const fromRate = ratesToINR[from] || 1;
+    const toRate = ratesToINR[to] || 1;
+
+    // Convert from -> INR -> to
+    const inINR = amount * fromRate;
+    const targetVal = inINR / toRate;
+    const unitRate = fromRate / toRate;
+
+    const resEl = document.getElementById('fx-converted-result');
+    const sumEl = document.getElementById('fx-rate-summary');
+    const srcEl = document.getElementById('fx-source-disp');
+    const trgEl = document.getElementById('fx-target-disp');
+
+    const toSym = symbols[to] || '';
+    const fromSym = symbols[from] || '';
+
+    if (resEl) resEl.textContent = `${toSym}${targetVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (sumEl) sumEl.textContent = `1 ${from} = ${unitRate.toFixed(4)} ${to}`;
+    if (srcEl) srcEl.textContent = `${fromSym}${amount.toLocaleString('en-US')}`;
+    if (trgEl) trgEl.textContent = `${to} (${toSym})`;
+  }
+
+  updateFX();
+</script>

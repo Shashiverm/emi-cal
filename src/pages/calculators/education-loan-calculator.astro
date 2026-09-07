@@ -1,0 +1,257 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the moratorium period in an education loan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The moratorium period (or holiday period) is the course duration plus a grace period (usually 6 to 12 months after course completion or securing a job, whichever is earlier). You are not required to pay full EMIs during this time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Section 80E tax deduction benefit education loan borrowers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under Section 80E of the Income Tax Act, 100% of the interest paid on an education loan is deductible from your taxable income for up to 8 consecutive assessment years, with NO upper monetary limit!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I service simple interest during the study moratorium?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, servicing simple interest during the study period prevents the interest from being capitalized (added to principal). Many banks also offer a 0.5% to 1.0% interest rate concession if you service simple interest during college."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Education Loan Calculator (Moratorium & 80E Tax Benefit 2026)"
+  description="Calculate student education loan EMI with course moratorium period, simple vs capitalized interest comparison, and unlimited Section 80E income tax deduction savings."
+  keywords="education loan emi calculator, student loan calculator, moratorium period calculator, study abroad loan emi, section 80e tax deduction, education loan interest sbi hdfc credila"
+  calculator="Education Loan Calculator"
+  category="Loan & EMI"
+  categoryBadge="badge-loan"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Loan & Study Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-indigo)] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20">Sec 80E Deductible</span>
+      </div>
+
+      <!-- Loan Amount -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="el-amount" class="text-sm font-medium text-[var(--color-text-secondary)]">Total Loan Sanctioned</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="el-amount-input" class="num-input w-32 text-right" value="2500000" min="100000" max="15000000" step="50000"/>
+          </div>
+        </div>
+        <input type="range" id="el-amount" min="100000" max="10000000" step="50000" value="2500000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹1 Lakh</span>
+          <span>₹50 Lakhs</span>
+          <span>₹1.0 Crore</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="el-amount" data-val="1000000">₹10 Lakhs (Domestic)</button>
+          <button type="button" class="preset-chip active" data-preset-for="el-amount" data-val="2500000">₹25 Lakhs</button>
+          <button type="button" class="preset-chip" data-preset-for="el-amount" data-val="5000000">₹50 Lakhs (Abroad)</button>
+          <button type="button" class="preset-chip" data-preset-for="el-amount" data-val="7500000">₹75 Lakhs</button>
+        </div>
+      </div>
+
+      <!-- Interest Rate -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="el-rate" class="text-sm font-medium text-[var(--color-text-secondary)]">Interest Rate (p.a.)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="el-rate-input" class="num-input w-24 text-right" value="9.5" min="7" max="16" step="0.1"/>
+            <span class="text-[var(--color-text-muted)] text-sm">%</span>
+          </div>
+        </div>
+        <input type="range" id="el-rate" min="7" max="16" step="0.1" value="9.5"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>7%</span>
+          <span>9.5% (Typical Bank Rate)</span>
+          <span>16%</span>
+        </div>
+      </div>
+
+      <!-- Moratorium Options -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="el-course" class="text-xs font-medium text-[var(--color-text-secondary)] mb-1 block">Course Duration</label>
+          <select id="el-course" class="w-full text-xs font-medium rounded-lg p-2.5 bg-slate-800 border border-slate-700 text-slate-200">
+            <option value="1">1 Year (Masters/Diploma)</option>
+            <option value="2" selected>2 Years (MBA/MS)</option>
+            <option value="3">3 Years (BSc/BCom)</option>
+            <option value="4">4 Years (BTech/Engg)</option>
+            <option value="5">5 Years (MBBS/Law)</option>
+          </select>
+        </div>
+        <div>
+          <label for="el-grace" class="text-xs font-medium text-[var(--color-text-secondary)] mb-1 block">Grace Period After Study</label>
+          <select id="el-grace" class="w-full text-xs font-medium rounded-lg p-2.5 bg-slate-800 border border-slate-700 text-slate-200">
+            <option value="6">6 Months</option>
+            <option value="12" selected>12 Months (1 Year)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Repayment Tenure -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="el-tenure" class="text-sm font-medium text-[var(--color-text-secondary)]">Repayment Tenure After Moratorium</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="el-tenure-input" class="num-input w-20 text-right" value="10" min="1" max="15"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Yrs</span>
+          </div>
+        </div>
+        <input type="range" id="el-tenure" min="1" max="15" step="1" value="10"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1">
+          <span>1 Yr</span>
+          <span>10 Years</span>
+          <span>15 Years (Max)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Monthly EMI (Post-Study)</span>
+          <div id="el-emi" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-1">₹41,836</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Payable monthly once course and grace period conclude</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Moratorium Interest Accrued</span>
+            <div id="el-morat-interest" class="text-lg font-bold text-amber-400 mt-0.5">₹7,12,500</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Capitalized Repayment Principal</span>
+            <div id="el-repay-principal" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">₹32,12,500</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights Box -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Total Moratorium Holiday Period</span>
+          <span id="el-morat-months" class="font-bold text-[var(--color-text-primary)]">36 Months (3 Yrs)</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Total Amount Repaid</span>
+          <span id="el-total-repaid" class="font-bold text-indigo-400">₹50,20,320</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Section 80E Tax Savings (at 30% slab)</span>
+          <span id="el-tax-savings" class="font-bold text-emerald-400">₹5,42,346</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Section 80E: 100% Tax Deduction</h4>
+      <p>Under Section 80E of the Indian Income Tax Act:</p>
+      <ul class="list-disc pl-5 space-y-1.5">
+        <li><strong>No Upper Limit:</strong> Unlike Section 80C (capped at ₹1.5L), Section 80E allows <strong>unlimited deduction</strong> of the entire interest component!</li>
+        <li><strong>Eligibility:</strong> The loan must be taken for higher studies of self, spouse, or children.</li>
+        <li><strong>Time Window:</strong> Available for 8 consecutive assessment years starting from the year you commence repayment.</li>
+      </ul>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Simple Interest vs Capitalization Tip</h4>
+      <p>If you or your parents pay the simple monthly interest during college (₹19,791/mo on ₹25L @ 9.5%), your repayment principal will remain exactly ₹25 Lakhs when you graduate, shaving off thousands in overall interest!</p>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateEducationLoan, formatCurrency } from '../../utils/calculations';
+
+  const amountInput = document.getElementById('el-amount') as HTMLInputElement;
+  const amountNum = document.getElementById('el-amount-input') as HTMLInputElement;
+  const rateInput = document.getElementById('el-rate') as HTMLInputElement;
+  const rateNum = document.getElementById('el-rate-input') as HTMLInputElement;
+  const courseSelect = document.getElementById('el-course') as HTMLSelectElement;
+  const graceSelect = document.getElementById('el-grace') as HTMLSelectElement;
+  const tenureInput = document.getElementById('el-tenure') as HTMLInputElement;
+  const tenureNum = document.getElementById('el-tenure-input') as HTMLInputElement;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateEduLoan();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateEduLoan();
+    });
+  }
+
+  sync(amountInput, amountNum);
+  sync(rateInput, rateNum);
+  sync(tenureInput, tenureNum);
+  courseSelect?.addEventListener('change', updateEduLoan);
+  graceSelect?.addEventListener('change', updateEduLoan);
+
+  document.querySelectorAll('.preset-chip[data-preset-for="el-amount"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="el-amount"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '2500000';
+      if (amountInput && amountNum) {
+        amountInput.value = val;
+        amountNum.value = val;
+        updateEduLoan();
+      }
+    });
+  });
+
+  function updateEduLoan() {
+    const loan = parseFloat(amountInput?.value || '2500000');
+    const rate = parseFloat(rateInput?.value || '9.5');
+    const courseYrs = parseInt(courseSelect?.value || '2');
+    const graceMonths = parseInt(graceSelect?.value || '12');
+    const repayYrs = parseInt(tenureInput?.value || '10');
+
+    const res = calculateEducationLoan(loan, rate, courseYrs, graceMonths, repayYrs, false);
+
+    const emiEl = document.getElementById('el-emi');
+    const moratEl = document.getElementById('el-morat-interest');
+    const prinEl = document.getElementById('el-repay-principal');
+    const monthsEl = document.getElementById('el-morat-months');
+    const repEl = document.getElementById('el-total-repaid');
+    const taxEl = document.getElementById('el-tax-savings');
+
+    if (emiEl) emiEl.textContent = formatCurrency(res.emi);
+    if (moratEl) moratEl.textContent = formatCurrency(res.moratoriumInterestAccrued);
+    if (prinEl) prinEl.textContent = formatCurrency(res.repaymentPrincipal);
+    if (monthsEl) monthsEl.textContent = `${res.moratoriumMonths} Months (${(res.moratoriumMonths / 12).toFixed(1)} Yrs)`;
+    if (repEl) repEl.textContent = formatCurrency(res.totalRepaidOverall);
+    if (taxEl) taxEl.textContent = formatCurrency(Math.round(res.taxDeduction80E * 0.30));
+  }
+
+  updateEduLoan();
+</script>

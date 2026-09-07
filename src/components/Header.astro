@@ -2,58 +2,109 @@
 const navCategories = [
   { name: 'Loan & EMI', href: '/#loan-emi' },
   { name: 'Investment', href: '/#investment' },
-  { name: 'Savings', href: '/#savings' },
-  { name: 'Retirement', href: '/#retirement' },
+  { name: 'Savings & Deposits', href: '/#savings' },
+  { name: 'Provident & Pension', href: '/#retirement' },
   { name: 'Tax & Salary', href: '/#tax' },
+  { name: 'Utilities', href: '/#other' },
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[#090d16]/85 backdrop-blur-xl transition-all">
+<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[#090d16]/90 backdrop-blur-xl transition-all">
   <div class="container-main flex items-center justify-between h-16">
     <!-- Brand Logo -->
     <a href="/" class="flex items-center gap-2.5 group" aria-label="FinCalc India Home">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center text-white font-bold text-base shadow-sm group-hover:scale-105 transition-transform duration-200">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center text-white font-bold text-base shadow-md group-hover:scale-105 transition-transform duration-200">
         ₹
       </div>
       <div class="flex flex-col">
         <span class="font-[var(--font-heading)] font-extrabold text-lg tracking-tight text-[var(--color-text-primary)] leading-tight">
           FinCalc<span class="text-indigo-400 font-semibold ml-0.5">India</span>
         </span>
-        <span class="text-[10px] text-[var(--color-text-muted)] font-medium -mt-0.5">Free Financial Calculators</span>
+        <span class="text-[10px] text-[var(--color-text-muted)] font-medium -mt-0.5">38 Free Financial Calculators</span>
       </div>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-1.5" aria-label="Calculator categories">
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Calculator categories">
       {navCategories.map((cat) => (
         <a
           href={cat.href}
-          class="px-3 py-1.5 rounded-lg text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-800/60 transition-all duration-150"
+          class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-slate-800/60 transition-all duration-150"
         >
           {cat.name}
         </a>
       ))}
     </nav>
 
-    <!-- Right Header Actions -->
-    <div class="flex items-center gap-2.5">
-      <a
-        href="/#calc-search-input"
-        class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-slate-600 text-xs font-medium text-slate-300 transition-all cursor-pointer"
-        aria-label="Search all calculators"
+    <!-- Right Header Controls -->
+    <div class="flex items-center gap-2 sm:gap-2.5">
+      <!-- Global Search / Command Palette Button -->
+      <button
+        id="global-search-btn"
+        type="button"
+        class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-slate-600 text-xs font-medium text-slate-300 transition-all cursor-pointer shadow-sm"
+        aria-label="Search all 38 calculators (Ctrl+K)"
+        title="Search calculators (Ctrl+K)"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <span>Search</span>
-        <kbd class="px-1.5 py-0.2 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono text-slate-400">Ctrl+K</kbd>
-      </a>
+        <span class="hidden sm:inline">Search</span>
+        <kbd class="hidden md:inline-block px-1.5 py-0.2 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono text-slate-400">Ctrl+K</kbd>
+      </button>
+
+      <!-- Global Currency Selector -->
+      <div class="relative">
+        <select
+          id="global-currency-select"
+          class="appearance-none bg-slate-800/90 hover:bg-slate-800 border border-slate-700/70 text-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 pr-7 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 cursor-pointer shadow-sm transition-all"
+          title="Change calculation currency display"
+          aria-label="Select currency"
+        >
+          <option value="INR">₹ INR</option>
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+          <option value="GBP">£ GBP</option>
+          <option value="AED">AED</option>
+        </select>
+        <div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Theme Toggle (Dark / Light) -->
+      <button
+        id="theme-toggle-btn"
+        type="button"
+        class="p-1.5 sm:p-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 text-slate-300 hover:text-white transition-all cursor-pointer"
+        aria-label="Toggle dark and light theme"
+        title="Toggle Theme"
+      >
+        <!-- Sun Icon (shown in dark mode) -->
+        <svg id="theme-sun-icon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- Moon Icon (shown in light mode) -->
+        <svg id="theme-moon-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
 
       <!-- Mobile Menu Toggle Button -->
       <button
         id="mobile-menu-btn"
-        class="md:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:text-white hover:bg-slate-800 transition-colors"
+        class="lg:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:text-white hover:bg-slate-800 transition-colors"
         aria-label="Toggle navigation menu"
         aria-expanded="false"
       >
@@ -67,7 +118,7 @@ const navCategories = [
   </div>
 
   <!-- Mobile Dropdown Navigation -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-border)] bg-[#090d16]/95 backdrop-blur-2xl">
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-[var(--color-border)] bg-[#090d16]/95 backdrop-blur-2xl">
     <nav class="container-main py-4 flex flex-col gap-1">
       {navCategories.map((cat) => (
         <a
@@ -85,18 +136,88 @@ const navCategories = [
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <span>Search 25+ Calculators</span>
+        <span>Explore All 38 Calculators</span>
       </a>
     </nav>
   </div>
 </header>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    menu?.classList.toggle('hidden');
+  // Mobile navigation toggle
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileBtn?.addEventListener('click', () => {
+    const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+    mobileBtn.setAttribute('aria-expanded', String(!expanded));
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Theme Toggle Controller
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  const sunIcon = document.getElementById('theme-sun-icon');
+  const moonIcon = document.getElementById('theme-moon-icon');
+
+  function updateThemeUI(isLight: boolean) {
+    if (isLight) {
+      document.documentElement.classList.add('light');
+      sunIcon?.classList.add('hidden');
+      moonIcon?.classList.remove('hidden');
+      localStorage.setItem('fincalc_theme', 'light');
+    } else {
+      document.documentElement.classList.remove('light');
+      sunIcon?.classList.remove('hidden');
+      moonIcon?.classList.add('hidden');
+      localStorage.setItem('fincalc_theme', 'dark');
+    }
+  }
+
+  // Initial sync
+  const initialIsLight = document.documentElement.classList.contains('light');
+  updateThemeUI(initialIsLight);
+
+  themeBtn?.addEventListener('click', () => {
+    const isLightNow = document.documentElement.classList.contains('light');
+    updateThemeUI(!isLightNow);
+  });
+
+  // Global Currency Controller
+  const currencySelect = document.getElementById('global-currency-select') as HTMLSelectElement | null;
+  if (currencySelect) {
+    const storedCur = localStorage.getItem('fincalc_currency') || 'INR';
+    currencySelect.value = storedCur;
+    currencySelect.addEventListener('change', (e) => {
+      const selected = (e.target as HTMLSelectElement).value;
+      localStorage.setItem('fincalc_currency', selected);
+      window.dispatchEvent(new CustomEvent('fincalc_currency_change', { detail: { currency: selected } }));
+    });
+  }
+
+  // Global Search trigger (Ctrl+K or button click)
+  const searchBtn = document.getElementById('global-search-btn');
+  function triggerSearch() {
+    const cmdBackdrop = document.getElementById('cmd-palette-backdrop');
+    if (cmdBackdrop) {
+      cmdBackdrop.classList.add('active');
+      const input = document.getElementById('cmd-palette-input') as HTMLInputElement | null;
+      input?.focus();
+    } else {
+      // If not on a page with modal, scroll to homepage search or navigate
+      const homeSearch = document.getElementById('calc-search-input');
+      if (homeSearch) {
+        homeSearch.focus();
+        homeSearch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        window.location.href = '/#calc-search-input';
+      }
+    }
+  }
+
+  searchBtn?.addEventListener('click', triggerSearch);
+
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      triggerSearch();
+    }
   });
 </script>

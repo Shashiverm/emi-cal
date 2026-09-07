@@ -1,0 +1,259 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the new Capital Gains tax rates after Union Budget 2024?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As per the Finance (No. 2) Act 2024: 1) Long-Term Capital Gains (LTCG) on listed equity and equity mutual funds increased from 10% to 12.5%, but the annual tax exemption limit was raised from ₹1.0 Lakh to ₹1.25 Lakhs. 2) Short-Term Capital Gains (STCG) on equity increased from 15% to 20%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the holding period to qualify for Long Term Capital Gains (LTCG)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For listed shares and equity mutual funds, the holding period is more than 12 months. For real estate (land/building) and unlisted shares, the holding period is more than 24 months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is real estate capital gain taxed under the new rules?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For real estate bought after 2001, LTCG is taxed at 12.5% without indexation benefit. However, the government introduced a grandfathering amendment allowing resident individuals/HUFs to compute tax at 20% with indexation and pay whichever is lower for properties acquired prior to July 23, 2024."
+      }
+    }
+  ]
+};
+---
+
+<CalculatorLayout
+  title="Capital Gains Tax Calculator (Budget 2024-2026 Rules) — LTCG & STCG"
+  description="Calculate your Capital Gains tax on Equity Shares, Mutual Funds & Real Estate under latest Budget 2024-25 rules. Equity LTCG @ 12.5% (with ₹1.25L exemption) & STCG @ 20%."
+  keywords="capital gains tax calculator india, ltcg calculator 2026, budget 2024 capital gains, equity ltcg 12.5 percent, stcg 20 percent calculator, real estate capital gains tax, 1.25 lakh ltcg exemption"
+  calculator="Capital Gains Tax Calculator"
+  category="Tax & Salary"
+  categoryBadge="badge-tax"
+  structuredData={faqData}
+>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="glass-card p-6 md:p-8 animate-fade-in space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--color-border)]">
+        <h2 class="font-[var(--font-heading)] font-semibold text-lg sm:text-xl text-[var(--color-text-primary)]">
+          Asset & Transaction Details
+        </h2>
+        <span class="text-xs text-[var(--color-accent-emerald)] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Budget 2024-26 Slabs</span>
+      </div>
+
+      <!-- Asset Category -->
+      <div>
+        <label for="cg-asset-type" class="text-sm font-medium text-[var(--color-text-secondary)] mb-1.5 block">Asset Class</label>
+        <select id="cg-asset-type" class="w-full text-xs sm:text-sm font-medium rounded-lg p-3 bg-slate-800 border border-slate-700 text-slate-200">
+          <option value="equity_listed" selected>Listed Shares / Equity Mutual Funds</option>
+          <option value="real_estate">Real Estate (Land & Residential Property)</option>
+          <option value="debt_funds">Debt Mutual Funds / Gold / Unlisted Shares</option>
+        </select>
+      </div>
+
+      <!-- Purchase Price -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="cg-buy-price" class="text-sm font-medium text-[var(--color-text-secondary)]">Total Purchase / Cost Price</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="cg-buy-price-input" class="num-input w-32 text-right" value="500000" min="10000" max="100000000" step="10000"/>
+          </div>
+        </div>
+        <input type="range" id="cg-buy-price" min="50000" max="5000000" step="25000" value="500000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹50,000</span>
+          <span>₹25 Lakhs</span>
+          <span>₹50 Lakhs</span>
+        </div>
+      </div>
+
+      <!-- Sale Price -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="cg-sell-price" class="text-sm font-medium text-[var(--color-text-secondary)]">Total Sale / Redemption Price</label>
+          <div class="flex items-center gap-1">
+            <span class="text-[var(--color-text-muted)] text-sm">₹</span>
+            <input type="number" id="cg-sell-price-input" class="num-input w-32 text-right" value="850000" min="10000" max="100000000" step="10000"/>
+          </div>
+        </div>
+        <input type="range" id="cg-sell-price" min="50000" max="10000000" step="25000" value="850000"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>₹50,000</span>
+          <span>₹50 Lakhs</span>
+          <span>₹1.0 Crore</span>
+        </div>
+      </div>
+
+      <!-- Holding Period -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="cg-holding" class="text-sm font-medium text-[var(--color-text-secondary)]">Holding Period (Months)</label>
+          <div class="flex items-center gap-1">
+            <input type="number" id="cg-holding-input" class="num-input w-20 text-right" value="18" min="1" max="120"/>
+            <span class="text-[var(--color-text-muted)] text-sm">Mo</span>
+          </div>
+        </div>
+        <input type="range" id="cg-holding" min="1" max="60" step="1" value="18"/>
+        <div class="flex justify-between text-xs text-[var(--color-text-muted)] mt-1.5 mb-2.5">
+          <span>1 Month</span>
+          <span>12 Mo (Equity LTCG cutoff)</span>
+          <span>60 Mo (5 Yrs)</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button type="button" class="preset-chip" data-preset-for="cg-holding" data-val="6">6 Mo (STCG)</button>
+          <button type="button" class="preset-chip" data-preset-for="cg-holding" data-val="12">12 Mo</button>
+          <button type="button" class="preset-chip active" data-preset-for="cg-holding" data-val="18">18 Mo (LTCG)</button>
+          <button type="button" class="preset-chip" data-preset-for="cg-holding" data-val="36">36 Mo (3 Yrs)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="flex flex-col gap-6 animate-fade-in-delay">
+      <div class="result-card p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Total Tax Payable (Inc 4% Cess)</span>
+            <span id="cg-type-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              LTCG @ 12.5%
+            </span>
+          </div>
+          <div id="cg-tax-amount" class="result-value text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--color-text-primary)] mt-2">₹29,250</div>
+          <p class="text-xs text-[var(--color-text-secondary)] mt-1">Net capital gains tax liability payable for current FY</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Gross Profit / Gain</span>
+            <div id="cg-gross-gain" class="text-lg font-bold text-emerald-400 mt-0.5">₹3,50,000</div>
+          </div>
+          <div>
+            <span class="text-xs text-[var(--color-text-muted)]">Net Post-Tax Profit</span>
+            <div id="cg-net-in-hand" class="text-lg font-bold text-[var(--color-text-primary)] mt-0.5">₹3,20,750</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights Box -->
+      <div class="glass-card p-5 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Section 112A Annual Exemption</span>
+          <span id="cg-exemption-disp" class="font-bold text-emerald-400">₹1,25,000 (Tax Free)</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Taxable Capital Gain</span>
+          <span id="cg-taxable-gain" class="font-bold text-indigo-400">₹2,25,000</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-[var(--color-text-secondary)]">Base Tax Rate</span>
+          <span id="cg-rate-disp" class="font-bold text-[var(--color-text-primary)]">12.5% + 4% Cess</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explainer -->
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[var(--color-text-secondary)]">
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Budget 2024 Equity Tax Changes</h4>
+      <p>1. <strong>STCG (Section 111A):</strong> Raised from 15% to <strong>20%</strong> for shares held for 12 months or less.</p>
+      <p>2. <strong>LTCG (Section 112A):</strong> Raised from 10% to <strong>12.5%</strong> for shares held over 12 months.</p>
+      <p>3. <strong>Higher Exemption:</strong> Annual tax-free LTCG threshold boosted to <strong>₹1.25 Lakhs per financial year</strong> (up from ₹1 Lakh).</p>
+    </div>
+    <div class="glass-card p-6 space-y-3">
+      <h4 class="font-[var(--font-heading)] font-semibold text-base text-[var(--color-text-primary)]">Tax Harvesting Strategy</h4>
+      <p>You can book up to <strong>₹1,25,000 of equity LTCG tax-free</strong> every financial year before March 31st by selling winning shares and immediately buying them back. This resets your cost basis upwards, saving thousands in future taxes!</p>
+    </div>
+  </div>
+</CalculatorLayout>
+
+<script>
+  import { calculateCapitalGains, formatCurrency } from '../../utils/calculations';
+
+  const assetSelect = document.getElementById('cg-asset-type') as HTMLSelectElement;
+  const buyInput = document.getElementById('cg-buy-price') as HTMLInputElement;
+  const buyNum = document.getElementById('cg-buy-price-input') as HTMLInputElement;
+  const sellInput = document.getElementById('cg-sell-price') as HTMLInputElement;
+  const sellNum = document.getElementById('cg-sell-price-input') as HTMLInputElement;
+  const holdInput = document.getElementById('cg-holding') as HTMLInputElement;
+  const holdNum = document.getElementById('cg-holding-input') as HTMLInputElement;
+
+  function sync(range: HTMLInputElement, num: HTMLInputElement) {
+    range?.addEventListener('input', () => {
+      num.value = range.value;
+      updateCapitalGains();
+    });
+    num?.addEventListener('input', () => {
+      range.value = num.value;
+      updateCapitalGains();
+    });
+  }
+
+  sync(buyInput, buyNum);
+  sync(sellInput, sellNum);
+  sync(holdInput, holdNum);
+  assetSelect?.addEventListener('change', updateCapitalGains);
+
+  document.querySelectorAll('.preset-chip[data-preset-for="cg-holding"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-chip[data-preset-for="cg-holding"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.getAttribute('data-val') || '18';
+      if (holdInput && holdNum) {
+        holdInput.value = val;
+        holdNum.value = val;
+        updateCapitalGains();
+      }
+    });
+  });
+
+  function updateCapitalGains() {
+    const assetType = assetSelect?.value || 'equity_listed';
+    const buyPrice = parseFloat(buyInput?.value || '500000');
+    const sellPrice = parseFloat(sellInput?.value || '850000');
+    const holdingMonths = parseInt(holdInput?.value || '18');
+
+    const res = calculateCapitalGains({
+      assetType,
+      buyPrice,
+      sellPrice,
+      holdingMonths,
+      transferExpenses: 0,
+    });
+
+    const taxEl = document.getElementById('cg-tax-amount');
+    const badge = document.getElementById('cg-type-badge');
+    const gainEl = document.getElementById('cg-gross-gain');
+    const netEl = document.getElementById('cg-net-in-hand');
+    const exEl = document.getElementById('cg-exemption-disp');
+    const rateEl = document.getElementById('cg-rate-disp');
+    const taxableEl = document.getElementById('cg-taxable-gain');
+
+    if (taxEl) taxEl.textContent = formatCurrency(res.taxAmount);
+    if (gainEl) gainEl.textContent = formatCurrency(res.rawGain);
+    if (netEl) netEl.textContent = formatCurrency(res.netInHand);
+    if (rateEl) rateEl.textContent = `${res.taxRate}% + 4% Cess`;
+    if (exEl) exEl.textContent = `${formatCurrency(res.exemptionAllowed)} (Tax Free)`;
+    if (taxableEl) taxableEl.textContent = formatCurrency(Math.max(0, res.rawGain - res.exemptionAllowed));
+
+    if (badge) {
+      badge.textContent = `${res.gainType} @ ${res.taxRate}%`;
+      badge.className = res.isLTCG
+        ? 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+        : 'text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
+    }
+  }
+
+  updateCapitalGains();
+</script>
